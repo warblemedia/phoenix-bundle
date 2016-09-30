@@ -43,6 +43,9 @@ abstract class User implements UserInterface
     /** @var \DateTime|null */
     protected $credentialsExpireAt;
 
+    /** @var string */
+    protected $confirmationToken;
+
     /**
      * User constructor.
      */
@@ -348,5 +351,21 @@ abstract class User implements UserInterface
     public function setCredentialsExpireAt(\DateTime $credentialsExpireAt = null)
     {
         $this->credentialsExpireAt = $credentialsExpireAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param string $confirmationToken
+     */
+    public function setConfirmationToken(string $confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
     }
 }

@@ -28,6 +28,8 @@
 
         <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" nullable="true" />
 
+        <field name="confirmationToken" column="confirmation_token" type="string" unique="true" nullable="true" />
+
     </mapped-superclass>
 
 </doctrine-mapping>

@@ -78,4 +78,14 @@ interface UserInterface extends AdvancedUserInterface
      * @param bool $enabled
      */
     public function setEnabled(bool $enabled);
+
+    /**
+     * @return string
+     */
+    public function getConfirmationToken();
+
+    /**
+     * @param string $confirmationToken
+     */
+    public function setConfirmationToken(string $confirmationToken);
 }
