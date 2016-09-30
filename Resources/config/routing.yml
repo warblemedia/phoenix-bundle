@@ -1,0 +1,4 @@
+warblemedia_phoenix_register:
+    path:     /register
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Registration:register }
