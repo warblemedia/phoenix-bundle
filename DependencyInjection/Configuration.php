@@ -17,6 +17,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('warble_media_phoenix');
 
+        $rootNode
+            ->children()
+                ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
+            ->end();
+        ;
+
         $this->addModelsSection($rootNode);
         $this->addFormsSection($rootNode);
 
