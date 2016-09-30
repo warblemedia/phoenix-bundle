@@ -1,0 +1,6 @@
+services:
+    warble_media_phoenix.form.registration_form_type:
+        class: WarbleMedia\PhoenixBundle\Form\RegistrationFormType
+        arguments: ['%warble_media_phoenix.models.user_class%']
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\RegistrationFormType }

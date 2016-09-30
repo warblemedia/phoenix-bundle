@@ -24,6 +24,7 @@ class WarbleMediaPhoenixExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('forms.yml');
 
         $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
     }
