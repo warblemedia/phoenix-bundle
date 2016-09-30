@@ -1,4 +1,12 @@
 services:
+    warble_media_phoenix.form.registration_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.registration.name%'
+            - '%warble_media_phoenix.forms.registration.type%'
+            - '%warble_media_phoenix.forms.registration.validation_groups%'
+
     warble_media_phoenix.form.registration_form_type:
         class: WarbleMedia\PhoenixBundle\Form\RegistrationFormType
         arguments: ['%warble_media_phoenix.models.user_class%']
