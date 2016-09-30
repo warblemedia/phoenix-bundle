@@ -23,5 +23,9 @@ class WarbleMediaPhoenixExtension extends Extension
         $loader->load('forms.yml');
 
         $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
+
+        $container->setParameter('warble_media_phoenix.forms.registration.name', $config['forms']['registration']['name']);
+        $container->setParameter('warble_media_phoenix.forms.registration.type', $config['forms']['registration']['type']);
+        $container->setParameter('warble_media_phoenix.forms.registration.validation_groups', $config['forms']['registration']['validation_groups']);
     }
 }

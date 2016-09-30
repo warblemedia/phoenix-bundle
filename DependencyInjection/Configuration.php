@@ -5,6 +5,7 @@ namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
 
 class Configuration implements ConfigurationInterface
 {
@@ -17,6 +18,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('warble_media_phoenix');
 
         $this->addModelsSection($rootNode);
+        $this->addFormsSection($rootNode);
 
         return $treeBuilder;
     }
@@ -32,6 +34,32 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->children()
                         ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addFormsSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('forms')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('registration')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_registration_type')->end()
+                                ->scalarNode('type')->defaultValue(RegistrationFormType::class)->end()
+                                ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
