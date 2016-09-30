@@ -2,4 +2,7 @@ services:
     # TODO: Allow custom implementation
     warble_media_phoenix.model.user_manager:
         class: WarbleMedia\PhoenixBundle\Model\UserManager
-        arguments: ['%warble_media_phoenix.models.user_class%']
+        arguments:
+            - '@security.encoder_factory'
+            - '@doctrine.orm.entity_manager'
+            - '%warble_media_phoenix.models.user_class%'
