@@ -99,4 +99,9 @@ interface UserInterface extends AdvancedUserInterface
      * @return bool
      */
     public function isPasswordRequestNonExpired(int $ttl): bool;
+
+    /**
+     * @param \DateTime|null $time
+     */
+    public function setLastLogin(\DateTime $time = null);
 }

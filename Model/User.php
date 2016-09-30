@@ -49,6 +49,9 @@ abstract class User implements UserInterface
     /** @var \DateTime|null */
     protected $passwordRequestedAt;
 
+    /** @var \DateTime|null */
+    protected $lastLogin;
+
     /**
      * User constructor.
      */
@@ -396,5 +399,21 @@ abstract class User implements UserInterface
     {
         return $this->getPasswordRequestedAt() instanceof \DateTime &&
                $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime|null $time
+     */
+    public function setLastLogin(\DateTime $time = null)
+    {
+        $this->lastLogin = $time;
     }
 }
