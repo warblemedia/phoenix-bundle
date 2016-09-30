@@ -68,4 +68,14 @@ interface UserInterface extends AdvancedUserInterface
      * @param string $role
      */
     public function removeRole(string $role);
+
+    /**
+     * @param bool $locked
+     */
+    public function setLocked(bool $locked);
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled);
 }

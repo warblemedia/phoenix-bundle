@@ -14,6 +14,9 @@ abstract class User implements UserInterface
     protected $email;
 
     /** @var string */
+    protected $salt;
+
+    /** @var string */
     protected $password;
 
     /** @var string */
@@ -22,12 +25,35 @@ abstract class User implements UserInterface
     /** @var array */
     protected $roles;
 
+    /** @var bool */
+    protected $locked;
+
+    /** @var bool */
+    protected $enabled;
+
+    /** @var bool */
+    protected $expired;
+
+    /** @var \DateTime|null */
+    protected $expiresAt;
+
+    /** @var bool */
+    protected $credentialsExpired;
+
+    /** @var \DateTime|null */
+    protected $credentialsExpireAt;
+
     /**
      * User constructor.
      */
     public function __construct()
     {
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->roles = [];
+        $this->locked = false;
+        $this->enabled = false;
+        $this->expired = false;
+        $this->credentialsExpired = false;
     }
 
     /**
@@ -63,11 +89,27 @@ abstract class User implements UserInterface
     }
 
     /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    /**
      * @param string $email
      */
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
@@ -100,6 +142,14 @@ abstract class User implements UserInterface
     public function setPlainPassword(string $plainPassword)
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
     }
 
     /**
@@ -162,5 +212,141 @@ abstract class User implements UserInterface
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLocked(): bool
+    {
+        return $this->locked;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccountNonLocked()
+    {
+        return !$this->isLocked();
+    }
+
+    /**
+     * @param bool $locked
+     */
+    public function setLocked(bool $locked)
+    {
+        $this->locked = $locked;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired(): bool
+    {
+        if ($this->expired) {
+            return true;
+        }
+
+        if ($this->expiresAt !== null && $this->expiresAt->getTimestamp() >= time()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccountNonExpired(): bool
+    {
+        return !$this->isExpired();
+    }
+
+    /**
+     * @param bool $expired
+     */
+    public function setExpired(bool $expired)
+    {
+        $this->expired = $expired;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+
+    /**
+     * @param \DateTime|null $expiresAt
+     */
+    public function setExpiresAt(\DateTime $expiresAt = null)
+    {
+        $this->expiresAt = $expiresAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCredentialsExpired(): bool
+    {
+        if ($this->credentialsExpired) {
+            return true;
+        }
+
+        if ($this->credentialsExpireAt !== null && $this->credentialsExpireAt->getTimestamp() >= time()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCredentialsNonExpired(): bool
+    {
+        return !$this->isCredentialsExpired();
+    }
+
+    /**
+     * @param bool $credentialsExpired
+     */
+    public function setCredentialsExpired(bool $credentialsExpired)
+    {
+        $this->credentialsExpired = $credentialsExpired;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
+
+    /**
+     * @param \DateTime|null $credentialsExpireAt
+     */
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt = null)
+    {
+        $this->credentialsExpireAt = $credentialsExpireAt;
     }
 }

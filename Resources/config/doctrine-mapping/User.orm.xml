@@ -10,9 +10,23 @@
 
         <field name="email" column="email" type="string" length="180" unique="true" />
 
+        <field name="salt" column="salt" type="string" />
+
         <field name="password" column="password" type="string" length="60" />
 
         <field name="roles" column="roles" type="json_array" />
+
+        <field name="locked" column="locked" type="boolean" />
+
+        <field name="enabled" column="enabled" type="boolean" />
+
+        <field name="expired" column="expired" type="boolean" />
+
+        <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
+
+        <field name="credentialsExpired" column="credentials_expired" type="boolean" />
+
+        <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" nullable="true" />
 
     </mapped-superclass>
 
