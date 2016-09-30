@@ -37,4 +37,12 @@ class RegistrationController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function confirmAction()
+    {
+        // TODO: Implement confirmAction() method.
+    }
 }

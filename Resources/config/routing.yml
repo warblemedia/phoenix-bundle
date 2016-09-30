@@ -1,4 +1,9 @@
-warblemedia_phoenix_register:
+warble_media_phoenix_register:
     path:     /register
     methods:  [GET, POST]
     defaults: { _controller: WarbleMediaPhoenixBundle:Registration:register }
+
+warble_media_phoenix_register_confirm:
+    path:     /register/confirm
+    methods:  [GET]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Registration:confirm }
