@@ -7,15 +7,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- * This is the class that loads and manages your bundle configuration.
- *
- * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
- */
 class WarbleMediaPhoenixExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @param array                                                   $configs
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
