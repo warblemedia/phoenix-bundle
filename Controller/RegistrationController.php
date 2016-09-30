@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 
 class RegistrationController extends Controller
 {
@@ -29,7 +30,17 @@ class RegistrationController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(UserEvents::REGISTRATION_SUCCESS, $event);
 
-            // TODO: Handle submitted form...
+            $userManager->updateUser($user);
+
+            $response = $event->getResponse();
+            if ($response === null) {
+                $response = $this->redirectToRoute('warble_media_phoenix_register_confirm');
+            }
+
+            $event = new UserResponseEvent($user, $request, $response);
+            $dispatcher->dispatch(UserEvents::REGISTRATION_COMPLETED, $event);
+
+            return $response;
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Registration:register.html.twig', [
