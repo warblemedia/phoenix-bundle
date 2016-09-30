@@ -88,4 +88,15 @@ interface UserInterface extends AdvancedUserInterface
      * @param string $confirmationToken
      */
     public function setConfirmationToken(string $confirmationToken);
+
+    /**
+     * @param \DateTime|null $date
+     */
+    public function setPasswordRequestedAt(\DateTime $date = null);
+
+    /**
+     * @param int $ttl
+     * @return bool
+     */
+    public function isPasswordRequestNonExpired(int $ttl): bool;
 }

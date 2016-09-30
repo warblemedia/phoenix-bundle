@@ -46,6 +46,9 @@ abstract class User implements UserInterface
     /** @var string */
     protected $confirmationToken;
 
+    /** @var \DateTime|null */
+    protected $passwordRequestedAt;
+
     /**
      * User constructor.
      */
@@ -367,5 +370,31 @@ abstract class User implements UserInterface
     public function setConfirmationToken(string $confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /**
+     * @param \DateTime|null $date
+     */
+    public function setPasswordRequestedAt(\DateTime $date = null)
+    {
+        $this->passwordRequestedAt = $date;
+    }
+
+    /**
+     * @param int $ttl
+     * @return bool
+     */
+    public function isPasswordRequestNonExpired(int $ttl): bool
+    {
+        return $this->getPasswordRequestedAt() instanceof \DateTime &&
+               $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
     }
 }
