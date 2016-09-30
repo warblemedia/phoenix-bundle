@@ -12,6 +12,8 @@
 
         <field name="password" column="password" type="string" length="60" />
 
+        <field name="roles" column="roles" type="json_array" />
+
     </mapped-superclass>
 
 </doctrine-mapping>

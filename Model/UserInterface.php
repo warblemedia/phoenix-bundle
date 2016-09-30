@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 interface UserInterface extends AdvancedUserInterface
 {
+    const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
      * @return mixed
@@ -46,4 +47,25 @@ interface UserInterface extends AdvancedUserInterface
      * @param string $password
      */
     public function setPlainPassword(string $password);
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool;
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles);
+
+    /**
+     * @param string $role
+     */
+    public function addRole(string $role);
+
+    /**
+     * @param string $role
+     */
+    public function removeRole(string $role);
 }

@@ -19,6 +19,17 @@ abstract class User implements UserInterface
     /** @var string */
     protected $plainPassword;
 
+    /** @var array */
+    protected $roles;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->roles = [];
+    }
+
     /**
      * @return mixed
      */
@@ -89,5 +100,67 @@ abstract class User implements UserInterface
     public function setPlainPassword(string $plainPassword)
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        $role = strtoupper($role);
+
+        return in_array($role, $this->getRoles(), true);
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = [];
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+    }
+
+    /**
+     * @param string $role
+     */
+    public function addRole(string $role)
+    {
+        $role = strtoupper($role);
+
+        if (!$this->hasRole($role)) {
+            $this->roles[] = $role;
+        }
+    }
+
+    /**
+     * @param string $role
+     */
+    public function removeRole(string $role)
+    {
+        $role = strtoupper($role);
+        $key = array_search($role, $this->roles, true);
+
+        if ($key !== false) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
     }
 }
