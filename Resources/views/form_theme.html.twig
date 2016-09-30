@@ -1,0 +1,56 @@
+{% use 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block form_label_class -%}
+    col-sm-3 col-form-label
+{%- endblock form_label_class %}
+
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+
+{% block form_row -%}
+    <div class="row form-group{% if (not compound or force_error|default(false)) and not valid %} has-danger{% endif %}">
+        {{- form_label(form) -}}
+        <div class="{{ block('form_group_class') }}">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+{##}</div>
+{%- endblock form_row %}
+
+{% block checkbox_radio_row -%}
+{% spaceless %}
+    <div class="row form-group{% if not valid %} has-danger{% endif %}">
+        <div class="{{ block('form_label_class') }}"></div>
+        <div class="{{ block('form_group_class') }}">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{%- endblock checkbox_radio_row %}
+
+{% block form_widget_simple -%}
+    {% if errors|length > 0 %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control-danger')|trim}) -%}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+    {% if form.parent %}
+        {%- for error in errors -%}
+            <div class="form-control-feedback">{{ error.message }}</div>
+        {%- endfor -%}
+    {% else %}
+        <div class="alert alert-danger">
+            <ul class="list-unstyled">
+                {%- for error in errors -%}
+                    <li>{{ error.message }}</li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {% endif %}
+    {%- endif %}
+{%- endblock form_errors %}
