@@ -34,7 +34,7 @@ class RegistrationController extends Controller
 
             $response = $event->getResponse();
             if ($response === null) {
-                $response = $this->redirectToRoute('warble_media_phoenix_register_confirm');
+                $response = $this->redirectToRoute('warble_media_phoenix_register_confirmed');
             }
 
             $event = new UserResponseEvent($user, $request, $response);
@@ -52,8 +52,8 @@ class RegistrationController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function confirmAction()
+    public function confirmedAction()
     {
-        // TODO: Implement confirmAction() method.
+        // TODO: Implement confirmedAction() method.
     }
 }
