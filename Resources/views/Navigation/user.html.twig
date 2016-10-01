@@ -17,6 +17,16 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <div class="dropdown-header">Impersonation</div>
+
+                            {% set currentRoute = app.request.attributes.get('_route') %}
+                            {% set currentParams = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
+                            <a href="{{ path(currentRoute, currentParams|merge({'_switch_user': '_exit'})) }}" class="dropdown-item">Back To My Account</a>
+
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+
                         <a href="{# TODO: Logout path #}" class="dropdown-item">Logout</a>
                     </div>
                 </li>
