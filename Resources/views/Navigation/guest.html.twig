@@ -5,7 +5,12 @@
         {% include "WarbleMediaPhoenixBundle:Navigation:brand.html.twig" %}
 
         <div id="navbar" class="collapse navbar-toggleable-xs">
+            <ul class="nav navbar-nav">
+                {% include "WarbleMediaPhoenixBundle:Navigation:guest_left.html.twig" %}
+            </ul>
             <ul class="nav navbar-nav pull-xs-right">
+                {% include "WarbleMediaPhoenixBundle:Navigation:guest_right.html.twig" %}
+
                 <li class="nav-item">
                     <a href="{# TODO: Login path #}" class="nav-link">Login</a>
                 </li>
