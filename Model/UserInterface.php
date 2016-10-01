@@ -88,7 +88,7 @@ interface UserInterface extends AdvancedUserInterface
     /**
      * @param string $confirmationToken
      */
-    public function setConfirmationToken(string $confirmationToken);
+    public function setConfirmationToken(string $confirmationToken = null);
 
     /**
      * @param \DateTime|null $date
