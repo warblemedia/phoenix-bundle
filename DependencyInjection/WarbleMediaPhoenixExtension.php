@@ -26,6 +26,7 @@ class WarbleMediaPhoenixExtension extends Extension
 
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);
+        $container->setParameter('warble_media_phoenix.support_email_address', $config['support_email_address']);
 
         $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
 
