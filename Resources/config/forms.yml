@@ -14,6 +14,14 @@ services:
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\RegistrationFormType }
 
+    warble_media_phoenix.form.resetting_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.resetting.name%'
+            - '%warble_media_phoenix.forms.resetting.type%'
+            - '%warble_media_phoenix.forms.resetting.validation_groups%'
+
     warble_media_phoenix.form.resetting_form_type:
         class: WarbleMedia\PhoenixBundle\Form\ResettingFormType
         arguments:
