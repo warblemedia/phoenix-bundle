@@ -16,5 +16,8 @@ services:
 
     warble_media_phoenix.event_listener.resetting_subscriber:
         class: WarbleMedia\PhoenixBundle\EventListener\ResettingSubscriber
+        arguments:
+            - '@router'
+            - '%warble_media_phoenix.resetting.token_ttl%'
         tags:
             - { name: kernel.event_subscriber }
