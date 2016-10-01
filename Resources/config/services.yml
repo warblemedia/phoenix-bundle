@@ -15,3 +15,11 @@ services:
             - '@security.token_storage'
             - '@security.authentication.session_strategy'
             - '@service_container'
+
+    warble_media_phoenix.event_listener.authentication_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\AuthenticationSubscriber
+        arguments:
+            - '@warble_media_phoenix.security.login_manager'
+            - '%warble_media_phoenix.firewall_name%'
+        tags:
+            - { name: kernel.event_subscriber }
