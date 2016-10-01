@@ -14,6 +14,9 @@ class UserManager implements UserManagerInterface
     /** @var \Doctrine\Common\Persistence\ObjectManager */
     private $manager;
 
+    /** @var \Doctrine\Common\Persistence\ObjectRepository */
+    private $repository;
+
     /** @var string */
     private $userClass;
 
@@ -28,6 +31,7 @@ class UserManager implements UserManagerInterface
     {
         $this->encoderFactory = $encoderFactory;
         $this->manager = $manager;
+        $this->repository = $manager->getRepository($userClass);
         $this->userClass = $userClass;
     }
 
@@ -52,6 +56,14 @@ class UserManager implements UserManagerInterface
         if ($flush) {
             $this->manager->flush();
         }
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
+     */
+    public function findUserByEmail(string $email)
+    {
+        return $this->repository->findOneBy(['email' => $email]);
     }
 
     /**
