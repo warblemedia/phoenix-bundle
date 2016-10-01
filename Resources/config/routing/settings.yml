@@ -17,3 +17,8 @@ warble_media_phoenix_settings_security:
     path:     /security
     methods:  [GET, POST]
     defaults: { _controller: WarbleMediaPhoenixBundle:Settings:security }
+
+warble_media_phoenix_settings_subscription:
+    path:     /subscription
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Settings:subscription }

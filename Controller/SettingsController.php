@@ -133,6 +133,15 @@ class SettingsController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function subscriptionAction(Request $request)
+    {
+        // TODO: Implement subscriptionAction() method.
+    }
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface
      */
     private function getUserOrError()
