@@ -4,6 +4,7 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
 use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
@@ -63,7 +64,28 @@ class SettingsController extends Controller
      */
     public function profilePhotoAction(Request $request)
     {
-        // TODO: Implement profilePhotoAction() method.
+        $user = $this->getUserOrError();
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+        $formFactory = $this->get('warble_media_phoenix.form.profile_photo_factory');
+        $photoManager = $this->get('warble_media_phoenix.model.user_photo_manager');
+
+        $form = $formFactory->createForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            $file = $form->get('profile_photo')->getData();
+            $photoUrl = $photoManager->uploadPhoto($file);
+
+            $user->setPhotoUrl($photoUrl);
+            $userManager->updateUser($user);
+
+            return $this->json([
+                'success'   => true,
+                'photo_url' => $photoUrl,
+            ]);
+        }
+
+        // TODO: Respond with error message
+        return $this->json(['success' => false], Response::HTTP_BAD_REQUEST);
     }
 
     /**
