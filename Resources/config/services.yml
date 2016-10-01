@@ -21,6 +21,11 @@ services:
             - '@security.authentication.session_strategy'
             - '@service_container'
 
+    warble_media_phoenix.twig.phoenix_variable:
+        class: WarbleMedia\PhoenixBundle\Twig\PhoenixVariable
+        arguments:
+            - '%warble_media_phoenix.support_email_address%'
+
     warble_media_phoenix.twig_extension.phoenix_extension:
         class: WarbleMedia\PhoenixBundle\Twig\Extension\PhoenixExtension
         tags:
