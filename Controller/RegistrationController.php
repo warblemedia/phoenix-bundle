@@ -19,6 +19,7 @@ class RegistrationController extends Controller
         $dispatcher = $this->get('event_dispatcher');
         $userManager = $this->get('warble_media_phoenix.model.user_manager');
         $formFactory = $this->get('warble_media_phoenix.form.registration_factory');
+        $registrationManager = $this->get('warble_media_phoenix.security.registration_manager');
 
         $user = $userManager->createUser();
         $user->setEnabled(true);
@@ -30,7 +31,7 @@ class RegistrationController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(UserEvents::REGISTRATION_SUCCESS, $event);
 
-            $userManager->updateUser($user);
+            $registrationManager->registerUser($user);
 
             $response = $event->getResponse();
             if ($response === null) {
