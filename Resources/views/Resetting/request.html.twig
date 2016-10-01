@@ -1,5 +1,27 @@
 {% extends "WarbleMediaPhoenixBundle::layout.html.twig" %}
 
 {% block content %}
+    <div class="row">
+        <div class="col-md-8 push-md-2">
+            <div class="card panel-default">
+                <div class="card-header">Reset Password</div>
+                <div class="card-block">
+                    <form action="{{ path('warble_media_phoenix_resetting_send_email') }}" method="post" accept-charset="utf-8">
+                        <div class="row form-group">
+                            <label class="col-sm-3 col-form-label required" for="email">Email Address</label>
+                            <div class="col-sm-9">
+                                <input type="email" id="email" name="email" required="required" class="form-control">
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-sm-9 push-sm-3">
+                                <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
