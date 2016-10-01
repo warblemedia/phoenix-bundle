@@ -39,6 +39,14 @@
 
                         <a href="{# TODO: Settings path #}" class="dropdown-item">Your Settings</a>
 
+                        {% if phoenix.supportEmail %}
+                            <div class="dropdown-divider"></div>
+
+                            <div class="dropdown-header">Support</div>
+
+                            <a href="mailto:{{ phoenix.supportEmail }}" class="dropdown-item">Email Us</a>
+                        {% endif %}
+
                         <div class="dropdown-divider"></div>
 
                         <a href="{# TODO: Logout path #}" class="dropdown-item">Logout</a>
