@@ -43,3 +43,8 @@ services:
             - '%warble_media_phoenix.models.user_class%'
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ProfileFormType }
+
+    warble_media_phoenix.form.profile_photo_form_type:
+        class: WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType }
