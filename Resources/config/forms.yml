@@ -44,6 +44,13 @@ services:
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ProfileFormType }
 
+    warble_media_phoenix.form.profile_photo_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.profile_photo.name%'
+            - '%warble_media_phoenix.forms.profile_photo.type%'
+
     warble_media_phoenix.form.profile_photo_form_type:
         class: WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType
         tags:

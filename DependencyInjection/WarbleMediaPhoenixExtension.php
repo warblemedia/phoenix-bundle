@@ -35,7 +35,9 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         foreach ($config['forms'] as $key => $form) {
             $container->setParameter("warble_media_phoenix.forms.{$key}.name", $form['name']);
             $container->setParameter("warble_media_phoenix.forms.{$key}.type", $form['type']);
-            $container->setParameter("warble_media_phoenix.forms.{$key}.validation_groups", $form['validation_groups']);
+            if (array_key_exists('validation_groups', $form)) {
+                $container->setParameter("warble_media_phoenix.forms.{$key}.validation_groups", $form['validation_groups']);
+            }
         }
 
         $container->setParameter('warble_media_phoenix.resetting.token_ttl', $config['resetting']['token_ttl']);

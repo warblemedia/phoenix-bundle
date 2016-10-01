@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use WarbleMedia\PhoenixBundle\Form\ProfileFormType;
+use WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
 use WarbleMedia\PhoenixBundle\Form\ResettingFormType;
 
@@ -100,6 +101,14 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_type')->end()
                                 ->scalarNode('type')->defaultValue(ProfileFormType::class)->end()
                                 ->scalarNode('validation_groups')->defaultValue(['Profile', 'Default'])->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('profile_photo')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_photo_type')->end()
+                                ->scalarNode('type')->defaultValue(ProfilePhotoFormType::class)->end()
                             ->end()
                         ->end()
                     ->end()
