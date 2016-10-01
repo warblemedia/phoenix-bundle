@@ -15,9 +15,19 @@ class ResettingController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function requestAction()
+    public function requestAction(Request $request)
     {
-        return $this->render('WarbleMediaPhoenixBundle:Resetting:request.html.twig');
+        $error = null;
+        $session = $request->getSession();
+
+        if ($session && $session->has('warble_media_phoenix_resetting_error')) {
+            $error = $session->get('warble_media_phoenix_resetting_error');
+            $session->remove('warble_media_phoenix_resetting_error');
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Resetting:request.html.twig', [
+            'error' => $error,
+        ]);
     }
 
     /**

@@ -6,6 +6,14 @@
             <div class="card panel-default">
                 <div class="card-header">Reset Password</div>
                 <div class="card-block">
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled m-b-0">
+                                <li>{{ error }}</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
                     <form action="{{ path('warble_media_phoenix_resetting_send_email') }}" method="post" accept-charset="utf-8">
                         <div class="row form-group">
                             <label class="col-sm-3 col-form-label required" for="email">Email Address</label>

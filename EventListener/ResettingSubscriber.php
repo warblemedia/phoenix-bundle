@@ -46,8 +46,12 @@ class ResettingSubscriber implements EventSubscriberInterface
     public function onResettingResetInitialize(UserRequestEvent $event)
     {
         $user = $event->getUser();
+        $request = $event->getRequest();
 
         if (!$user->isPasswordRequestNonExpired($this->tokenTimeout)) {
+            if ($request->hasSession()) {
+                $request->getSession()->set('warble_media_phoenix_resetting_error', 'The password reset token has expired.');
+            }
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate('warble_media_phoenix_resetting_request')));
         }
     }
