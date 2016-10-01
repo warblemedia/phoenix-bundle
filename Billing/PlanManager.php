@@ -8,10 +8,13 @@ class PlanManager implements PlanManagerInterface
     protected $plans = [];
 
     /**
-     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface $plan
+     * @param string $id
+     * @param string $name
+     * @param array  $options
      */
-    public function addPlan(PlanInterface $plan)
+    public function addPlan($id, $name, array $options)
     {
-        $this->plans[] = $plan;
+        // TODO: Allow some way of using a custom plan implementation
+        $this->plans[] = new Plan($id, $name, $options);
     }
 }

@@ -27,19 +27,16 @@ class Plan implements PlanInterface
      *
      * @param string $id
      * @param string $name
-     * @param int    $price
-     * @param string $interval
-     * @param int    $trialDays
-     * @param bool   $active
+     * @param array  $options
      */
-    public function __construct(string $id, string $name, int $price, string $interval, int $trialDays, bool $active)
+    public function __construct(string $id, string $name, array $options)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->price = $price;
-        $this->interval = $interval;
-        $this->trialDays = $trialDays;
-        $this->active = $active;
+        $this->price = $options['price'] ?? 0;
+        $this->interval = $options['interval'] ?? 'monthly';
+        $this->trialDays = $options['trial_days'] ?? 0;
+        $this->active = $options['active'] ?? true;
     }
 
     /**

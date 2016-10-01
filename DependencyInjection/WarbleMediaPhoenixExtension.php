@@ -5,9 +5,11 @@ namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use WarbleMedia\PhoenixBundle\Billing\Plan;
 
 class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInterface
 {
@@ -25,6 +27,13 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         $loader->load('forms.yml');
         $loader->load('listeners.yml');
         $loader->load('security.yml');
+
+        $planManager = $container->getDefinition('warble_media_phoenix.billing.plan_manager');
+        foreach ($config['billing']['plans'] as $id => $plan) {
+            $name = $plan['name'];
+            unset($plan['name']);
+            $planManager->addMethodCall('addPlan', [$id, $name, $plan]);
+        }
 
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);

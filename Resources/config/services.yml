@@ -34,6 +34,9 @@ services:
             - '@swiftmailer.mailer'
             - '@service_container'
 
+    warble_media_phoenix.billing.plan_manager:
+        class: WarbleMedia\PhoenixBundle\Billing\PlanManager
+
     warble_media_phoenix.util.token_generator:
         class: WarbleMedia\PhoenixBundle\Util\TokenGenerator
 
