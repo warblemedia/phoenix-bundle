@@ -22,8 +22,6 @@ class RegistrationController extends Controller
         $registrationManager = $this->get('warble_media_phoenix.security.registration_manager');
 
         $user = $userManager->createUser();
-        $user->setEnabled(true);
-
         $form = $formFactory->createForm();
         $form->setData($user);
 

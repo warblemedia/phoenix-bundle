@@ -25,6 +25,8 @@ class RegistrationManager
      */
     public function registerUser(UserInterface $user)
     {
+        $user->setEnabled(true);
+
         $this->userManager->updateUser($user);
     }
 }
