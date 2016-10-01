@@ -31,9 +31,10 @@ class ResettingFormType extends AbstractType
     {
         $builder
             ->add('plainPassword', RepeatedType::class, [
-                'type'           => PasswordType::class,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm password'],
+                'type'            => PasswordType::class,
+                'first_options'   => ['label' => 'Password'],
+                'second_options'  => ['label' => 'Confirm password'],
+                'invalid_message' => 'The entered passwords don\'t match',
             ]);
     }
 
