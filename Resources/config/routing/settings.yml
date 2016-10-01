@@ -1,0 +1,14 @@
+warble_media_phoenix_settings:
+    path:     /
+    methods:  [GET]
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: warble_media_phoenix_settings_profile }
+
+warble_media_phoenix_settings_profile:
+    path:     /profile
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Settings:profile }
+
+warble_media_phoenix_settings_security:
+    path:     /security
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Settings:security }

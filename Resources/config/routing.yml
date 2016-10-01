@@ -1,3 +1,7 @@
 warble_media_phoenix_auth:
     resource: "@WarbleMediaPhoenixBundle/Resources/config/routing/auth.yml"
     prefix:   /
+
+warble_media_phoenix_settings:
+    resource: "@WarbleMediaPhoenixBundle/Resources/config/routing/settings.yml"
+    prefix:   /settings
