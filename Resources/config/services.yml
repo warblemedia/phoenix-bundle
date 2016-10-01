@@ -8,9 +8,9 @@ services:
             - '%warble_media_phoenix.models.user_class%'
 
     warble_media_phoenix.security.registration_manager:
-    	class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
-    	arguments:
-    	    - '@warble_media_phoenix.model.user_manager'
+        class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
+        arguments:
+            - '@warble_media_phoenix.model.user_manager'
 
     warble_media_phoenix.security.login_manager:
         class: WarbleMedia\PhoenixBundle\Security\LoginManager

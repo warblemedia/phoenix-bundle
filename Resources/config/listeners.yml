@@ -8,8 +8,8 @@ services:
             - { name: kernel.event_subscriber }
 
     warble_media_phoenix.event_listener.last_login_subscriber:
-    	class: WarbleMedia\PhoenixBundle\EventListener\LastLoginSubscriber
-    	arguments:
-    	    - '@warble_media_phoenix.model.user_manager'
-    	tags:
-    		- { name: kernel.event_subscriber }
+        class: WarbleMedia\PhoenixBundle\EventListener\LastLoginSubscriber
+        arguments:
+            - '@warble_media_phoenix.model.user_manager'
+        tags:
+            - { name: kernel.event_subscriber }
