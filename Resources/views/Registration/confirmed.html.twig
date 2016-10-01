@@ -1,0 +1,18 @@
+{% extends 'WarbleMediaPhoenixBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 push-md-2">
+            <div class="card panel-default">
+                <div class="card-header">Registration Success</div>
+                <div class="card-block">
+                    <p class="card-text">Awesome! Your account is now activated.</p>
+                    {% if targetUrl %}
+                        <p class="card-text"><a href="{{ targetUrl }}" class="btn btn-primary">Continue</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

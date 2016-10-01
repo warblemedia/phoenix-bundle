@@ -4,9 +4,12 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
+use WarbleMedia\PhoenixBundle\Model\UserInterface;
 
 class RegistrationController extends Controller
 {
@@ -53,6 +56,30 @@ class RegistrationController extends Controller
      */
     public function confirmedAction()
     {
-        // TODO: Implement confirmedAction() method.
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Registration:confirmed.html.twig', [
+            'user'      => $user,
+            'targetUrl' => $this->getTargetUrlFromSession(),
+        ]);
+    }
+
+    /**
+     * @return string|null
+     */
+    private function getTargetUrlFromSession()
+    {
+        $token = $this->get('security.token_storage')->getToken();
+
+        if ($token instanceof UsernamePasswordToken) {
+            $key = sprintf('_security.%s.target_path', $token->getProviderKey());
+
+            return $this->get('session')->get($key);
+        }
+
+        return null;
     }
 }
