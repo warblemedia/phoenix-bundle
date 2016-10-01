@@ -7,6 +7,12 @@ services:
             - '@doctrine.orm.entity_manager'
             - '%warble_media_phoenix.models.user_class%'
 
+    warble_media_phoenix.model.user_photo_manager:
+        class: WarbleMedia\PhoenixBundle\Model\UserPhotoManager
+        arguments:
+            - '%warble_media_phoenix.profile_photos.base_url%'
+            - '%warble_media_phoenix.profile_photos.base_path%'
+
     warble_media_phoenix.security.registration_manager:
         class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
         arguments:
