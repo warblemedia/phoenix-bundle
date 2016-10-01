@@ -8,6 +8,11 @@ warble_media_phoenix_settings_profile:
     methods:  [GET, POST]
     defaults: { _controller: WarbleMediaPhoenixBundle:Settings:profile }
 
+warble_media_phoenix_settings_profile_photo:
+    path:     /profile-photo
+    methods:  [POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Settings:profilePhoto }
+
 warble_media_phoenix_settings_security:
     path:     /security
     methods:  [GET, POST]

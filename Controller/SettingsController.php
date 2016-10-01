@@ -57,6 +57,15 @@ class SettingsController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function profilePhotoAction(Request $request)
+    {
+        // TODO: Implement profilePhotoAction() method.
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function securityAction()

@@ -1,17 +1,11 @@
 {% extends "WarbleMediaPhoenixBundle:Settings:layout.html.twig" %}
 
 {% block main_content %}
-    <div class="card panel-default">
-        <div class="card-header">Contact Information</div>
-        <div class="card-block">
-            {{ form_start(form) }}
-                {{ form_rest(form) }}
-                <div class="row">
-                    <div class="col-sm-9 push-sm-3">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </div>
-            {{ form_end(form) }}
-        </div>
-    </div>
+    {% include "WarbleMediaPhoenixBundle:Settings:profile-photo.html.twig" %}
+    {% include "WarbleMediaPhoenixBundle:Settings:profile-contact.html.twig" %}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    {% include "WarbleMediaPhoenixBundle:Settings:profile-photo-script.html.twig" %}
 {% endblock %}
