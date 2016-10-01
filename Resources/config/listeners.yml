@@ -13,3 +13,8 @@ services:
             - '@warble_media_phoenix.model.user_manager'
         tags:
             - { name: kernel.event_subscriber }
+
+    warble_media_phoenix.event_listener.resetting_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\ResettingSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
