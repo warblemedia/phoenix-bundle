@@ -5,6 +5,7 @@ namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use WarbleMedia\PhoenixBundle\Form\ChangePasswordFormType;
 use WarbleMedia\PhoenixBundle\Form\ProfileFormType;
 use WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
@@ -117,6 +118,15 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_photo_type')->end()
                                 ->scalarNode('type')->defaultValue(ProfilePhotoFormType::class)->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('change_password')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_change_password_type')->end()
+                                ->scalarNode('type')->defaultValue(ChangePasswordFormType::class)->end()
+                                ->scalarNode('validation_groups')->defaultValue(['ChangePassword', 'Default'])->end()
                             ->end()
                         ->end()
                     ->end()

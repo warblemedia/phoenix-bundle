@@ -55,3 +55,18 @@ services:
         class: WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType }
+
+    warble_media_phoenix.form.change_password_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.change_password.name%'
+            - '%warble_media_phoenix.forms.change_password.type%'
+            - '%warble_media_phoenix.forms.change_password.validation_groups%'
+
+    warble_media_phoenix.form.change_password_form_type:
+        class: WarbleMedia\PhoenixBundle\Form\ChangePasswordFormType
+        arguments:
+            - '%warble_media_phoenix.models.user_class%'
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ChangePasswordFormType }
