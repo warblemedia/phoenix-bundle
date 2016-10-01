@@ -9,7 +9,7 @@
 </head>
 <body>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {# TODO: Authenticated navigation #}
+        {% include "WarbleMediaPhoenixBundle:Navigation:user.html.twig" %}
     {% else %}
         {% include "WarbleMediaPhoenixBundle:Navigation:guest.html.twig" %}
     {% endif %}
