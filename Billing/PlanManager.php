@@ -2,7 +2,7 @@
 
 namespace WarbleMedia\PhoenixBundle\Billing;
 
-class PlanManager implements PlanManagerInterface 
+class PlanManager implements PlanManagerInterface
 {
     /** @var \WarbleMedia\PhoenixBundle\Billing\PlanInterface[] */
     protected $plans = [];
