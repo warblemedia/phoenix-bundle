@@ -21,6 +21,9 @@ services:
             - '@security.authentication.session_strategy'
             - '@service_container'
 
+    warble_media_phoenix.util.token_generator:
+        class: WarbleMedia\PhoenixBundle\Util\TokenGenerator
+
     warble_media_phoenix.twig.phoenix_variable:
         class: WarbleMedia\PhoenixBundle\Twig\PhoenixVariable
         arguments:
