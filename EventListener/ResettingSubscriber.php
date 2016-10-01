@@ -3,19 +3,53 @@
 namespace WarbleMedia\PhoenixBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 
 class ResettingSubscriber implements EventSubscriberInterface
 {
+    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    private $urlGenerator;
+
+    /** @var int */
+    private $tokenTimeout;
+
+    /**
+     * ResettingSubscriber constructor.
+     *
+     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
+     * @param int                                                        $tokenTimeout
+     */
+    public function __construct(UrlGeneratorInterface $urlGenerator, int $tokenTimeout)
+    {
+        $this->urlGenerator = $urlGenerator;
+        $this->tokenTimeout = $tokenTimeout;
+    }
+
     /**
      * @return array
      */
     public static function getSubscribedEvents()
     {
         return [
-            UserEvents::RESETTING_RESET_SUCCESS => 'onResettingResetSuccess',
+            UserEvents::RESETTING_RESET_INITIALIZE => 'onResettingResetInitialize',
+            UserEvents::RESETTING_RESET_SUCCESS    => 'onResettingResetSuccess',
         ];
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Event\UserRequestEvent $event
+     */
+    public function onResettingResetInitialize(UserRequestEvent $event)
+    {
+        $user = $event->getUser();
+
+        if (!$user->isPasswordRequestNonExpired($this->tokenTimeout)) {
+            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('warble_media_phoenix_resetting_request')));
+        }
     }
 
     /**
