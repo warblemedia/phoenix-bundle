@@ -38,6 +38,14 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('profile_photos')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('base_url')->defaultValue('/profile_photos')->end()
+                        ->scalarNode('base_path')->defaultValue('%kernel.root_dir%/../web/profile_photos')->end()
+                    ->end()
+                ->end()
             ->end();
         ;
 

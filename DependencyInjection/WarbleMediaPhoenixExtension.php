@@ -30,6 +30,9 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);
         $container->setParameter('warble_media_phoenix.support_email_address', $config['support_email_address']);
 
+        $container->setParameter('warble_media_phoenix.profile_photos.base_url', $config['profile_photos']['base_url']);
+        $container->setParameter('warble_media_phoenix.profile_photos.base_path', $config['profile_photos']['base_path']);
+
         $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
 
         foreach ($config['forms'] as $key => $form) {
