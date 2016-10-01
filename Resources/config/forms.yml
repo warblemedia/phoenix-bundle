@@ -29,6 +29,14 @@ services:
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ResettingFormType }
 
+    warble_media_phoenix.form.profile_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.profile.name%'
+            - '%warble_media_phoenix.forms.profile.type%'
+            - '%warble_media_phoenix.forms.profile.validation_groups%'
+
     warble_media_phoenix.form.profile_form_type:
         class: WarbleMedia\PhoenixBundle\Form\ProfileFormType
         arguments:

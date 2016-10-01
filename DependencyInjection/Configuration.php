@@ -5,6 +5,7 @@ namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use WarbleMedia\PhoenixBundle\Form\ProfileFormType;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
 use WarbleMedia\PhoenixBundle\Form\ResettingFormType;
 
@@ -90,6 +91,15 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_resetting_type')->end()
                                 ->scalarNode('type')->defaultValue(ResettingFormType::class)->end()
                                 ->scalarNode('validation_groups')->defaultValue(['Resetting', 'Default'])->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('profile')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_type')->end()
+                                ->scalarNode('type')->defaultValue(ProfileFormType::class)->end()
+                                ->scalarNode('validation_groups')->defaultValue(['Profile', 'Default'])->end()
                             ->end()
                         ->end()
                     ->end()
