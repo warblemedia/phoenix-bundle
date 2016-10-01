@@ -77,6 +77,31 @@ final class UserEvents
     const PROFILE_EDIT_COMPLETED = 'fos_user.profile.edit.completed';
 
     /**
+     * The CHANGE_PASSWORD_INITIALIZE event occurs when the change password process is initialized.
+     *
+     * This event allows you to modify the default values of the user before binding the form.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\UserRequestEvent")
+     */
+    const CHANGE_PASSWORD_INITIALIZE = 'fos_user.change_password.edit.initialize';
+    /**
+     * The CHANGE_PASSWORD_SUCCESS event occurs when the change password form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
+     */
+    const CHANGE_PASSWORD_SUCCESS = 'fos_user.change_password.edit.success';
+    /**
+     * The CHANGE_PASSWORD_COMPLETED event occurs after saving the user in the change password process.
+     *
+     * This event allows you to access the response which will be sent.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\UserResponseEvent")
+     */
+    const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the user that was authenticated.

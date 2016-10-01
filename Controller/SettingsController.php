@@ -89,11 +89,47 @@ class SettingsController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function securityAction()
+    public function securityAction(Request $request)
     {
-        // TODO: Implement securityAction() method.
+        $user = $this->getUserOrError();
+        $dispatcher = $this->get('event_dispatcher');
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+        $formFactory = $this->get('warble_media_phoenix.form.change_password_factory');
+
+        $event = new UserRequestEvent($user, $request);
+        $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form = $formFactory->createForm();
+        $form->setData($user);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_SUCCESS, $event);
+
+            $userManager->updateUser($user);
+
+            $response = $event->getResponse();
+            if ($response === null) {
+                $response = $this->redirectToRoute('warble_media_phoenix_settings_security');
+            }
+
+            $event = new UserResponseEvent($user, $request, $response);
+            $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_COMPLETED, $event);
+
+            return $response;
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Settings:security.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
