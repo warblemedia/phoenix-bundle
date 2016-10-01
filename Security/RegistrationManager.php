@@ -5,7 +5,7 @@ namespace WarbleMedia\PhoenixBundle\Security;
 use WarbleMedia\PhoenixBundle\Model\UserInterface;
 use WarbleMedia\PhoenixBundle\Model\UserManagerInterface;
 
-class RegistrationManager
+class RegistrationManager implements RegistrationManagerInterface
 {
     /** @var \WarbleMedia\PhoenixBundle\Model\UserManagerInterface */
     private $userManager;
