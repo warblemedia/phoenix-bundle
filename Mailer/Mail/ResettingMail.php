@@ -31,7 +31,7 @@ class ResettingMail extends Mail
         ]);
 
         $this
-            ->to($user->getName(), $user->getEmail())
+            ->to($user->getEmail(), $user->getName())
             ->subject('Reset Password')
             ->render('WarbleMediaPhoenixBundle:Resetting:email.html.twig', [
                 'user'            => $user,
