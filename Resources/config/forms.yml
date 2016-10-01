@@ -28,3 +28,10 @@ services:
             - '%warble_media_phoenix.models.user_class%'
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ResettingFormType }
+
+    warble_media_phoenix.form.profile_form_type:
+        class: WarbleMedia\PhoenixBundle\Form\ProfileFormType
+        arguments:
+            - '%warble_media_phoenix.models.user_class%'
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ProfileFormType }
