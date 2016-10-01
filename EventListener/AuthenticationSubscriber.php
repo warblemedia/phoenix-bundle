@@ -35,7 +35,8 @@ class AuthenticationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UserEvents::REGISTRATION_COMPLETED => 'authenticate',
+            UserEvents::REGISTRATION_COMPLETED    => 'authenticate',
+            UserEvents::RESETTING_RESET_COMPLETED => 'authenticate',
         ];
     }
 
