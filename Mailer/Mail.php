@@ -55,7 +55,7 @@ abstract class Mail implements MailInterface
      */
     public function from($address, $name = null)
     {
-        $this->from[] = [$address => $name];
+        $this->from[$address] = $name;
 
         return $this;
     }
@@ -75,7 +75,7 @@ abstract class Mail implements MailInterface
      */
     public function to($address, $name = null)
     {
-        $this->to[] = [$address => $name];
+        $this->to[$address] = $name;
 
         return $this;
     }
@@ -95,7 +95,7 @@ abstract class Mail implements MailInterface
      */
     public function cc($address, $name = null)
     {
-        $this->cc[] = [$address => $name];
+        $this->cc[$address] = $name;
 
         return $this;
     }
@@ -115,7 +115,7 @@ abstract class Mail implements MailInterface
      */
     public function bcc($address, $name = null)
     {
-        $this->bcc[] = [$address => $name];
+        $this->bcc[$address] = $name;
 
         return $this;
     }
@@ -135,7 +135,7 @@ abstract class Mail implements MailInterface
      */
     public function replyTo($address, $name = null)
     {
-        $this->replyTo[] = [$address => $name];
+        $this->replyTo[$address] = $name;
 
         return $this;
     }
