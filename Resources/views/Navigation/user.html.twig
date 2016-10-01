@@ -10,6 +10,16 @@
             </ul>
             <ul class="nav navbar-nav pull-xs-right">
                 {% include "WarbleMediaPhoenixBundle:Navigation:user_right.html.twig" %}
+
+                <li class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ app.user.photoUrl }}" alt="{{ app.user.name }}" height="50" width="50" class="img-thumbnail img-circle">
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{# TODO: Logout path #}" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
