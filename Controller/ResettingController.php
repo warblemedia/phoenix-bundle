@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 use WarbleMedia\PhoenixBundle\Mailer\Mail\ResettingMail;
 
@@ -79,6 +80,13 @@ class ResettingController extends Controller
 
         if ($user === null) {
             throw $this->createNotFoundException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+        }
+
+        $event = new UserRequestEvent($user, $request);
+        $dispatcher->dispatch(UserEvents::RESETTING_RESET_INITIALIZE, $event);
+
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
         }
 
         $form = $formFactory->createForm();

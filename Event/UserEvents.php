@@ -23,6 +23,15 @@ final class UserEvents
     const REGISTRATION_COMPLETED = 'warble_media_phoenix.registration.completed';
 
     /**
+     * The RESETTING_RESET_INITIALIZE event occurs when the resetting process is initialized.
+     *
+     * This event allows you to set the response to bypass the processing.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\UserRequestEvent")
+     */
+    const RESETTING_RESET_INITIALIZE = 'warble_media_phoenix.resetting.reset.initialize';
+
+    /**
      * The RESETTING_RESET_SUCCESS event occurs when the resetting form is submitted successfully.
      *
      * This event allows you to set the response instead of using the default one.
