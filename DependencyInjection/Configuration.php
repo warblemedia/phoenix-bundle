@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
+use WarbleMedia\PhoenixBundle\Form\ResettingFormType;
 
 class Configuration implements ConfigurationInterface
 {
@@ -80,6 +81,15 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_registration_type')->end()
                                 ->scalarNode('type')->defaultValue(RegistrationFormType::class)->end()
                                 ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('resetting')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_resetting_type')->end()
+                                ->scalarNode('type')->defaultValue(ResettingFormType::class)->end()
+                                ->scalarNode('validation_groups')->defaultValue(['Resetting', 'Default'])->end()
                             ->end()
                         ->end()
                     ->end()

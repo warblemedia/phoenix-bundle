@@ -32,9 +32,11 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
 
         $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
 
-        $container->setParameter('warble_media_phoenix.forms.registration.name', $config['forms']['registration']['name']);
-        $container->setParameter('warble_media_phoenix.forms.registration.type', $config['forms']['registration']['type']);
-        $container->setParameter('warble_media_phoenix.forms.registration.validation_groups', $config['forms']['registration']['validation_groups']);
+        foreach ($config['forms'] as $key => $form) {
+            $container->setParameter("warble_media_phoenix.forms.{$key}.name", $form['name']);
+            $container->setParameter("warble_media_phoenix.forms.{$key}.type", $form['type']);
+            $container->setParameter("warble_media_phoenix.forms.{$key}.validation_groups", $form['validation_groups']);
+        }
 
         $container->setParameter('warble_media_phoenix.resetting.token_ttl', $config['resetting']['token_ttl']);
     }
