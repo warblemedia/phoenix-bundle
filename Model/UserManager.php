@@ -59,11 +59,21 @@ class UserManager implements UserManagerInterface
     }
 
     /**
+     * @param string $email
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
      */
     public function findUserByEmail(string $email)
     {
         return $this->repository->findOneBy(['email' => $email]);
+    }
+
+    /**
+     * @param string $token
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
+     */
+    public function findUserByConfirmationToken(string $token)
+    {
+        return $this->repository->findOneBy(['confirmationToken' => $token]);
     }
 
     /**
