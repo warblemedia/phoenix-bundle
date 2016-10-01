@@ -21,6 +21,7 @@ class WarbleMediaPhoenixExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('forms.yml');
+        $loader->load('listeners.yml');
 
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
 
