@@ -3,11 +3,13 @@
 namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class WarbleMediaPhoenixExtension extends Extension
+class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInterface
 {
     /**
      * @param array                                                   $configs
@@ -33,5 +35,14 @@ class WarbleMediaPhoenixExtension extends Extension
         $container->setParameter('warble_media_phoenix.forms.registration.name', $config['forms']['registration']['name']);
         $container->setParameter('warble_media_phoenix.forms.registration.type', $config['forms']['registration']['type']);
         $container->setParameter('warble_media_phoenix.forms.registration.validation_groups', $config['forms']['registration']['validation_groups']);
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process(ContainerBuilder $container)
+    {
+        $twig = $container->findDefinition('twig');
+        $twig->addMethodCall('addGlobal', ['phoenix', new Reference('warble_media_phoenix.twig.phoenix_variable')]);
     }
 }
