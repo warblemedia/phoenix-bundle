@@ -1,0 +1,8 @@
+services:
+    warble_media_phoenix.security_voter.developer_voter:
+        class: WarbleMedia\PhoenixBundle\Security\Voter\DeveloperVoter
+        public: false
+        arguments:
+            - '%warble_media_phoenix.developer_emails%'
+        tags:
+            - { name: security.voter }

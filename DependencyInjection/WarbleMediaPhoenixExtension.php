@@ -22,6 +22,7 @@ class WarbleMediaPhoenixExtension extends Extension
         $loader->load('services.yml');
         $loader->load('forms.yml');
         $loader->load('listeners.yml');
+        $loader->load('security.yml');
 
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);
