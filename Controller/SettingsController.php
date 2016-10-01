@@ -51,8 +51,9 @@ class SettingsController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:profile.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'user'           => $user,
+            'form'           => $form->createView(),
+            'photoUploadKey' => $this->getPhotoUploadKey(),
         ]);
     }
 
@@ -85,5 +86,17 @@ class SettingsController extends Controller
         }
 
         throw $this->createAccessDeniedException('This user does not have access to this section.');
+    }
+
+    /**
+     * @return string
+     */
+    private function getPhotoUploadKey()
+    {
+        $formFactory = $this->get('warble_media_phoenix.form.profile_photo_factory');
+        $form = $formFactory->createForm();
+        $view = $form->createView();
+
+        return $view->children['profile_photo']->vars['full_name'];
     }
 }

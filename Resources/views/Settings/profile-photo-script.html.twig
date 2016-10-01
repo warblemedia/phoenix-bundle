@@ -1,7 +1,7 @@
 {# TODO: Extract this to an external file #}
 <script>
     (function ($) {
-        var uploadKey = 'profile_photo';
+        var uploadKey = '{{ photoUploadKey }}';
         var uploadUrl = '{{ path('warble_media_phoenix_settings_profile_photo') }}';
 
         var input = $('#profile_photo_input');
