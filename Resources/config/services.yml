@@ -21,6 +21,13 @@ services:
             - '@security.authentication.session_strategy'
             - '@service_container'
 
+    warble_media_phoenix.mailer:
+        class: WarbleMedia\PhoenixBundle\Mailer\Mailer
+        arguments:
+            - '@twig'
+            - '@swiftmailer.mailer'
+            - '@service_container'
+
     warble_media_phoenix.util.token_generator:
         class: WarbleMedia\PhoenixBundle\Util\TokenGenerator
 
