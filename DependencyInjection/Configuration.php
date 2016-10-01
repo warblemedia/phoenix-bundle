@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
 
         $this->addModelsSection($rootNode);
         $this->addFormsSection($rootNode);
+        $this->addResettingSection($rootNode);
 
         return $treeBuilder;
     }
@@ -81,6 +82,24 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
                             ->end()
                         ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addResettingSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('resetting')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->integerNode('token_ttl')->defaultValue(86400)->end()
                     ->end()
                 ->end()
             ->end()
