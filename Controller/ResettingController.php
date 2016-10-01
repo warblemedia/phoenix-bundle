@@ -4,6 +4,9 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WarbleMedia\PhoenixBundle\Event\FormEvent;
+use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 use WarbleMedia\PhoenixBundle\Mailer\Mail\ResettingMail;
 
 class ResettingController extends Controller
@@ -58,6 +61,49 @@ class ResettingController extends Controller
 
         return $this->render('WarbleMediaPhoenixBundle:Resetting:check_email.html.twig', [
             'email' => $email,
+        ]);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string                                    $token
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function resetAction(Request $request, $token)
+    {
+        $dispatcher = $this->get('event_dispatcher');
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+        $formFactory = $this->get('warble_media_phoenix.form.resetting_factory');
+
+        $user = $userManager->findUserByConfirmationToken($token);
+
+        if ($user === null) {
+            throw $this->createNotFoundException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+        }
+
+        $form = $formFactory->createForm();
+        $form->setData($user);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(UserEvents::RESETTING_RESET_SUCCESS, $event);
+
+            $userManager->updateUser($user);
+
+            $response = $event->getResponse();
+            if ($response === null) {
+                // TODO: Find more appropriate redirect
+                $response = $this->redirect('/');
+            }
+
+            $event = new UserResponseEvent($user, $request, $response);
+            $dispatcher->dispatch(UserEvents::RESETTING_RESET_COMPLETED, $event);
+
+            return $response;
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Resetting:reset.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
