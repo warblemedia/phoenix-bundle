@@ -6,3 +6,12 @@ services:
             - '@security.encoder_factory'
             - '@doctrine.orm.entity_manager'
             - '%warble_media_phoenix.models.user_class%'
+
+    warble_media_phoenix.security.login_manager:
+        class: WarbleMedia\PhoenixBundle\Security\LoginManager
+        arguments:
+            - '@security.user_checker'
+            - '@request_stack'
+            - '@security.token_storage'
+            - '@security.authentication.session_strategy'
+            - '@service_container'
