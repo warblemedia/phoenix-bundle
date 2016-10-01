@@ -54,6 +54,7 @@ class Configuration implements ConfigurationInterface
         $this->addModelsSection($rootNode);
         $this->addFormsSection($rootNode);
         $this->addResettingSection($rootNode);
+        $this->addBillingSection($rootNode);
 
         return $treeBuilder;
     }
@@ -148,6 +149,54 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->integerNode('token_ttl')->defaultValue(86400)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addBillingSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('billing')
+                    ->fixXmlConfig('plan')
+                    ->children()
+                        ->arrayNode('plans')
+                            ->useAttributeAsKey('id')
+                            ->prototype('array')
+                                ->beforeNormalization()
+                                    ->ifString()
+                                    ->then(function ($v) { return ['name' => $v]; })
+                                ->end()
+                                ->children()
+                                    ->scalarNode('name')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->floatNode('price')
+                                        ->defaultValue(0)
+                                        ->validate()
+                                            ->ifTrue(function ($v) { return $v < 0; })
+                                            ->thenInvalid('Invalid price %f must be greater than or equal to 0.')
+                                        ->end()
+                                    ->end()
+                                    ->enumNode('interval')
+                                        ->values(['monthly', 'yearly'])
+                                        ->defaultValue('monthly')
+                                    ->end()
+                                    ->integerNode('trial_days')
+                                        ->defaultValue(0)
+                                    ->end()
+                                    ->booleanNode('active')
+                                        ->defaultTrue()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
