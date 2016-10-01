@@ -24,6 +24,6 @@ warble_media_phoenix_security_logout:
     defaults: { _controller: WarbleMediaPhoenixBundle:Security:logout }
 
 warble_media_phoenix_resetting_request:
-    path:     /request
+    path:     /resetting/request
     methods:  [GET]
     defaults: { _controller: WarbleMediaPhoenixBundle:Resetting:request }
