@@ -2,6 +2,7 @@
 
 namespace WarbleMedia\PhoenixBundle\EventListener;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
@@ -39,13 +40,15 @@ class AuthenticationSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \WarbleMedia\PhoenixBundle\Event\UserResponseEvent $event
+     * @param \WarbleMedia\PhoenixBundle\Event\UserResponseEvent          $event
+     * @param string                                                      $eventName
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      */
-    public function authenticate(UserResponseEvent $event)
+    public function authenticate(UserResponseEvent $event, string $eventName, EventDispatcherInterface $dispatcher)
     {
         try {
-            $user = $event->getUser();
-            $this->loginManager->loginUser($this->firewallName, $user, $event->getResponse());
+            $this->loginManager->loginUser($this->firewallName, $event->getUser(), $event->getResponse());
+            $dispatcher->dispatch(UserEvents::SECURITY_IMPLICIT_LOGIN, $event);
         } catch (AccountStatusException $ex) {
             // We simply do not authenticate users which do not pass the user
             // checker (not enabled, expired, etc.).

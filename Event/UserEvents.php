@@ -21,4 +21,13 @@ final class UserEvents
      * @Event("\WarbleMedia\PhoenixBundle\Event\UserResponseEvent")
      */
     const REGISTRATION_COMPLETED = 'warble_media_phoenix.registration.completed';
+
+    /**
+     * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
+     *
+     * This event allows you to access the user that was authenticated.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\UserEvent")
+     */
+    const SECURITY_IMPLICIT_LOGIN = 'warble_media_phoenix.security.implicit_login';
 }
