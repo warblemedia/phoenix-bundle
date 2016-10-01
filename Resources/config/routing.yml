@@ -7,3 +7,18 @@ warble_media_phoenix_register_confirmed:
     path:     /register/confirmed
     methods:  [GET]
     defaults: { _controller: WarbleMediaPhoenixBundle:Registration:confirmed }
+
+warble_media_phoenix_security_login:
+    path:     /login
+    methods:  [GET]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Security:login }
+
+warble_media_phoenix_security_check:
+    path:     /login
+    methods:  [POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Security:check }
+
+warble_media_phoenix_security_logout:
+    path:     /logout
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Security:logout }
