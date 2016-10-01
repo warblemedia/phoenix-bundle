@@ -105,4 +105,9 @@ interface UserInterface extends AdvancedUserInterface
      * @param \DateTime|null $time
      */
     public function setLastLogin(\DateTime $time = null);
+
+    /**
+     * @param string $photoUrl
+     */
+    public function setPhotoUrl(string $photoUrl);
 }
