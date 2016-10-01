@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('warble_media_phoenix');
 
         $rootNode
+            ->fixXmlConfig('developer_email')
             ->children()
                 ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('support_email_address')
