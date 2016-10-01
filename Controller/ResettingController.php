@@ -43,4 +43,21 @@ class ResettingController extends Controller
             'email' => $user->getEmail(),
         ]);
     }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function checkEmailAction(Request $request)
+    {
+        $email = $request->query->get('email');
+
+        if (empty($email)) {
+            return $this->redirectToRoute('warble_media_phoenix_resetting_request');
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Resetting:check_email.html.twig', [
+            'email' => $email,
+        ]);
+    }
 }

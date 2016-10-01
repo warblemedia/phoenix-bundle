@@ -1,0 +1,16 @@
+{% extends 'WarbleMediaPhoenixBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 push-md-2">
+            <div class="card panel-default">
+                <div class="card-header">Reset Password</div>
+                <div class="card-block">
+                    <p class="card-text">An email has been sent to {{ email }}.</p>
+                    <p class="card-text">It contains a link you must click to reset your password.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
