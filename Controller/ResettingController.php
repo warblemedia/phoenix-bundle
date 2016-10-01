@@ -110,8 +110,7 @@ class ResettingController extends Controller
 
             $response = $event->getResponse();
             if ($response === null) {
-                // TODO: Find more appropriate redirect
-                $response = $this->redirect('/');
+                $response = $this->redirectToRoute('warble_media_phoenix_settings_profile');
             }
 
             $event = new UserResponseEvent($user, $request, $response);
