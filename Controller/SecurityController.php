@@ -11,7 +11,14 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        // TODO: Implement loginAction() method.
+        $authUtils = $this->get('security.authentication_utils');
+        $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
+
+        return $this->render('WarbleMediaPhoenixBundle:Security:login.html.twig', [
+            'error'         => $authUtils->getLastAuthenticationError(),
+            'last_username' => $authUtils->getLastUsername(),
+            'csrf_token'    => $csrfToken,
+        ]);
     }
 
     /**

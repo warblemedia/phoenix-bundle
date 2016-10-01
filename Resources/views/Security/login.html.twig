@@ -1,0 +1,58 @@
+{% extends "WarbleMediaPhoenixBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 push-md-2">
+            <div class="card panel-default">
+                <div class="card-header">Login</div>
+                <div class="card-block">
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> Something went wrong!
+                            <br><br>
+                            <ul>
+                                <li>{{ error.messageKey|trans(error.messageData, 'security') }}</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <form action="{{ path('warble_media_phoenix_security_check') }}" method="post" accept-charset="utf-8">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+
+                        <div class="row form-group">
+                            <label class="col-sm-3 col-form-label control-label required" for="username">Email Address</label>
+                            <div class="col-sm-9">
+                                <input type="email" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="col-sm-3 col-form-label control-label required" for="password">Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" id="password" name="_password" required="required" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-9 push-sm-3">
+                                <div class="checkbox">
+                                    <label class="required">
+                                        <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-9 push-sm-3">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <a href="{# TODO: Forgot password path #}" class="btn btn-link">Forgot Your Password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
