@@ -20,6 +20,16 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
+                ->arrayNode('developer_emails')
+                    ->canBeUnset()
+                    ->prototype('scalar')
+                        ->validate()
+                            ->ifTrue(function ($v) { return !filter_var($v, FILTER_VALIDATE_EMAIL); })
+                                ->thenInvalid('Invalid developer email %s')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
         ;
 
