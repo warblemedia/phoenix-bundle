@@ -34,6 +34,8 @@
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
 
+        <field name="photoUrl" column="photo_url" type="string" nullable="true" />
+
     </mapped-superclass>
 
 </doctrine-mapping>

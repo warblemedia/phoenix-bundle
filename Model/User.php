@@ -52,6 +52,9 @@ abstract class User implements UserInterface
     /** @var \DateTime|null */
     protected $lastLogin;
 
+    /** @var string */
+    protected $photoUrl;
+
     /**
      * User constructor.
      */
@@ -415,5 +418,25 @@ abstract class User implements UserInterface
     public function setLastLogin(\DateTime $time = null)
     {
         $this->lastLogin = $time;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhotoUrl(): string
+    {
+        if ($this->photoUrl) {
+            return $this->photoUrl;
+        }
+
+        return 'https://www.gravatar.com/avatar/' . md5(mb_strtolower($this->email)) . '.jpg?s=200&d=mm';
+    }
+
+    /**
+     * @param string $photoUrl
+     */
+    public function setPhotoUrl(string $photoUrl)
+    {
+        $this->photoUrl = $photoUrl;
     }
 }
