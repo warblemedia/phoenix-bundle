@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent;
+use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
+use WarbleMedia\PhoenixBundle\Model\SubscriptionInterface;
 
 class BillingController extends Controller
 {
@@ -16,6 +18,28 @@ class BillingController extends Controller
     public function subscriptionAction(Request $request)
     {
         $user = $this->getUserOrError();
+        $customer = $user->getCustomer();
+
+        $activeSubscription = null;
+        if ($customer->hasSubscription()) {
+            $activeSubscription = $customer->getSubscription();
+        }
+
+        if ($activeSubscription === null || $activeSubscription->isOnGracePeriod()) {
+            return $this->newSubscriptionAction($request, $customer, $activeSubscription);
+        } else {
+            return $this->updateSubscriptionAction($request, $customer, $activeSubscription);
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request              $request
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function newSubscriptionAction(Request $request, CustomerInterface $customer, SubscriptionInterface $subscription = null)
+    {
         $dispatcher = $this->get('event_dispatcher');
         $formFactory = $this->get('warble_media_phoenix.form.subscription_factory');
         $subscriptionManager = $this->get('warble_media_phoenix.model.subscription_manager');
@@ -27,7 +51,6 @@ class BillingController extends Controller
             $dispatcher->dispatch(PhoenixEvents::NEW_SUBSCRIPTION_SUCCESS, $event);
 
             $data = $form->getData();
-            $customer = $user->getCustomer();
             $subscription = $subscriptionManager->subscribeCustomerToPlan($customer, $data['plan'], $data['stripeToken']);
 
             $response = $event->getResponse();
@@ -42,8 +65,21 @@ class BillingController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'user'         => $customer,
+            'subscription' => $subscription,
+            'form'         => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request              $request
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function updateSubscriptionAction(Request $request, CustomerInterface $customer, SubscriptionInterface $subscription = null)
+    {
+        // TODO: Implement updateSubscriptionAction() method.
         ]);
     }
 }
