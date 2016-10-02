@@ -10,6 +10,7 @@ use WarbleMedia\PhoenixBundle\Form\ProfileFormType;
 use WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
 use WarbleMedia\PhoenixBundle\Form\ResettingFormType;
+use WarbleMedia\PhoenixBundle\Form\SubscriptionType;
 
 class Configuration implements ConfigurationInterface
 {
@@ -138,6 +139,14 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_change_password_type')->end()
                                 ->scalarNode('type')->defaultValue(ChangePasswordFormType::class)->end()
                                 ->scalarNode('validation_groups')->defaultValue(['ChangePassword', 'Default'])->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('subscription')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_subscription_type')->end()
+                                ->scalarNode('type')->defaultValue(SubscriptionType::class)->end()
                             ->end()
                         ->end()
                     ->end()

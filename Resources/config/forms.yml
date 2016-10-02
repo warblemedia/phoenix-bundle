@@ -77,3 +77,15 @@ services:
             - '@warble_media_phoenix.billing.plan_manager'
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\PlanChoiceType }
+
+    warble_media_phoenix.form.subscription_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.subscription.name%'
+            - '%warble_media_phoenix.forms.subscription.type%'
+
+    warble_media_phoenix.form.subscription_form:
+        class: WarbleMedia\PhoenixBundle\Form\SubscriptionType
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\SubscriptionForm }
