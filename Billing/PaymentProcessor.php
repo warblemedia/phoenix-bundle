@@ -12,6 +12,9 @@ class PaymentProcessor implements PaymentProcessorInterface
     /** @var string */
     private $stripeKey;
 
+    /** @var bool */
+    private $prorate = true;
+
     /**
      * PaymentProcessor constructor.
      *
@@ -20,6 +23,7 @@ class PaymentProcessor implements PaymentProcessorInterface
     public function __construct(string $stripeKey)
     {
         $this->stripeKey = $stripeKey;
+        // TODO: Add configuration param for proration
     }
 
     /**
@@ -36,6 +40,37 @@ class PaymentProcessor implements PaymentProcessorInterface
         );
 
         $subscription->setStripeId($stripeSubscription->id);
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @param array                                                  $options
+     */
+    public function changeSubscriptionPlan(CustomerInterface $customer, SubscriptionInterface $subscription, array $options = [])
+    {
+        if (!$customer->hasSubscription()) {
+            throw new \InvalidArgumentException('Can not switch plan for customer that is not subscribed.');
+        }
+        if (!$subscription->getStripeId()) {
+            throw new \InvalidArgumentException('Can not switch plan for subscription that has no stripe id.');
+        }
+
+        $stripeCustomer = $this->getStripeCustomer($customer, null, $options);
+        $stripeSubscription = $stripeCustomer->subscriptions->retrieve($subscription->getStripeId());
+        $stripeSubscription->plan = $subscription->getStripePlan();
+        $stripeSubscription->prorate = $this->prorate;
+
+        // If no specific trial end date has been set, the default behavior should be
+        // to maintain the current trial state, whether that is "active" or to run
+        // the swap out with the exact number of days left on this current plan.
+        if ($subscription->isOnTrialPeriod()) {
+            $stripeSubscription->trial_end = $subscription->getTrialEndsAt()->getTimestamp();
+        } else {
+            $stripeSubscription->trial_end = 'now';
+        }
+
+        $stripeSubscription->save();
     }
 
     /**

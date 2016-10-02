@@ -14,4 +14,11 @@ interface PaymentProcessorInterface
      * @param array                                                  $options
      */
     public function createNewSubscription(CustomerInterface $customer, SubscriptionInterface $subscription, string $token = null, array $options = []);
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @param array                                                  $options
+     */
+    public function changeSubscriptionPlan(CustomerInterface $customer, SubscriptionInterface $subscription, array $options = []);
 }
