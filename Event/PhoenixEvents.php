@@ -102,6 +102,24 @@ final class PhoenixEvents
     const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
 
     /**
+     * The NEW_SUBSCRIPTION_SUCCESS event occurs when the new subscription form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
+     */
+    const NEW_SUBSCRIPTION_SUCCESS = 'warble_media_phoenix.new_subscription.success';
+
+    /**
+     * The NEW_SUBSCRIPTION_COMPLETED event occurs after saving the subscription in the subscription process.
+     *
+     * This event allows you to access the response which will be sent.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
+     */
+    const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.registration.completed';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the user that was authenticated.
