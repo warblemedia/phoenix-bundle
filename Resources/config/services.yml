@@ -67,3 +67,10 @@ services:
             - '@warble_media_phoenix.templating_helper.money_helper'
         tags:
             - { name: twig.extension }
+
+    warble_media_phoenix.twig_extension.plan_extension:
+        class: WarbleMedia\PhoenixBundle\Twig\Extension\PlanExtension
+        arguments:
+            - '@warble_media_phoenix.templating_helper.plan_helper'
+        tags:
+            - { name: twig.extension }
