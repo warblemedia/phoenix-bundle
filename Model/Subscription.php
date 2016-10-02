@@ -30,6 +30,14 @@ abstract class Subscription implements SubscriptionInterface
     protected $customer;
 
     /**
+     * Subscription constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'default';
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
