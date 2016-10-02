@@ -2,7 +2,7 @@
 
 {% block main_content %}
     {% if has_paid_plans() %}
-        {% if isNewSubscription %}
+        {% if subscription is null or subscription.onGracePeriod %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
         {% endif %}
     {% endif %}

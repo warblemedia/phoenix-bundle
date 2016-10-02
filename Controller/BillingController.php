@@ -75,10 +75,9 @@ class BillingController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-            'user'              => $customer,
-            'subscription'      => $subscription,
-            'form'              => $form->createView(),
-            'isNewSubscription' => true,
+            'user'         => $customer,
+            'subscription' => $subscription,
+            'form'         => $form->createView(),
         ]);
     }
 
