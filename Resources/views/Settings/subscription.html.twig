@@ -2,28 +2,9 @@
 
 {% block main_content %}
     {% if has_paid_plans() %}
-        {#<!-- Trial Expiration Notice -->#}
-        {#@include('spark::settings.subscription.trial-expiration-notice')#}
-
-        {#<!-- New Subscription -->#}
-        {#<div v-if="needsSubscription">#}
-        {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
-        {#</div>#}
-
-        {#<!-- Update Subscription -->#}
-        {#<div v-if="subscriptionIsActive">#}
-            {#@include('spark::settings.subscription.update-subscription')#}
-        {#</div>#}
-
-        {#<!-- Resume Subscription -->#}
-        {#<div v-if="subscriptionIsOnGracePeriod">#}
-            {#@include('spark::settings.subscription.resume-subscription')#}
-        {#</div>#}
-
-        {#<!-- Cancel Subscription -->#}
-        {#<div v-if="subscriptionIsActive">#}
-            {#@include('spark::settings.subscription.cancel-subscription')#}
-        {#</div>#}
+        {% if isNewSubscription %}
+            {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
+        {% endif %}
     {% endif %}
 
     {% include "WarbleMediaPhoenixBundle:Modal:plan_features.html.twig" %}
