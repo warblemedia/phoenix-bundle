@@ -28,8 +28,7 @@
 
                                     <td>
                                         <div class="btn-table-align">
-                                            {# TODO: Format currency... #}
-                                            {{ plan.price }} / {{ plan.interval | capitalize }}
+                                            {{ plan.price | currency }} / {{ plan.interval | capitalize }}
                                         </div>
                                     </td>
 
