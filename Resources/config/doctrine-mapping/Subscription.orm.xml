@@ -7,10 +7,10 @@
     <mapped-superclass name="WarbleMedia\PhoenixBundle\Model\Subscription">
 
         <many-to-one target-entity="WarbleMedia\PhoenixBundle\Model\CustomerInterface" field="customer" inversed-by="subscriptions">
-            <join-column name="customer_id" referenced-column-name="id" nullable="true" />
             <cascade>
                 <cascade-persist />
             </cascade>
+            <join-column name="customer_id" referenced-column-name="id" nullable="true" />
         </many-to-one>
 
     </mapped-superclass>
