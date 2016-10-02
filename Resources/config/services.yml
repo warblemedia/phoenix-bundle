@@ -13,6 +13,11 @@ services:
             - '%warble_media_phoenix.profile_photos.base_url%'
             - '%warble_media_phoenix.profile_photos.base_path%'
 
+    warble_media_phoenix.model.subscription_manager:
+        class: WarbleMedia\PhoenixBundle\Model\SubscriptionManager
+        arguments:
+            - '%warble_media_phoenix.models.subscription_class%'
+
     warble_media_phoenix.security.registration_manager:
         class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
         arguments:
