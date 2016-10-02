@@ -6,6 +6,12 @@
 
     <mapped-superclass name="WarbleMedia\PhoenixBundle\Model\Customer">
 
+        <one-to-many field="subscriptions" target-entity="WarbleMedia\PhoenixBundle\Model\SubscriptionInterface" mapped-by="customer">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+
     </mapped-superclass>
 
 </doctrine-mapping>

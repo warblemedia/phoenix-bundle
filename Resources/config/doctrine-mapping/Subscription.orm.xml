@@ -6,6 +6,13 @@
 
     <mapped-superclass name="WarbleMedia\PhoenixBundle\Model\Subscription">
 
+        <many-to-one target-entity="WarbleMedia\PhoenixBundle\Model\CustomerInterface" field="customer">
+            <join-column name="customer_id" referenced-column-name="id" nullable="true" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+
     </mapped-superclass>
 
 </doctrine-mapping>
