@@ -3,6 +3,7 @@
 namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
 use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 
@@ -38,11 +39,13 @@ class SubscriptionManager implements SubscriptionManagerInterface
      */
     public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken)
     {
-        $subscription = $this->createSubscription($customer, $plan);
+        $this->transactional(function () use ($customer, $plan, $stripeToken) {
+            $subscription = $this->createSubscription($customer, $plan);
 
-        $this->paymentProcessor->process($customer, $subscription, $stripeToken);
+            $this->paymentProcessor->process($customer, $subscription, $stripeToken);
 
-        $this->updateSubscription($subscription);
+            $this->updateSubscription($subscription);
+        });
     }
 
     /**
@@ -89,5 +92,18 @@ class SubscriptionManager implements SubscriptionManagerInterface
     protected function createSubscriptionInstance(): SubscriptionInterface
     {
         return new $this->subscriptionClass;
+    }
+
+    /**
+     * @param callable $callback
+     * @return mixed
+     */
+    protected function transactional(callable $callback)
+    {
+        if ($this->manager instanceof EntityManager) {
+            return $this->manager->transactional($callback);
+        } else {
+            return $callback();
+        }
     }
 }
