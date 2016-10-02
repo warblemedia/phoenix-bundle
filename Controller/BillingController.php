@@ -55,12 +55,12 @@ class BillingController extends Controller
             }
         }
 
-        $form = $formFactory->createForm();
-
         $activePlan = null;
         if ($subscription) {
             $activePlan = $planManager->getPlan($subscription->getStripePlan());
         }
+
+        $form = $formFactory->createForm();
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
@@ -96,7 +96,47 @@ class BillingController extends Controller
      */
     protected function updateSubscriptionAction(Request $request, CustomerInterface $customer, SubscriptionInterface $subscription = null)
     {
-        // TODO: Implement updateSubscriptionAction() method.
+        $dispatcher = $this->get('event_dispatcher');
+        $formFactory = $this->get('warble_media_phoenix.form.subscription_factory');
+        $planManager = $this->get('warble_media_phoenix.billing.plan_manager');
+
+        $event = new SubscriptionRequestEvent($subscription, $request);
+        $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $activePlan = null;
+        if ($subscription) {
+            $activePlan = $planManager->getPlan($subscription->getStripePlan());
+        }
+
+        $form = $formFactory->createForm();
+        $form->setData(['plan' => $activePlan]);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_SUCCESS, $event);
+
+            // TODO: Handle form response
+
+            $response = $event->getResponse();
+            if ($response === null) {
+                $response = $this->redirectToRoute('warble_media_phoenix_settings_subscription');
+            }
+
+            $event = new SubscriptionResponseEvent($subscription, $request, $response);
+            $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_COMPLETED, $event);
+
+            return $response;
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
+            'user'         => $customer,
+            'activePlan'   => $activePlan,
+            'subscription' => $subscription,
+            'form'         => $form->createView(),
         ]);
     }
 }

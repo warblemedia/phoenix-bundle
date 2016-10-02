@@ -1,0 +1,84 @@
+<div class="card panel-default">
+    <div class="card-header">
+        <div class="btn-table-align pull-xs-left">Update Subscription</div>
+
+        {% if has_monthly_and_yearly_paid_plans() %}
+            <ul class="nav nav-pills pull-xs-right">
+                <li class="nav-item"><a href="#subscriptions_monthly" class="btn btn-secondary active" data-toggle="tab">Monthly</a></li>
+                <li class="nav-item"><a href="#subscriptions_yearly" class="btn btn-secondary" data-toggle="tab">Yearly</a></li>
+            </ul>
+        {% endif %}
+    </div>
+    <div class="card-block p-b-0">
+        {% if activePlan %}
+            <p class="card-text">
+                You are currently subscribed to the
+                <strong>{{ activePlan.name }} ({{ activePlan.interval | capitalize }})</strong> plan.
+            </p>
+        {% endif %}
+
+        {% if not activePlan or not activePlan.active %}
+            <p class="card-text">
+                This plan has been discontinued, but you may continue your subscription to this plan as long as you wish.
+                If you cancel your subscription and later want to begin a new subscription, you will need to choose
+                from one of the active plans listed below.
+            </p>
+        {% endif %}
+    </div>
+    <div class="card-block">
+        <div class="tab-content">
+            {% for id, plans in {subscriptions_monthly: get_paid_monthly_plans(), subscriptions_yearly: get_paid_yearly_plans()} if plans is not empty %}
+                <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
+                    <table class="table table-borderless m-b-0">
+                        <tbody>
+                            {% for plan in plans %}
+                                <tr>
+                                    <td>
+                                        <div class="btn-table-align">
+                                            <strong>{{ plan.name }}</strong>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-secondary m-l-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
+                                            Plan Features
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-table-align">
+                                            {{ plan.price | currency }} / {{ plan.interval | capitalize }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        {% if plan.trialDays %}
+                                            <div class="btn-table-align">
+                                                {{ plan.trialDays}} Day Trial
+                                            </div>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="text-xs-right">
+                                        {% if plan.id == activePlan.id %}
+                                            <label class="plan-select">
+                                                <span class="btn btn-primary btn-plan btn-plan-selected disabled">Current Plan</span>
+                                            </label>
+                                        {% else %}
+                                            {# TODO: Popup confirmation modal #}
+                                            <label class="plan-select">
+                                                <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}" required="required">
+                                                <span class="btn btn-outline-primary btn-plan">Switch</span>
+                                            </label>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            {% do form.plan.setRendered %}
+        </div>
+    </div>
+</div>
