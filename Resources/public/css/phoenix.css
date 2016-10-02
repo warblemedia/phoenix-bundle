@@ -1,0 +1,89 @@
+/*
+ * Navbar
+ */
+.navbar-brand {
+    line-height: 42px
+}
+
+.navbar .nav-link {
+    line-height: 36px
+}
+
+.navbar .dropdown-toggle .img-thumbnail {
+    margin: -0.425rem 0
+}
+
+/*
+ * Card
+ */
+
+.card + .card {
+    margin-top: 1.5rem
+}
+
+.card-header .nav-pills + span {
+    line-height: 38px
+}
+
+/*
+ * Buttons
+ */
+
+.btn-upload {
+    overflow: hidden;
+    position: relative
+}
+
+.btn-upload input[type="file"] {
+    cursor: pointer;
+    line-height: 38px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.btn-group > label.btn {
+    margin-bottom: 0
+}
+
+.btn-table-align {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.btn-plan {
+    width: 150px
+}
+
+/*
+ * Tables
+ */
+
+.table-borderless td, .table-borderless th {
+    border-top: 0
+}
+
+/*
+ * Plans
+ */
+
+.plan-select input[type="radio"] {
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+    position: absolute
+}
+
+.plan-select input[type="radio"] ~ .btn-plan-selected {
+    display: none
+}
+
+.plan-select input[type="radio"]:checked ~ .btn-plan-select {
+    display: none
+}
+
+.plan-select input[type="radio"]:checked ~ .btn-plan-selected {
+    display: inline-block
+}
