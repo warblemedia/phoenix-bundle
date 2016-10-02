@@ -20,7 +20,7 @@ class SubscriptionType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('stripe_token', HiddenType::class);
+            ->add('stripeToken', HiddenType::class);
     }
 
     /**
