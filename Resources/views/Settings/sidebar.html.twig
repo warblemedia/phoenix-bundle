@@ -10,6 +10,8 @@
 <div class="card panel-default">
     <div class="card-header">Billing</div>
     <div class="list-group list-group-flush">
-        <a href="{{ path('warble_media_phoenix_settings_subscription') }}" class="list-group-item">Subscription</a>
+        {% if has_paid_plans() %}
+            <a href="{{ path('warble_media_phoenix_settings_subscription') }}" class="list-group-item">Subscription</a>
+        {% endif %}
     </div>
 </div>
