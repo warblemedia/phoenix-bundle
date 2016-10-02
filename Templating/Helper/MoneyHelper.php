@@ -38,7 +38,7 @@ class MoneyHelper implements MoneyHelperInterface
 
         if ($formatted === false) {
             $message = 'The amount "%s" of type %s cannot be formatted to currency "%s".';
-            throw new \RuntimeException(sprintf($message, $amount, gettype($amount), $currencyCode));
+            throw new \InvalidArgumentException(sprintf($message, $amount, gettype($amount), $currencyCode));
         }
 
         return $formatted;
