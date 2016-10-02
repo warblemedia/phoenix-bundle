@@ -2,7 +2,7 @@
 
 namespace WarbleMedia\PhoenixBundle\Event;
 
-final class UserEvents
+final class PhoenixEvents
 {
     /**
      * The REGISTRATION_SUCCESS event occurs when the registration form is submitted successfully.

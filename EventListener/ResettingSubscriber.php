@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
-use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 
 class ResettingSubscriber implements EventSubscriberInterface
@@ -35,8 +35,8 @@ class ResettingSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UserEvents::RESETTING_RESET_INITIALIZE => 'onResettingResetInitialize',
-            UserEvents::RESETTING_RESET_SUCCESS    => 'onResettingResetSuccess',
+            PhoenixEvents::RESETTING_RESET_INITIALIZE => 'onResettingResetInitialize',
+            PhoenixEvents::RESETTING_RESET_SUCCESS    => 'onResettingResetSuccess',
         ];
     }
 

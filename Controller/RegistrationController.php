@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
-use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 use WarbleMedia\PhoenixBundle\Model\UserInterface;
 
@@ -29,7 +29,7 @@ class RegistrationController extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(UserEvents::REGISTRATION_SUCCESS, $event);
+            $dispatcher->dispatch(PhoenixEvents::REGISTRATION_SUCCESS, $event);
 
             $registrationManager->registerUser($user);
 
@@ -39,7 +39,7 @@ class RegistrationController extends Controller
             }
 
             $event = new UserResponseEvent($user, $request, $response);
-            $dispatcher->dispatch(UserEvents::REGISTRATION_COMPLETED, $event);
+            $dispatcher->dispatch(PhoenixEvents::REGISTRATION_COMPLETED, $event);
 
             return $response;
         }

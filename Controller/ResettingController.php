@@ -4,7 +4,7 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
-use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 use WarbleMedia\PhoenixBundle\Mailer\Mail\ResettingMail;
@@ -92,7 +92,7 @@ class ResettingController extends Controller
         }
 
         $event = new UserRequestEvent($user, $request);
-        $dispatcher->dispatch(UserEvents::RESETTING_RESET_INITIALIZE, $event);
+        $dispatcher->dispatch(PhoenixEvents::RESETTING_RESET_INITIALIZE, $event);
 
         if ($event->getResponse() !== null) {
             return $event->getResponse();
@@ -103,7 +103,7 @@ class ResettingController extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(UserEvents::RESETTING_RESET_SUCCESS, $event);
+            $dispatcher->dispatch(PhoenixEvents::RESETTING_RESET_SUCCESS, $event);
 
             $userManager->updateUser($user);
 
@@ -113,7 +113,7 @@ class ResettingController extends Controller
             }
 
             $event = new UserResponseEvent($user, $request, $response);
-            $dispatcher->dispatch(UserEvents::RESETTING_RESET_COMPLETED, $event);
+            $dispatcher->dispatch(PhoenixEvents::RESETTING_RESET_COMPLETED, $event);
 
             return $response;
         }

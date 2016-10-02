@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use WarbleMedia\PhoenixBundle\Event\UserEvent;
-use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Model\UserInterface;
 use WarbleMedia\PhoenixBundle\Model\UserManagerInterface;
 
@@ -31,8 +31,8 @@ class LastLoginSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UserEvents::SECURITY_IMPLICIT_LOGIN => 'onImplicitLogin',
-            SecurityEvents::INTERACTIVE_LOGIN   => 'onInteractiveLogin',
+            PhoenixEvents::SECURITY_IMPLICIT_LOGIN => 'onImplicitLogin',
+            SecurityEvents::INTERACTIVE_LOGIN      => 'onInteractiveLogin',
         ];
     }
 

@@ -5,7 +5,7 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
-use WarbleMedia\PhoenixBundle\Event\UserEvents;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
 
@@ -23,7 +23,7 @@ class SettingsController extends Controller
         $formFactory = $this->get('warble_media_phoenix.form.profile_factory');
 
         $event = new UserRequestEvent($user, $request);
-        $dispatcher->dispatch(UserEvents::PROFILE_EDIT_INITIALIZE, $event);
+        $dispatcher->dispatch(PhoenixEvents::PROFILE_EDIT_INITIALIZE, $event);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -34,7 +34,7 @@ class SettingsController extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(UserEvents::PROFILE_EDIT_SUCCESS, $event);
+            $dispatcher->dispatch(PhoenixEvents::PROFILE_EDIT_SUCCESS, $event);
 
             $userManager->updateUser($user);
 
@@ -44,7 +44,7 @@ class SettingsController extends Controller
             }
 
             $event = new UserResponseEvent($user, $request, $response);
-            $dispatcher->dispatch(UserEvents::PROFILE_EDIT_COMPLETED, $event);
+            $dispatcher->dispatch(PhoenixEvents::PROFILE_EDIT_COMPLETED, $event);
 
             return $response;
         }
@@ -98,7 +98,7 @@ class SettingsController extends Controller
         $formFactory = $this->get('warble_media_phoenix.form.change_password_factory');
 
         $event = new UserRequestEvent($user, $request);
-        $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
+        $dispatcher->dispatch(PhoenixEvents::CHANGE_PASSWORD_INITIALIZE, $event);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -109,7 +109,7 @@ class SettingsController extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_SUCCESS, $event);
+            $dispatcher->dispatch(PhoenixEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
             $userManager->updateUser($user);
 
@@ -119,7 +119,7 @@ class SettingsController extends Controller
             }
 
             $event = new UserResponseEvent($user, $request, $response);
-            $dispatcher->dispatch(UserEvents::CHANGE_PASSWORD_COMPLETED, $event);
+            $dispatcher->dispatch(PhoenixEvents::CHANGE_PASSWORD_COMPLETED, $event);
 
             return $response;
         }
