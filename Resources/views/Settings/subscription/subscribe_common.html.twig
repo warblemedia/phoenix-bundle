@@ -27,6 +27,12 @@
                                     </td>
 
                                     <td>
+                                        <button class="btn btn-secondary m-l-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
+                                            Plan Features
+                                        </button>
+                                    </td>
+
+                                    <td>
                                         <div class="btn-table-align">
                                             {{ plan.price | currency }} / {{ plan.interval | capitalize }}
                                         </div>
