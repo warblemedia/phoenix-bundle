@@ -30,14 +30,14 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
 
         $planManager = $container->getDefinition('warble_media_phoenix.billing.plan_manager');
         foreach ($config['billing']['plans'] as $id => $plan) {
-            $name = $plan['name'];
-            unset($plan['name']);
-            $planManager->addMethodCall('addPlan', [$id, $name, $plan]);
+            $planManager->addMethodCall('addPlan', [$id, $plan['name'], $plan]);
         }
 
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);
         $container->setParameter('warble_media_phoenix.support_email_address', $config['support_email_address']);
+
+        $container->setParameter('warble_media_phoenix.billing.currency', $config['billing']['currency']);
 
         $container->setParameter('warble_media_phoenix.profile_photos.base_url', $config['profile_photos']['base_url']);
         $container->setParameter('warble_media_phoenix.profile_photos.base_path', $config['profile_photos']['base_path']);
