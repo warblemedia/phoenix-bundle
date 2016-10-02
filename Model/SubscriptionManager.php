@@ -36,15 +36,18 @@ class SubscriptionManager implements SubscriptionManagerInterface
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param string                                             $stripeToken
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */
-    public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken)
+    public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken): SubscriptionInterface
     {
-        $this->transactional(function () use ($customer, $plan, $stripeToken) {
+        return $this->transactional(function () use ($customer, $plan, $stripeToken) {
             $subscription = $this->createSubscription($customer, $plan);
 
             $this->paymentProcessor->process($customer, $subscription, $stripeToken);
 
             $this->updateSubscription($subscription);
+
+            return $subscription;
         });
     }
 

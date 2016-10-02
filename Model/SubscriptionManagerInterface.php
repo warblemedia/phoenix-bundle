@@ -10,8 +10,9 @@ interface SubscriptionManagerInterface
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param string                                             $stripeToken
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */
-    public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken);
+    public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken): SubscriptionInterface;
 
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
