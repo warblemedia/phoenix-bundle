@@ -28,7 +28,7 @@ class PaymentProcessor implements PaymentProcessorInterface
      * @param string|null                                            $token
      * @param array                                                  $options
      */
-    public function process(CustomerInterface $customer, SubscriptionInterface $subscription, string $token = null, array $options = [])
+    public function createNewSubscription(CustomerInterface $customer, SubscriptionInterface $subscription, string $token = null, array $options = [])
     {
         $stripeCustomer = $this->getStripeCustomer($customer, $token, $options);
         $stripeSubscription = $stripeCustomer->subscriptions->create(

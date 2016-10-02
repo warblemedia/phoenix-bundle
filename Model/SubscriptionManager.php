@@ -43,7 +43,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
         return $this->transactional(function () use ($customer, $plan, $stripeToken) {
             $subscription = $this->createSubscription($customer, $plan);
 
-            $this->paymentProcessor->process($customer, $subscription, $stripeToken);
+            $this->paymentProcessor->createNewSubscription($customer, $subscription, $stripeToken);
 
             $this->updateSubscription($subscription);
 
