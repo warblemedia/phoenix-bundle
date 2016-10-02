@@ -11,6 +11,13 @@ class UserResponseEvent extends UserEvent
     /** @var \Symfony\Component\HttpFoundation\Response */
     private $response;
 
+    /**
+     * UserResponseEvent constructor.
+     *
+     * @param \WarbleMedia\PhoenixBundle\Model\UserInterface $user
+     * @param \Symfony\Component\HttpFoundation\Request      $request
+     * @param \Symfony\Component\HttpFoundation\Response     $response
+     */
     public function __construct(UserInterface $user, Request $request, Response $response)
     {
         parent::__construct($user, $request);
