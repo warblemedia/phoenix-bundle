@@ -19,6 +19,21 @@ class PlanManager implements PlanManagerInterface
     }
 
     /**
+     * @param string $id
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface|null
+     */
+    public function getPlan(string $id)
+    {
+        foreach ($this->plans as $plan) {
+            if ($plan->getId() === $id) {
+                return $plan;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return bool
      */
     public function hasPaidPlans()

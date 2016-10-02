@@ -5,6 +5,12 @@ namespace WarbleMedia\PhoenixBundle\Billing;
 interface PlanManagerInterface
 {
     /**
+     * @param string $id
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface|null
+     */
+    public function getPlan(string $id);
+
+    /**
      * @return bool
      */
     public function hasPaidPlans();
