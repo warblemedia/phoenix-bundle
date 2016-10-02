@@ -45,6 +45,12 @@ services:
         arguments:
             - '%warble_media_phoenix.support_email_address%'
 
+    warble_media_phoenix.templating_helper.money_helper:
+        class: WarbleMedia\PhoenixBundle\Templating\Helper\MoneyHelper
+        arguments:
+            - '%warble_media_phoenix.billing.currency%'
+            - '%warble_media_phoenix.locale%'
+
     warble_media_phoenix.twig_extension.phoenix_extension:
         class: WarbleMedia\PhoenixBundle\Twig\Extension\PhoenixExtension
         tags:
