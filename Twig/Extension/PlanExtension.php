@@ -25,7 +25,10 @@ class PlanExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('has_paid_plans', [$this->planHelper, 'hasPaidPlans'])
+            new \Twig_SimpleFunction('has_paid_plans', [$this->planHelper, 'hasPaidPlans']),
+            new \Twig_SimpleFunction('get_paid_plans', [$this->planHelper, 'getPaidPlans']),
+            new \Twig_SimpleFunction('get_paid_monthly_plans', [$this->planHelper, 'getPaidMonthlyPlans']),
+            new \Twig_SimpleFunction('get_paid_yearly_plans', [$this->planHelper, 'getPaidYearlyPlans']),
         ];
     }
 

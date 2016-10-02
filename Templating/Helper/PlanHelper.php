@@ -26,4 +26,28 @@ class PlanHelper implements PlanHelperInterface
     {
         return $this->planManager->hasPaidPlans();
     }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
+     */
+    public function getPaidPlans()
+    {
+        return $this->planManager->getPaidPlans();
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
+     */
+    public function getPaidMonthlyPlans()
+    {
+        return $this->planManager->getPaidMonthlyPlans();
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
+     */
+    public function getPaidYearlyPlans()
+    {
+        return $this->planManager->getPaidYearlyPlans();
+    }
 }
