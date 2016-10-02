@@ -5,6 +5,32 @@
     <div class="card-block">
         {{ form_row(form.stripeToken) }}
 
+        <div class="stripe-errors"></div>
+
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label required" for="subscription_card">Card Number</label>
+            <div class="col-sm-9">
+                <input type="text" id="subscription_card" class="form-control" required="required" data-stripe="number">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label required" for="subscription_exp_month">Expiration</label>
+            <div class="col-sm-3">
+                <input type="text" id="subscription_exp_month" class="form-control" placeholder="MM" maxlength="2" data-stripe="exp_month">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="subscription_exp_year" class="form-control" placeholder="YYYY" maxlength="4" data-stripe="exp_year">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label required" for="subscription_cvc">Security Code</label>
+            <div class="col-sm-3">
+                <input type="text" id="subscription_cvc" class="form-control" maxlength="4" data-stripe="cvc">
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-sm-9 push-sm-3">
                 <button type="submit" class="btn btn-primary">Subscribe</button>

@@ -34,6 +34,9 @@
     <script>
         window.Phoenix = window.Phoenix || {};
         window.Phoenix.stripeKey = '{{ phoenix.stripeKey }}';
+        {% if form.stripeToken is defined %}
+        window.Phoenix.tokenFieldId = '{{ form.stripeToken.vars.id }}';
+        {% endif %}
     </script>
     <script src="https://js.stripe.com/v2/"></script>
     <script src="/bundles/warblemediaphoenix/js/stripe_form.js"></script>

@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, {attr: {id: 'stripe_form'}}) }}
     {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe_plans.html.twig" %}
     {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe_billing.html.twig" %}
 {{ form_end(form) }}
