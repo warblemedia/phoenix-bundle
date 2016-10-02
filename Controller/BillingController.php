@@ -101,6 +101,7 @@ class BillingController extends Controller
         $dispatcher = $this->get('event_dispatcher');
         $formFactory = $this->get('warble_media_phoenix.form.subscription_factory');
         $planManager = $this->get('warble_media_phoenix.billing.plan_manager');
+        $subscriptionManager = $this->get('warble_media_phoenix.model.subscription_manager');
 
         $event = new SubscriptionRequestEvent($subscription, $request);
         $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_INITIALIZE, $event);
@@ -121,7 +122,8 @@ class BillingController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_SUCCESS, $event);
 
-            // TODO: Handle form response
+            $data = $form->getData();
+            $subscription = $subscriptionManager->switchCustomerToPlan($customer, $data['plan']);
 
             $response = $event->getResponse();
             if ($response === null) {
