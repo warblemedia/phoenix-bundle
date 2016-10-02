@@ -2,7 +2,6 @@
 
 namespace WarbleMedia\PhoenixBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;

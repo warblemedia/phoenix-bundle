@@ -2,14 +2,12 @@
 
 namespace WarbleMedia\PhoenixBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\UserEvents;
 use WarbleMedia\PhoenixBundle\Event\UserRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\UserResponseEvent;
-use WarbleMedia\PhoenixBundle\Model\UserInterface;
 
 class SettingsController extends Controller
 {
@@ -140,20 +138,6 @@ class SettingsController extends Controller
     {
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
         ]);
-    }
-
-    /**
-     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface
-     */
-    private function getUserOrError()
-    {
-        $user = $this->getUser();
-
-        if ($user instanceof UserInterface) {
-            return $user;
-        }
-
-        throw $this->createAccessDeniedException('This user does not have access to this section.');
     }
 
     /**
