@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class Customer extends User implements CustomerInterface
 {
+    /** @var string */
+    protected $stripeId;
+
     /** @var \Doctrine\Common\Collections\Collection */
     protected $subscriptions;
 
@@ -16,6 +19,22 @@ abstract class Customer extends User implements CustomerInterface
     {
         parent::__construct();
         $this->subscriptions = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getStripeId()
+    {
+        return $this->stripeId;
+    }
+
+    /**
+     * @param string $stripeId
+     */
+    public function setStripeId(string $stripeId)
+    {
+        $this->stripeId = $stripeId;
     }
 
     /**

@@ -5,6 +5,16 @@ namespace WarbleMedia\PhoenixBundle\Model;
 interface CustomerInterface extends UserInterface
 {
     /**
+     * @return string
+     */
+    public function getStripeId();
+
+    /**
+     * @param string $stripeId
+     */
+    public function setStripeId(string $stripeId);
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface[]
      */
     public function getSubscriptions(): array;
