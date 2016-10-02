@@ -110,4 +110,14 @@ interface UserInterface extends AdvancedUserInterface, ModelInterface
      * @param string $photoUrl
      */
     public function setPhotoUrl(string $photoUrl);
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt();
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt();
 }

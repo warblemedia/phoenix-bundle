@@ -2,8 +2,12 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
+use Gedmo\Timestampable\Traits\Timestampable;
+
 abstract class User implements UserInterface
 {
+    use Timestampable;
+
     /** @var mixed */
     protected $id;
 

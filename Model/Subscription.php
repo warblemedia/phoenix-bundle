@@ -2,8 +2,12 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
+use Gedmo\Timestampable\Traits\Timestampable;
+
 abstract class Subscription implements SubscriptionInterface
 {
+    use Timestampable;
+
     /** @var mixed */
     protected $id;
 
