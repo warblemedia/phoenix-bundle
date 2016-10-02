@@ -7,11 +7,10 @@ use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 interface SubscriptionManagerInterface
 {
     /**
-     * @param \WarbleMedia\PhoenixBundle\Model\UserInterface   $user
-     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface $plan
-     * @param string                                           $token
-     * @param bool                                             $fromRegistration
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
+     * @param bool                                               $fromRegistration
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */
-    public function createSubscription(UserInterface $user, PlanInterface $plan, string $token, bool $fromRegistration = false): SubscriptionInterface;
+    public function createSubscription(CustomerInterface $customer, PlanInterface $plan, bool $fromRegistration = false): SubscriptionInterface;
 }
