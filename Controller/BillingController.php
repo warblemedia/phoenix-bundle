@@ -43,6 +43,7 @@ class BillingController extends Controller
     {
         $dispatcher = $this->get('event_dispatcher');
         $formFactory = $this->get('warble_media_phoenix.form.subscription_factory');
+        $planManager = $this->get('warble_media_phoenix.billing.plan_manager');
         $subscriptionManager = $this->get('warble_media_phoenix.model.subscription_manager');
 
         if ($subscription) {
@@ -55,6 +56,11 @@ class BillingController extends Controller
         }
 
         $form = $formFactory->createForm();
+
+        $activePlan = null;
+        if ($subscription) {
+            $activePlan = $planManager->getPlan($subscription->getStripePlan());
+        }
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
@@ -76,6 +82,7 @@ class BillingController extends Controller
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
             'user'         => $customer,
+            'activePlan'   => $activePlan,
             'subscription' => $subscription,
             'form'         => $form->createView(),
         ]);
