@@ -131,16 +131,6 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function subscriptionAction(Request $request)
-    {
-        return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-        ]);
-    }
-
-    /**
      * @return string
      */
     private function getPhotoUploadKey()
