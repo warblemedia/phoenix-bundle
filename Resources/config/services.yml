@@ -43,7 +43,7 @@ services:
     warble_media_phoenix.twig.phoenix_variable:
         class: WarbleMedia\PhoenixBundle\Twig\PhoenixVariable
         arguments:
-            - '%warble_media_phoenix.support_email_address%'
+            - '@service_container'
 
     warble_media_phoenix.templating_helper.money_helper:
         class: WarbleMedia\PhoenixBundle\Templating\Helper\MoneyHelper

@@ -7,3 +7,12 @@
 
     {% include "WarbleMediaPhoenixBundle:Modal:plan_features.html.twig" %}
 {% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        window.Phoenix = window.Phoenix || {};
+        window.Phoenix.stripeKey = '{{ phoenix.stripeKey }}';
+    </script>
+    <script src="https://js.stripe.com/v2/"></script>
+{% endblock %}
