@@ -13,4 +13,9 @@ interface SubscriptionManagerInterface
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */
     public function createSubscription(CustomerInterface $customer, PlanInterface $plan, bool $fromRegistration = false): SubscriptionInterface;
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     */
+    public function updateSubscription(SubscriptionInterface $subscription);
 }

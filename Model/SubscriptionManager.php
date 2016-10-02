@@ -2,20 +2,26 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 
 class SubscriptionManager implements SubscriptionManagerInterface
 {
+    /** @var \Doctrine\Common\Persistence\ObjectManager */
+    private $manager;
+
     /** @var string */
     private $subscriptionClass;
 
     /**
      * SubscriptionManager constructor.
      *
-     * @param string $subscriptionClass
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param string                                     $subscriptionClass
      */
-    public function __construct(string $subscriptionClass)
+    public function __construct(ObjectManager $manager, string $subscriptionClass)
     {
+        $this->manager = $manager;
         $this->subscriptionClass = $subscriptionClass;
     }
 
@@ -42,6 +48,19 @@ class SubscriptionManager implements SubscriptionManagerInterface
         $customer->addSubscription($subscription);
 
         return $subscription;
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @param bool                                                   $flush
+     */
+    public function updateSubscription(SubscriptionInterface $subscription, bool $flush = true)
+    {
+        $this->manager->persist($subscription);
+
+        if ($flush) {
+            $this->manager->flush();
+        }
     }
 
     /**

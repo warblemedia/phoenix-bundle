@@ -16,6 +16,7 @@ services:
     warble_media_phoenix.model.subscription_manager:
         class: WarbleMedia\PhoenixBundle\Model\SubscriptionManager
         arguments:
+            - '@doctrine.orm.entity_manager'
             - '%warble_media_phoenix.models.subscription_class%'
 
     warble_media_phoenix.security.registration_manager:
