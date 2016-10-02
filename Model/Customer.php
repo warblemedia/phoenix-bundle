@@ -78,6 +78,7 @@ abstract class Customer extends User implements CustomerInterface
     {
         if (!$this->subscriptions->contains($subscription)) {
             $this->subscriptions->add($subscription);
+            $subscription->setCustomer($this);
         }
     }
 
@@ -88,6 +89,7 @@ abstract class Customer extends User implements CustomerInterface
     {
         if ($this->subscriptions->contains($subscription)) {
             $this->subscriptions->removeElement($subscription);
+            $subscription->setCustomer(null);
         }
     }
 }
