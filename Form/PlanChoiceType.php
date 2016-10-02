@@ -30,6 +30,13 @@ class PlanChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices'      => $this->createChoices(),
+            'choice_value' => function (PlanInterface $plan = null) {
+                if ($plan === null) {
+                    return null;
+                }
+
+                return $plan->getId();
+            },
             'choice_label' => function (PlanInterface $plan) {
                 return $plan->getName();
             },
