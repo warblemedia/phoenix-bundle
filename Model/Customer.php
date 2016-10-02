@@ -4,7 +4,7 @@ namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Customer extends User
+abstract class Customer extends User
 {
     /** @var \Doctrine\Common\Collections\Collection */
     protected $subscriptions;
