@@ -138,10 +138,7 @@ class SettingsController extends Controller
      */
     public function subscriptionAction(Request $request)
     {
-        $planManager = $this->get('warble_media_phoenix.billing.plan_manager');
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-            'monthlyPlans' => $planManager->getPaidMonthlyPlans(),
-            'yearlyPlans'  => $planManager->getPaidYearlyPlans(),
         ]);
     }
 
