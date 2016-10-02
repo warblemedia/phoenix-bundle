@@ -11,6 +11,21 @@ abstract class Subscription implements SubscriptionInterface
     /** @var mixed */
     protected $id;
 
+    /** @var string */
+    protected $name;
+
+    /** @var string */
+    protected $stripeId;
+
+    /** @var string */
+    protected $stripePlan;
+
+    /** @var \DateTime|null */
+    protected $trialEndsAt;
+
+    /** @var \DateTime|null */
+    protected $endsAt;
+
     /** @var CustomerInterface */
     protected $customer;
 
@@ -20,6 +35,86 @@ abstract class Subscription implements SubscriptionInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStripeId()
+    {
+        return $this->stripeId;
+    }
+
+    /**
+     * @param string $stripeId
+     */
+    public function setStripeId(string $stripeId)
+    {
+        $this->stripeId = $stripeId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStripePlan()
+    {
+        return $this->stripePlan;
+    }
+
+    /**
+     * @param string $stripePlan
+     */
+    public function setStripePlan(string $stripePlan)
+    {
+        $this->stripePlan = $stripePlan;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getTrialEndsAt()
+    {
+        return $this->trialEndsAt;
+    }
+
+    /**
+     * @param \DateTime|null $trialEndsAt
+     */
+    public function setTrialEndsAt(\DateTime $trialEndsAt = null)
+    {
+        $this->trialEndsAt = $trialEndsAt;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getEndsAt()
+    {
+        return $this->endsAt;
+    }
+
+    /**
+     * @param \DateTime|null $endsAt
+     */
+    public function setEndsAt(\DateTime $endsAt = null)
+    {
+        $this->endsAt = $endsAt;
     }
 
     /**

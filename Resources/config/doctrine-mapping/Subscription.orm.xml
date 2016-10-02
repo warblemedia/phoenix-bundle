@@ -9,6 +9,16 @@
 
     <mapped-superclass name="WarbleMedia\PhoenixBundle\Model\Subscription">
 
+        <field name="name" column="name" type="string" />
+
+        <field name="stripeId" column="stripe_id" type="string" />
+
+        <field name="stripePlan" column="stripe_plan" type="string" />
+
+        <field name="trialEndsAt" column="trial_ends_at" type="datetime" nullable="true" />
+
+        <field name="endsAt" column="ends_at" type="datetime" nullable="true" />
+
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
