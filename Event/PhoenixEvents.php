@@ -129,6 +129,33 @@ final class PhoenixEvents
     const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.create.completed';
 
     /**
+     * The UPDATE_SUBSCRIPTION_INITIALIZE event occurs when the update subscription process is initialized.
+     *
+     * This event allows you to modify the default values of the user before binding the form.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
+     */
+    const UPDATE_SUBSCRIPTION_INITIALIZE = 'warble_media_phoenix.subscription.update.initialize';
+
+    /**
+     * The UPDATE_SUBSCRIPTION_SUCCESS event occurs when the update subscription form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
+     */
+    const UPDATE_SUBSCRIPTION_SUCCESS = 'warble_media_phoenix.subscription.update.success';
+
+    /**
+     * The UPDATE_SUBSCRIPTION_COMPLETED event occurs after saving the subscription in the update subscription process.
+     *
+     * This event allows you to access the response which will be sent.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
+     */
+    const UPDATE_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.update.completed';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the user that was authenticated.
