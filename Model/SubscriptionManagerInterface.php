@@ -17,6 +17,13 @@ interface SubscriptionManagerInterface
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
+     */
+    public function switchCustomerToPlan(CustomerInterface $customer, PlanInterface $plan): SubscriptionInterface;
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param bool                                               $fromRegistration
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */

@@ -54,6 +54,30 @@ class SubscriptionManager implements SubscriptionManagerInterface
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
+     */
+    public function switchCustomerToPlan(CustomerInterface $customer, PlanInterface $plan): SubscriptionInterface
+    {
+        if (!$customer->hasSubscription()) {
+            throw new \InvalidArgumentException('Can not switch plan for customer that is not subscribed.');
+        }
+
+        return $this->transactional(function () use ($customer, $plan) {
+            $subscription = $customer->getSubscription();
+            $subscription->setStripePlan($plan->getId());
+            $subscription->setEndsAt(null);
+
+            $this->paymentProcessor->changeSubscriptionPlan($customer, $subscription);
+
+            $this->updateSubscription($subscription);
+
+            return $subscription;
+        });
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param bool                                               $fromRegistration
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
      */
