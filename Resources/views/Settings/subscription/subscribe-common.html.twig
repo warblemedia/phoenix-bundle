@@ -9,14 +9,14 @@
             </ul>
         {% endif %}
     </div>
-    <div class="card-block">
+    <div class="card-block p-b-0">
         <p class="card-text">You are not subscribed to a plan. Choose from the plans below to get started.</p>
     </div>
     <div class="card-block">
         <div class="tab-content">
             {% for id, plans in {subscriptions_monthly: monthlyPlans, subscriptions_yearly: yearlyPlans} if plans is not empty %}
                 <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
-                    <table class="table table-hover m-b-0">
+                    <table class="table table-borderless m-b-0">
                         <tbody>
                             {% for plan in plans %}
                                 <tr>
@@ -43,7 +43,7 @@
 
                                     <td class="text-xs-right">
                                         {# TODO: Do something when clicked... #}
-                                        <button class="btn btn-outline-primary">Select</button>
+                                        <button class="btn btn-outline-primary btn-plan">Select</button>
                                     </td>
                                 </tr>
                             {% endfor %}
