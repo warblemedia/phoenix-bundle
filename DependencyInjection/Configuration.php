@@ -24,9 +24,9 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->fixXmlConfig('developer_email')
             ->children()
-                ->scalarNode('locale')
-                    ->defaultValue('%locale%')
+                ->scalarNode('default_locale')
                     ->cannotBeEmpty()
+                    ->defaultValue('en')
                 ->end()
                 ->scalarNode('firewall_name')
                     ->isRequired()

@@ -49,7 +49,7 @@ services:
         class: WarbleMedia\PhoenixBundle\Templating\Helper\MoneyHelper
         arguments:
             - '%warble_media_phoenix.billing.currency%'
-            - '%warble_media_phoenix.locale%'
+            - '%warble_media_phoenix.default_locale%'
 
     warble_media_phoenix.templating_helper.plan_helper:
         class: WarbleMedia\PhoenixBundle\Templating\Helper\PlanHelper
