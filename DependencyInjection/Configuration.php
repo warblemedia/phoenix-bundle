@@ -56,6 +56,14 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('base_path')->defaultValue('%kernel.root_dir%/../web/profile_photos')->end()
                     ->end()
                 ->end()
+                ->arrayNode('stripe')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->children()
+                        ->scalarNode('secret_key')->end()
+                        ->scalarNode('publishable_key')->end()
+                    ->end()
+                ->end()
             ->end();
         ;
 
