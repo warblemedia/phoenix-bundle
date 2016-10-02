@@ -2,6 +2,10 @@
 
 {% block main_content %}
     {% if has_paid_plans() %}
+        {% if subscription and subscription.onTrialPeriod %}
+            {% include "WarbleMediaPhoenixBundle:Settings/subscription:trial_notice.html.twig" %}
+        {% endif %}
+
         {% if subscription is null or subscription.onGracePeriod %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
         {% endif %}
