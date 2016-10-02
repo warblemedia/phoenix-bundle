@@ -1,0 +1,21 @@
+{% for plan in get_paid_plans() %}
+    <div class="modal fade" id="modal-switch-{{ plan.id }}" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Subscription</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-text">
+                        Are you sure you want to switch to the
+                        <strong>{{ plan.name }} ({{ plan.interval | capitalize }})</strong> plan?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Go Back</button>
+                    <button type="submit" class="btn btn-primary" >Yes, I'm Sure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

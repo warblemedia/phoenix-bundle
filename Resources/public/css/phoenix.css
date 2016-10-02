@@ -101,6 +101,14 @@
 }
 
 /*
+ * Modals
+ */
+
+.modal-text:last-child {
+    margin-bottom: 0;
+}
+
+/*
  * Plans
  */
 
