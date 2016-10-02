@@ -20,7 +20,9 @@ class SubscriptionType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('stripeToken', HiddenType::class);
+            ->add('stripeToken', HiddenType::class, [
+                'required' => $options['is_new_subscription'],
+            ]);
     }
 
     /**
@@ -29,7 +31,10 @@ class SubscriptionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => null,
+            'data_class'          => null,
+            'is_new_subscription' => false,
         ]);
+
+        $resolver->setAllowedTypes('is_new_subscription', 'bool');
     }
 }

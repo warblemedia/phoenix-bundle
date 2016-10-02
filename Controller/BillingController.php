@@ -60,7 +60,9 @@ class BillingController extends Controller
             $activePlan = $planManager->getPlan($subscription->getStripePlan());
         }
 
-        $form = $formFactory->createForm();
+        $form = $formFactory->createForm([
+            'is_new_subscription' => true,
+        ]);
 
         if ($form->handleRequest($request)->isValid()) {
             $event = new FormEvent($form, $request);
