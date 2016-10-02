@@ -56,7 +56,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\UserRequestEvent")
      */
-    const PROFILE_EDIT_INITIALIZE = 'fos_user.profile.edit.initialize';
+    const PROFILE_EDIT_INITIALIZE = 'warble_media_phoenix.profile.edit.initialize';
 
     /**
      * The PROFILE_EDIT_SUCCESS event occurs when the profile edit form is submitted successfully.
@@ -65,7 +65,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
      */
-    const PROFILE_EDIT_SUCCESS = 'fos_user.profile.edit.success';
+    const PROFILE_EDIT_SUCCESS = 'warble_media_phoenix.profile.edit.success';
 
     /**
      * The PROFILE_EDIT_COMPLETED event occurs after saving the user in the profile edit process.
@@ -74,7 +74,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\UserResponseEvent")
      */
-    const PROFILE_EDIT_COMPLETED = 'fos_user.profile.edit.completed';
+    const PROFILE_EDIT_COMPLETED = 'warble_media_phoenix.profile.edit.completed';
 
     /**
      * The CHANGE_PASSWORD_INITIALIZE event occurs when the change password process is initialized.
@@ -83,7 +83,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\UserRequestEvent")
      */
-    const CHANGE_PASSWORD_INITIALIZE = 'fos_user.change_password.edit.initialize';
+    const CHANGE_PASSWORD_INITIALIZE = 'warble_media_phoenix.change_password.initialize';
     /**
      * The CHANGE_PASSWORD_SUCCESS event occurs when the change password form is submitted successfully.
      *
@@ -91,7 +91,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
      */
-    const CHANGE_PASSWORD_SUCCESS = 'fos_user.change_password.edit.success';
+    const CHANGE_PASSWORD_SUCCESS = 'warble_media_phoenix.change_password.success';
     /**
      * The CHANGE_PASSWORD_COMPLETED event occurs after saving the user in the change password process.
      *
@@ -99,7 +99,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\UserResponseEvent")
      */
-    const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
+    const CHANGE_PASSWORD_COMPLETED = 'warble_media_phoenix.change_password.completed';
 
     /**
      * The NEW_SUBSCRIPTION_INITIALIZE event occurs when the new subscription process is initialized with a cancelled subscription.
@@ -108,7 +108,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
      */
-    const NEW_SUBSCRIPTION_INITIALIZE = 'warble_media_phoenix.new_subscription.initialize';
+    const NEW_SUBSCRIPTION_INITIALIZE = 'warble_media_phoenix.subscription.create.initialize';
 
     /**
      * The NEW_SUBSCRIPTION_SUCCESS event occurs when the new subscription form is submitted successfully.
@@ -117,16 +117,16 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
      */
-    const NEW_SUBSCRIPTION_SUCCESS = 'warble_media_phoenix.new_subscription.success';
+    const NEW_SUBSCRIPTION_SUCCESS = 'warble_media_phoenix.subscription.create.success';
 
     /**
-     * The NEW_SUBSCRIPTION_COMPLETED event occurs after saving the subscription in the subscription process.
+     * The NEW_SUBSCRIPTION_COMPLETED event occurs after saving the subscription in the new subscription process.
      *
      * This event allows you to access the response which will be sent.
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
      */
-    const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.new_subscription.completed';
+    const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.create.completed';
 
     /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
