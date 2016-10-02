@@ -47,8 +47,11 @@
                                     </td>
 
                                     <td class="text-xs-right">
-                                        {# TODO: Do something when clicked... #}
-                                        <button class="btn btn-outline-primary btn-plan">Select</button>
+                                        <label class="plan-select">
+                                            <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}" required="required">
+                                            <span class="btn btn-outline-primary btn-plan btn-plan-select">Select</span>
+                                            <span class="btn btn-primary btn-plan btn-plan-selected disabled">Selected</span>
+                                        </label>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -56,6 +59,7 @@
                     </table>
                 </div>
             {% endfor %}
+            {% do form.plan.setRendered %}
         </div>
     </div>
 </div>

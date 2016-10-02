@@ -18,6 +18,10 @@
         .btn-table-align { padding-top: 7px; padding-bottom: 7px; }
         .btn-plan { width: 150px }
         .table-borderless td, .table-borderless th { border-top: 0 }
+        .plan-select input[type="radio"] { clip: rect(0,0,0,0); pointer-events: none; position: absolute }
+        .plan-select input[type="radio"] ~ .btn-plan-selected { display: none }
+        .plan-select input[type="radio"]:checked ~ .btn-plan-select { display: none }
+        .plan-select input[type="radio"]:checked ~ .btn-plan-selected { display: inline-block }
     </style>
 </head>
 <body>
