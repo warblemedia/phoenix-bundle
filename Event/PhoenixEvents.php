@@ -117,7 +117,7 @@ final class PhoenixEvents
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
      */
-    const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.registration.completed';
+    const NEW_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.new_subscription.completed';
 
     /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
