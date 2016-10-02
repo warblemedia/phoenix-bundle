@@ -3,6 +3,7 @@
 namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
 use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 
 class SubscriptionManager implements SubscriptionManagerInterface
@@ -10,19 +11,38 @@ class SubscriptionManager implements SubscriptionManagerInterface
     /** @var \Doctrine\Common\Persistence\ObjectManager */
     private $manager;
 
+    /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
+    private $paymentProcessor;
+
     /** @var string */
     private $subscriptionClass;
 
     /**
      * SubscriptionManager constructor.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
-     * @param string                                     $subscriptionClass
+     * @param \Doctrine\Common\Persistence\ObjectManager                   $manager
+     * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface $paymentProcessor
+     * @param string                                                       $subscriptionClass
      */
-    public function __construct(ObjectManager $manager, string $subscriptionClass)
+    public function __construct(ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $subscriptionClass)
     {
         $this->manager = $manager;
+        $this->paymentProcessor = $paymentProcessor;
         $this->subscriptionClass = $subscriptionClass;
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
+     * @param string                                             $stripeToken
+     */
+    public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken)
+    {
+        $subscription = $this->createSubscription($customer, $plan);
+
+        $this->paymentProcessor->process($customer, $subscription, $stripeToken);
+
+        $this->updateSubscription($subscription);
     }
 
     /**
