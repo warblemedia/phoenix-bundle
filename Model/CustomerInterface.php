@@ -33,7 +33,7 @@ interface CustomerInterface extends UserInterface
      * @param string $name
      * @return bool
      */
-    public function hasSubscription(string $name): bool;
+    public function hasSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION): bool;
 
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription

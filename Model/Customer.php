@@ -85,7 +85,7 @@ abstract class Customer extends User implements CustomerInterface
      * @param string $name
      * @return bool
      */
-    public function hasSubscription(string $name): bool
+    public function hasSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION): bool
     {
         return in_array($name, $this->getSubscriptionNames(), true);
     }
