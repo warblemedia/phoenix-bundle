@@ -23,4 +23,9 @@ interface PlanHelperInterface
      * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
      */
     public function getPaidYearlyPlans();
+
+    /**
+     * @return bool
+     */
+    public function hasMonthlyAndYearlyPaidPlans();
 }

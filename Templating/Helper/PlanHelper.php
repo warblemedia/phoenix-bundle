@@ -50,4 +50,13 @@ class PlanHelper implements PlanHelperInterface
     {
         return $this->planManager->getPaidYearlyPlans();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasMonthlyAndYearlyPaidPlans()
+    {
+        return count($this->getPaidMonthlyPlans()) > 0 &&
+               count($this->getPaidYearlyPlans()) > 0;
+    }
 }

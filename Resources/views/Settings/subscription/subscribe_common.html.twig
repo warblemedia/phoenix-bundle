@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="btn-table-align pull-xs-left">Subscribe</div>
 
-        {% if monthlyPlans is not empty and yearlyPlans is not empty %}
+        {% if has_monthly_and_yearly_paid_plans() %}
             <ul class="nav nav-pills pull-xs-right">
                 <li class="nav-item"><a href="#subscriptions_monthly" class="btn btn-secondary active" data-toggle="tab">Monthly</a></li>
                 <li class="nav-item"><a href="#subscriptions_yearly" class="btn btn-secondary" data-toggle="tab">Yearly</a></li>
@@ -14,7 +14,7 @@
     </div>
     <div class="card-block">
         <div class="tab-content">
-            {% for id, plans in {subscriptions_monthly: monthlyPlans, subscriptions_yearly: yearlyPlans} if plans is not empty %}
+            {% for id, plans in {subscriptions_monthly: get_paid_monthly_plans(), subscriptions_yearly: get_paid_yearly_plans()} if plans is not empty %}
                 <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
                     <table class="table table-borderless m-b-0">
                         <tbody>

@@ -1,7 +1,7 @@
 {% extends 'WarbleMediaPhoenixBundle:Settings:layout.html.twig' %}
 
 {% block main_content %}
-    {% if monthlyPlans is not empty and yearlyPlans is not empty %}
+    {% if has_paid_plans() %}
         {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
     {% endif %}
 
