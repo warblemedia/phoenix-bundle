@@ -34,7 +34,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function __construct()
     {
-        $this->name = 'default';
+        $this->name = self::DEFAULT_SUBSCRIPTION;
     }
 
     /**

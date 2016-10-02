@@ -56,7 +56,7 @@ abstract class Customer extends User implements CustomerInterface
     /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
      */
-    public function getSubscription(string $name = 'default')
+    public function getSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION)
     {
         foreach ($this->getSubscriptions() as $subscription) {
             if ($subscription->getName() === $name) {

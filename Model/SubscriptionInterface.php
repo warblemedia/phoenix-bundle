@@ -4,6 +4,8 @@ namespace WarbleMedia\PhoenixBundle\Model;
 
 interface SubscriptionInterface extends ModelInterface
 {
+    const DEFAULT_SUBSCRIPTION = 'default';
+
     /**
      * @return mixed
      */

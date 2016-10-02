@@ -22,7 +22,7 @@ interface CustomerInterface extends UserInterface
     /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
      */
-    public function getSubscription(string $name = 'default');
+    public function getSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION);
 
     /**
      * @return string[]
