@@ -5,6 +5,7 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
+use WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent;
 use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
 use WarbleMedia\PhoenixBundle\Model\SubscriptionInterface;
@@ -43,6 +44,15 @@ class BillingController extends Controller
         $dispatcher = $this->get('event_dispatcher');
         $formFactory = $this->get('warble_media_phoenix.form.subscription_factory');
         $subscriptionManager = $this->get('warble_media_phoenix.model.subscription_manager');
+
+        if ($subscription) {
+            $event = new SubscriptionRequestEvent($subscription, $request);
+            $dispatcher->dispatch(PhoenixEvents::NEW_SUBSCRIPTION_INITIALIZE, $event);
+
+            if ($event->getResponse() !== null) {
+                return $event->getResponse();
+            }
+        }
 
         $form = $formFactory->createForm();
 

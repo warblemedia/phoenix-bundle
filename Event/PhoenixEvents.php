@@ -102,6 +102,15 @@ final class PhoenixEvents
     const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
 
     /**
+     * The NEW_SUBSCRIPTION_INITIALIZE event occurs when the new subscription process is initialized with a cancelled subscription.
+     *
+     * This event allows you to modify the default values of the user before binding the form.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
+     */
+    const NEW_SUBSCRIPTION_INITIALIZE = 'warble_media_phoenix.new_subscription.initialize';
+
+    /**
      * The NEW_SUBSCRIPTION_SUCCESS event occurs when the new subscription form is submitted successfully.
      *
      * This event allows you to set the response instead of using the default one.
