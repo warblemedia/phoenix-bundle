@@ -34,7 +34,7 @@ class MoneyHelper implements MoneyHelperInterface
         $currencyCode = $currencyCode ?: $this->defaultCurrencyCode;
 
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
-        $formatted = $formatter->formatCurrency($amount / 100, $currencyCode);
+        $formatted = $formatter->formatCurrency($amount, $currencyCode);
 
         if ($formatted === false) {
             $message = 'The amount "%s" of type %s cannot be formatted to currency "%s".';
