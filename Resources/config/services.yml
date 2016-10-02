@@ -56,11 +56,6 @@ services:
     	arguments:
     	    - '@warble_media_phoenix.billing.plan_manager'
 
-    warble_media_phoenix.twig_extension.phoenix_extension:
-        class: WarbleMedia\PhoenixBundle\Twig\Extension\PhoenixExtension
-        tags:
-            - { name: twig.extension }
-
     warble_media_phoenix.twig_extension.money_extension:
         class: WarbleMedia\PhoenixBundle\Twig\Extension\MoneyExtension
         arguments:
