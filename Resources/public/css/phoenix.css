@@ -17,8 +17,8 @@
  * Card
  */
 
-.card + .card {
-    margin-top: 1.5rem;
+.card {
+    margin-bottom: 1.5rem;
 }
 
 .card-header .nav-pills + span {
