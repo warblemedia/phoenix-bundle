@@ -25,6 +25,40 @@
     line-height: 38px
 }
 
+.card-outline-primary .card-header,
+.card-outline-primary .card-footer {
+    border-color: #0275d8;
+}
+
+.card-outline-secondary .card-header,
+.card-outline-secondary .card-footer {
+    border-color: #ccc;
+}
+
+.card-outline-info .card-header,
+.card-outline-info .card-footer {
+    background-color: #d9edf7;
+    border-color: #5bc0de;
+}
+
+.card-outline-success .card-header,
+.card-outline-success .card-footer {
+    background-color: #dff0d8;
+    border-color: #5cb85c;
+}
+
+.card-outline-warning .card-header,
+.card-outline-warning .card-footer {
+    background-color: #fcf8e3;
+    border-color: #f0ad4e;
+}
+
+.card-outline-danger .card-header,
+.card-outline-danger .card-footer {
+    background-color: #f2dede;
+    border-color: #d9534f;
+}
+
 /*
  * Buttons
  */
