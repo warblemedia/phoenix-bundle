@@ -112,6 +112,11 @@ interface UserInterface extends AdvancedUserInterface, ModelInterface
     public function setPhotoUrl(string $photoUrl);
 
     /**
+     * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
+     */
+    public function getCustomer();
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt();

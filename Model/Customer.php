@@ -19,6 +19,14 @@ abstract class Customer extends User implements CustomerInterface
     }
 
     /**
+     * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
+     */
+    public function getCustomer()
+    {
+        return $this;
+    }
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface[]
      */
     public function getSubscriptions(): array
