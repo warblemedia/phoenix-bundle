@@ -70,3 +70,10 @@ services:
             - '%warble_media_phoenix.models.user_class%'
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\ChangePasswordFormType }
+
+    warble_media_phoenix.form.plan_choice_type:
+        class: WarbleMedia\PhoenixBundle\Form\PlanChoiceType
+        arguments:
+            - '@warble_media_phoenix.billing.plan_manager'
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\PlanChoiceType }
