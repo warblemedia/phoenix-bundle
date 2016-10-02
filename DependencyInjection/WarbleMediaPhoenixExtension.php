@@ -5,11 +5,9 @@ namespace WarbleMedia\PhoenixBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use WarbleMedia\PhoenixBundle\Billing\Plan;
 
 class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInterface
 {
@@ -43,7 +41,9 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         $container->setParameter('warble_media_phoenix.profile_photos.base_url', $config['profile_photos']['base_url']);
         $container->setParameter('warble_media_phoenix.profile_photos.base_path', $config['profile_photos']['base_path']);
 
-        $container->setParameter('warble_media_phoenix.models.user_class', $config['models']['user_class']);
+        foreach ($config['models'] as $key => $model) {
+            $container->setParameter("warble_media_phoenix.models.{$key}", $model);
+        }
 
         foreach ($config['forms'] as $key => $form) {
             $container->setParameter("warble_media_phoenix.forms.{$key}.name", $form['name']);

@@ -77,6 +77,8 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->children()
                         ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('customer_class')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('subscription_class')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
             ->end()
