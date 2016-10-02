@@ -4,7 +4,7 @@ namespace WarbleMedia\PhoenixBundle\Model;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-interface UserInterface extends AdvancedUserInterface
+interface UserInterface extends AdvancedUserInterface, ModelInterface
 {
     const ROLE_DEFAULT   = 'ROLE_USER';
     const ROLE_DEVELOPER = 'ROLE_DEVELOPER';

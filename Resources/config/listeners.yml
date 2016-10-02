@@ -21,3 +21,8 @@ services:
             - '%warble_media_phoenix.resetting.token_ttl%'
         tags:
             - { name: kernel.event_subscriber }
+
+    warble_media_phoenix.event_listener.ormmapped_super_class_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\ORMMappedSuperClassSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

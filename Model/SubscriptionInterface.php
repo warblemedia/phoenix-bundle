@@ -2,7 +2,7 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
-interface SubscriptionInterface
+interface SubscriptionInterface extends ModelInterface
 {
     /**
      * @return mixed
