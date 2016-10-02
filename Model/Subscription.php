@@ -126,6 +126,24 @@ abstract class Subscription implements SubscriptionInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isOnTrialPeriod(): bool
+    {
+        return $this->getTrialEndsAt() instanceof \DateTime &&
+               $this->getTrialEndsAt()->getTimestamp() > time();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnGracePeriod(): bool
+    {
+        return $this->getEndsAt() instanceof \DateTime &&
+               $this->getEndsAt()->getTimestamp() > time();
+    }
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface|null
      */
     public function getCustomer()

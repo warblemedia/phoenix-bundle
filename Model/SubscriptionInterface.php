@@ -62,6 +62,16 @@ interface SubscriptionInterface extends ModelInterface
     public function setEndsAt(\DateTime $endsAt = null);
 
     /**
+     * @return bool
+     */
+    public function isOnTrialPeriod(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isOnGracePeriod(): bool;
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface|null;
      */
     public function getCustomer();
