@@ -22,6 +22,9 @@ class Plan implements PlanInterface
     /** @var bool */
     protected $active;
 
+    /** @var array */
+    protected $features;
+
     /**
      * Plan constructor.
      *
@@ -37,6 +40,7 @@ class Plan implements PlanInterface
         $this->interval = $options['interval'] ?? 'monthly';
         $this->trialDays = $options['trial_days'] ?? 0;
         $this->active = $options['active'] ?? true;
+        $this->features = $options['features'] ?? [];
     }
 
     /**
@@ -85,5 +89,13 @@ class Plan implements PlanInterface
     public function isActive(): bool
     {
         return $this->active;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFeatures(): array
+    {
+        return $this->features;
     }
 }

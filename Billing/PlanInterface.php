@@ -33,4 +33,9 @@ interface PlanInterface
      * @return bool
      */
     public function isActive(): bool;
+
+    /**
+     * @return array
+     */
+    public function getFeatures(): array;
 }
