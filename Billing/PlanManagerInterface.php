@@ -17,6 +17,11 @@ interface PlanManagerInterface
     /**
      * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
      */
+    public function getPaidActivePlans();
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
+     */
     public function getMonthlyPlans();
 
     /**
