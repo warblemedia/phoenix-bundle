@@ -33,6 +33,7 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
             $planManager->addMethodCall('addPlan', [$id, $plan['name'], $plan]);
         }
 
+        $container->setParameter('warble_media_phoenix.locale', $config['locale']);
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.developer_emails', $config['developer_emails']);
         $container->setParameter('warble_media_phoenix.support_email_address', $config['support_email_address']);
