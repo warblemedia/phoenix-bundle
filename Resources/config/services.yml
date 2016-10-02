@@ -42,6 +42,11 @@ services:
     warble_media_phoenix.billing.plan_manager:
         class: WarbleMedia\PhoenixBundle\Billing\PlanManager
 
+    warble_media_phoenix.billing.payment_processor:
+        class: WarbleMedia\PhoenixBundle\Billing\PaymentProcessor
+        arguments:
+            - '%warble_media_phoenix.stripe.secret_key%'
+
     warble_media_phoenix.util.token_generator:
         class: WarbleMedia\PhoenixBundle\Util\TokenGenerator
 
