@@ -52,9 +52,9 @@ services:
             - '%warble_media_phoenix.locale%'
 
     warble_media_phoenix.templating_helper.plan_helper:
-    	class: WarbleMedia\PhoenixBundle\Templating\Helper\PlanHelper
-    	arguments:
-    	    - '@warble_media_phoenix.billing.plan_manager'
+        class: WarbleMedia\PhoenixBundle\Templating\Helper\PlanHelper
+        arguments:
+            - '@warble_media_phoenix.billing.plan_manager'
 
     warble_media_phoenix.twig_extension.money_extension:
         class: WarbleMedia\PhoenixBundle\Twig\Extension\MoneyExtension
