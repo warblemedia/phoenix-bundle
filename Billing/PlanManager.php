@@ -19,6 +19,24 @@ class PlanManager implements PlanManagerInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasPaidPlans()
+    {
+        return count($this->getPaidPlans()) > 0;
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
+     */
+    public function getPaidPlans()
+    {
+        return $this->filterPlans(function (PlanInterface $plan) {
+            return $plan->getPrice() > 0;
+        });
+    }
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
      */
     public function getMonthlyPlans()
