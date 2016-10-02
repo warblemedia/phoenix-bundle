@@ -28,7 +28,7 @@ class BillingController extends Controller
 
             $data = $form->getData();
             $customer = $user->getCustomer();
-            $subscription = $subscriptionManager->createSubscription($customer, $data['plan']);
+            $subscription = $subscriptionManager->subscribeCustomerToPlan($customer, $data['plan'], $data['stripeToken']);
 
             $response = $event->getResponse();
             if ($response === null) {
