@@ -1,0 +1,82 @@
+<div class="card panel-default">
+    <div class="card-header">
+        <div class="btn-table-align pull-xs-left">Resume Subscription</div>
+
+        {% if has_monthly_and_yearly_paid_plans() %}
+            <ul class="nav nav-pills pull-xs-right">
+                <li class="nav-item"><a href="#subscriptions_monthly" class="btn btn-secondary active" data-toggle="tab">Monthly</a></li>
+                <li class="nav-item"><a href="#subscriptions_yearly" class="btn btn-secondary" data-toggle="tab">Yearly</a></li>
+            </ul>
+        {% endif %}
+    </div>
+    <div class="card-block p-b-0">
+        {% if activePlan %}
+            <p class="card-text">
+                You have cancelled your subscription to the
+                <strong>{{ activePlan.name }} ({{ activePlan.interval | capitalize }})</strong> plan.
+            </p>
+        {% endif %}
+
+        <p class="card-text">
+            The benefits of your subscription will continue until your current billing period ends on
+            <strong>{{ subscription.endsAt | date('F j, Y') }}</strong>. You may resume your subscription at no
+            extra cost until the end of the billing period.
+        </p>
+    </div>
+    <div class="card-block">
+        <div class="tab-content">
+            {% for id, plans in {subscriptions_monthly: get_paid_monthly_plans(), subscriptions_yearly: get_paid_yearly_plans()} if plans is not empty %}
+                <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
+                    <table class="table table-borderless m-b-0">
+                        <tbody>
+                            {% for plan in plans %}
+                                <tr>
+                                    <td>
+                                        <div class="btn-table-align">
+                                            <strong>{{ plan.name }}</strong>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-secondary m-l-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
+                                            Plan Features
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-table-align">
+                                            {{ plan.price | currency }} / {{ plan.interval | capitalize }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        {% if plan.trialDays %}
+                                            <div class="btn-table-align">
+                                                {{ plan.trialDays}} Day Trial
+                                            </div>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="text-xs-right">
+                                        {# Onclick is used here as the usual modal data-api was making the modal
+                                           instantly close. It has something to do with the radio ibput inside this
+                                           "button" but I'm not sure what the exact issue is. #}
+                                        <label class="plan-select" onclick="$('#modal-switch-{{ plan.id }}').modal('show')">
+                                            <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}">
+                                            {% if activePlan and activePlan.id == plan.id %}
+                                                <span class="btn btn-warning btn-plan">Resume</span>
+                                            {% else %}
+                                                <span class="btn btn-outline-warning btn-plan">Switch</span>
+                                            {% endif %}
+                                        </label>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            {% do form.plan.setRendered %}
+        </div>
+    </div>
+</div>

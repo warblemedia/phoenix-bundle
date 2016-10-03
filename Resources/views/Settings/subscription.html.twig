@@ -14,6 +14,10 @@
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:update.html.twig" %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:cancel.html.twig" %}
         {% endif %}
+
+        {% if subscription and subscription.onGracePeriod %}
+            {% include "WarbleMediaPhoenixBundle:Settings/subscription:resume.html.twig" %}
+        {% endif %}
     {% endif %}
 
     {% include "WarbleMediaPhoenixBundle:Modal:plan_features.html.twig" %}
