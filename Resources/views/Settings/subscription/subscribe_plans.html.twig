@@ -14,51 +14,15 @@
     </div>
     <div class="card-block">
         <div class="tab-content">
-            {% for id, plans in {subscriptions_monthly: get_paid_monthly_plans(), subscriptions_yearly: get_paid_yearly_plans()} if plans is not empty %}
-                <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
-                    <table class="table table-borderless m-b-0">
-                        <tbody>
-                            {% for plan in plans %}
-                                <tr>
-                                    <td>
-                                        <div class="btn-table-align">
-                                            <strong>{{ plan.name }}</strong>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <button class="btn btn-secondary m-l-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
-                                            Plan Features
-                                        </button>
-                                    </td>
-
-                                    <td>
-                                        <div class="btn-table-align">
-                                            {{ plan.price | currency }} / {{ plan.interval | capitalize }}
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        {% if plan.trialDays %}
-                                            <div class="btn-table-align">
-                                                {{ plan.trialDays}} Day Trial
-                                            </div>
-                                        {% endif %}
-                                    </td>
-
-                                    <td class="text-xs-right">
-                                        <label class="plan-select">
-                                            <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}" required="required">
-                                            <span class="btn btn-outline-primary btn-plan btn-plan-select">Select</span>
-                                            <span class="btn btn-primary btn-plan btn-plan-selected disabled">Selected</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+            {% embed "WarbleMediaPhoenixBundle:Settings/subscription:plans_table.html.twig" %}
+                {% block action_button %}
+                    <label class="plan-select">
+                        <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}" required="required">
+                        <span class="btn btn-outline-primary btn-plan btn-plan-select">Select</span>
+                        <span class="btn btn-primary btn-plan btn-plan-selected disabled">Selected</span>
+                    </label>
+                {% endblock %}
+            {% endembed %}
             {% do form.plan.setRendered %}
         </div>
     </div>
