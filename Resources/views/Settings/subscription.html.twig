@@ -9,6 +9,10 @@
         {% if subscription is null or subscription.onGracePeriod %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
         {% endif %}
+
+        {% if subscription and not subscription.onGracePeriod %}
+            {% include "WarbleMediaPhoenixBundle:Settings/subscription:update.html.twig" %}
+        {% endif %}
     {% endif %}
 
     {% include "WarbleMediaPhoenixBundle:Modal:plan_features.html.twig" %}
