@@ -1,5 +1,6 @@
-{% for id, plans in {subscriptions_monthly: get_paid_monthly_plans(), subscriptions_yearly: get_paid_yearly_plans()} if plans is not empty %}
-    <div id="{{ id }}" class="tab-pane table-responsive{% if loop.first %} active{% endif %}">
+{% set active_interval = activePlan ? activePlan.interval : 'monthly' %}
+{% for interval, plans in {monthly: get_paid_monthly_plans(), yearly: get_paid_yearly_plans()} if plans is not empty %}
+    <div id="subscriptions_{{ interval }}" class="tab-pane table-responsive{% if interval == active_interval %} active{% endif %}">
         <table class="table table-borderless m-b-0">
             <tbody>
                 {% for plan in plans %}
