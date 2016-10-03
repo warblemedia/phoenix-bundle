@@ -20,6 +20,26 @@ interface InvoiceInterface extends ModelInterface
     public function setStripeId(string $stripeId);
 
     /**
+     * @return string
+     */
+    public function getTaxAmount();
+
+    /**
+     * @param string $taxAmount
+     */
+    public function setTaxAmount(string $taxAmount);
+
+    /**
+     * @return string
+     */
+    public function getTotalAmount();
+
+    /**
+     * @param string $totalAmount
+     */
+    public function setTotalAmount(string $totalAmount);
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
      */
     public function getCustomer();

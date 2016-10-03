@@ -15,6 +15,10 @@
 
         <field name="stripeId" column="stripe_id" type="string" />
 
+        <field name="taxAmount" column="tax_amount" type="decimal" precision="8" scale="2" nullable="true" />
+
+        <field name="totalAmount" column="total_amount" type="decimal" precision="8" scale="2" nullable="true" />
+
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
