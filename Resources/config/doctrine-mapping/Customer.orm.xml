@@ -8,6 +8,10 @@
 
         <field name="stripeId" column="stripe_id" type="string" nullable="true" />
 
+        <field name="cardBrand" column="card_brand" type="string" nullable="true" />
+
+        <field name="cardLastFour" column="card_last_four" type="string" nullable="true" />
+
         <one-to-many field="subscriptions" target-entity="WarbleMedia\PhoenixBundle\Model\SubscriptionInterface" mapped-by="customer">
             <cascade>
                 <cascade-all />

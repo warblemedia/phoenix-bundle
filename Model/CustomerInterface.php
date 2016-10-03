@@ -15,6 +15,26 @@ interface CustomerInterface extends UserInterface
     public function setStripeId(string $stripeId);
 
     /**
+     * @return string
+     */
+    public function getCardBrand();
+
+    /**
+     * @param string $cardBrand
+     */
+    public function setCardBrand($cardBrand);
+
+    /**
+     * @return string
+     */
+    public function getCardLastFour();
+
+    /**
+     * @param string $cardLastFour
+     */
+    public function setCardLastFour($cardLastFour);
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface[]
      */
     public function getSubscriptions(): array;

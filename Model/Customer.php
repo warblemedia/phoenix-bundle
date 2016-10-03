@@ -9,6 +9,12 @@ abstract class Customer extends User implements CustomerInterface
     /** @var string */
     protected $stripeId;
 
+    /** @var string */
+    protected $cardBrand;
+
+    /** @var string */
+    protected $cardLastFour;
+
     /** @var \Doctrine\Common\Collections\Collection */
     protected $subscriptions;
 
@@ -35,6 +41,38 @@ abstract class Customer extends User implements CustomerInterface
     public function setStripeId(string $stripeId)
     {
         $this->stripeId = $stripeId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCardBrand()
+    {
+        return $this->cardBrand;
+    }
+
+    /**
+     * @param string $cardBrand
+     */
+    public function setCardBrand($cardBrand)
+    {
+        $this->cardBrand = $cardBrand;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCardLastFour()
+    {
+        return $this->cardLastFour;
+    }
+
+    /**
+     * @param string $cardLastFour
+     */
+    public function setCardLastFour($cardLastFour)
+    {
+        $this->cardLastFour = $cardLastFour;
     }
 
     /**
