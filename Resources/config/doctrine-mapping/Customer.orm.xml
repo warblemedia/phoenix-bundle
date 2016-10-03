@@ -19,6 +19,9 @@
         </one-to-many>
 
         <one-to-many field="invoices" target-entity="WarbleMedia\PhoenixBundle\Model\InvoiceInterface" mapped-by="customer">
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC" />
+            </order-by>
             <cascade>
                 <cascade-all />
             </cascade>
