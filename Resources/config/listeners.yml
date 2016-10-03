@@ -26,3 +26,10 @@ services:
         class: WarbleMedia\PhoenixBundle\EventListener\ORMMappedSuperClassSubscriber
         tags:
             - { name: doctrine.event_subscriber }
+
+    warble_media_phoenix.event_listener.stripe_webhook_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\StripeWebhookSubscriber
+        arguments:
+            - '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
