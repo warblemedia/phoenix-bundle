@@ -39,4 +39,11 @@ interface PaymentProcessorInterface
      * @param string                                             $token
      */
     public function updatePaymentMethod(CustomerInterface $customer, string $token);
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param string                                             $invoiceId
+     * @return \Stripe\Invoice|null
+     */
+    public function getCustomerInvoice(CustomerInterface $customer, string $invoiceId);
 }
