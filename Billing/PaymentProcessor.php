@@ -135,7 +135,7 @@ class PaymentProcessor implements PaymentProcessorInterface
         }
 
         if ($token) {
-            $this->updateStripeCustomerCard($stripeCustomer, $token);
+            $this->updateStripeCustomerCard($customer, $stripeCustomer, $token);
         }
 
         return $stripeCustomer;
@@ -163,10 +163,11 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
-     * @param \Stripe\Customer $stripeCustomer
-     * @param string           $token
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param \Stripe\Customer                                   $stripeCustomer
+     * @param string                                             $token
      */
-    protected function updateStripeCustomerCard(StripeCustomer $stripeCustomer, string $token)
+    protected function updateStripeCustomerCard(CustomerInterface $customer, StripeCustomer $stripeCustomer, string $token)
     {
         $stripeToken = StripeToken::retrieve($token, ['api_key' => $this->stripeKey]);
 
@@ -180,6 +181,11 @@ class PaymentProcessor implements PaymentProcessorInterface
         $card = $stripeCustomer->sources->create(['source' => $stripeToken]);
         $stripeCustomer->default_source = $card->id;
         $stripeCustomer->save();
+
+        // Update the last four digits and the card brand on the customer, which
+        // is convenient when displaying on the front-end when updating the cards.
+        $customer->setCardBrand($card->brand);
+        $customer->setCardLastFour($card->last4);
     }
 
     /**
