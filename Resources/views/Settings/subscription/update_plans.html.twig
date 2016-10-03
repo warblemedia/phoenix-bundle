@@ -35,7 +35,7 @@
                         </label>
                     {% else %}
                         {# Onclick is used here as the usual modal data-api was making the modal
-                           instantly close. It has something to do with the radio ibput inside this
+                           instantly close. It has something to do with the radio input inside this
                            "button" but I'm not sure what the exact issue is. #}
                         <label class="plan-select" onclick="$('#modal-switch-{{ plan.id }}').modal('show')">
                             <input type="radio" name="{{ form.plan.vars.full_name }}" value="{{ plan.id }}">
