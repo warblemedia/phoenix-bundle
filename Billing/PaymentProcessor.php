@@ -3,7 +3,9 @@
 namespace WarbleMedia\PhoenixBundle\Billing;
 
 use Stripe\Customer as StripeCustomer;
+use Stripe\Error\InvalidRequest;
 use Stripe\Token as StripeToken;
+use Stripe\Invoice as StripeInvoice;
 use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
 use WarbleMedia\PhoenixBundle\Model\SubscriptionInterface;
 
@@ -101,6 +103,21 @@ class PaymentProcessor implements PaymentProcessorInterface
             $endsAt = new \DateTime();
             $endsAt->setTimestamp($stripeSubscription->current_period_end);
             $subscription->setEndsAt($endsAt);
+        }
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     */
+    public function invoiceCustomer(CustomerInterface $customer)
+    {
+        if ($customer->getStripeId()) {
+            try {
+                $invoice = StripeInvoice::create(['customer' => $customer->getStripeId()], $this->stripeKey);
+                $invoice->pay();
+            } catch (InvalidRequest $e) {
+                // Do nothing...
+            }
         }
     }
 

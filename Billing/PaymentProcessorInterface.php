@@ -28,4 +28,9 @@ interface PaymentProcessorInterface
      * @param array                                                  $options
      */
     public function cancelSubscription(CustomerInterface $customer, SubscriptionInterface $subscription, array $options = []);
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     */
+    public function invoiceCustomer(CustomerInterface $customer);
 }
