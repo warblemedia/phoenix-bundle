@@ -181,8 +181,11 @@ class BillingController extends Controller
      */
     public function invoicesAction(Request $request)
     {
+        $user = $this->getUserOrError();
+        $customer = $user->getCustomer();
+
         return $this->render('WarbleMediaPhoenixBundle:Settings:invoices.html.twig', [
-            'invoices' => [],
+            'invoices' => $customer->getInvoices(),
         ]);
     }
 
