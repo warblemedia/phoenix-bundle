@@ -133,7 +133,21 @@ class BillingController extends Controller
      */
     public function paymentMethodAction(Request $request)
     {
-        // TODO: Implement paymentMethodAction() method.
+        $formFactory = $this->get('warble_media_phoenix.form.payment_method_factory');
+
+        $user = $this->getUserOrError();
+        $customer = $user->getCustomer();
+
+        $form = $formFactory->createForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            // TODO: Handle form submission...
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Settings:payment_method.html.twig', [
+            'customer' => $customer,
+            'form'     => $form->createView(),
+        ]);
     }
 
     /**
