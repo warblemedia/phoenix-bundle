@@ -1,4 +1,7 @@
 {% set active_interval = activePlan ? activePlan.interval : 'monthly' %}
+{% if subscription and subscription.expired %}
+    {% set active_interval = 'monthly' %}
+{% endif %}
 {% if has_monthly_and_yearly_paid_plans() %}
     <ul class="nav nav-tabs card-header-tabs pull-xs-right">
         {% for interval in ['monthly', 'yearly'] %}

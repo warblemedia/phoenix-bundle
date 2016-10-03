@@ -1,4 +1,7 @@
 {% set active_interval = activePlan ? activePlan.interval : 'monthly' %}
+{% if subscription and subscription.expired %}
+    {% set active_interval = 'monthly' %}
+{% endif %}
 {% for interval, plans in {monthly: get_paid_monthly_plans(), yearly: get_paid_yearly_plans()} if plans is not empty %}
     <div id="subscriptions_{{ interval }}" class="tab-pane table-responsive{% if interval == active_interval %} active{% endif %}">
         <table class="table table-borderless m-b-0">
