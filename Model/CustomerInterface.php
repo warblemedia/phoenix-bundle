@@ -64,4 +64,19 @@ interface CustomerInterface extends UserInterface
      * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
      */
     public function removeSubscription(SubscriptionInterface $subscription);
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface[]
+     */
+    public function getInvoices(): array;
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceInterface $invoice
+     */
+    public function addInvoice(InvoiceInterface $invoice);
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceInterface $invoice
+     */
+    public function removeInvoice(InvoiceInterface $invoice);
 }

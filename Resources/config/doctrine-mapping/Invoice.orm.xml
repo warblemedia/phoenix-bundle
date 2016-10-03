@@ -17,7 +17,7 @@
             <gedmo:timestampable on="update" />
         </field>
 
-        <many-to-one target-entity="WarbleMedia\PhoenixBundle\Model\CustomerInterface" field="customer">
+        <many-to-one target-entity="WarbleMedia\PhoenixBundle\Model\CustomerInterface" field="customer" inversed-by="invoices">
             <cascade>
                 <cascade-persist />
             </cascade>

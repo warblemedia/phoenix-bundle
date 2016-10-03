@@ -18,6 +18,9 @@ abstract class Customer extends User implements CustomerInterface
     /** @var \Doctrine\Common\Collections\Collection */
     protected $subscriptions;
 
+    /** @var \Doctrine\Common\Collections\Collection */
+    protected $invoices;
+
     /**
      * Customer constructor.
      */
@@ -25,6 +28,7 @@ abstract class Customer extends User implements CustomerInterface
     {
         parent::__construct();
         $this->subscriptions = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     /**
@@ -147,6 +151,36 @@ abstract class Customer extends User implements CustomerInterface
         if ($this->subscriptions->contains($subscription)) {
             $this->subscriptions->removeElement($subscription);
             $subscription->setCustomer(null);
+        }
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface[]
+     */
+    public function getInvoices(): array
+    {
+        return $this->invoices->toArray();
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceInterface $invoice
+     */
+    public function addInvoice(InvoiceInterface $invoice)
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices->add($invoice);
+            $invoice->setCustomer($this);
+        }
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceInterface $invoice
+     */
+    public function removeInvoice(InvoiceInterface $invoice)
+    {
+        if ($this->invoices->contains($invoice)) {
+            $this->invoices->removeElement($invoice);
+            $invoice->setCustomer(null);
         }
     }
 }

@@ -18,6 +18,12 @@
             </cascade>
         </one-to-many>
 
+        <one-to-many field="invoices" target-entity="WarbleMedia\PhoenixBundle\Model\InvoiceInterface" mapped-by="customer">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+
     </mapped-superclass>
 
 </doctrine-mapping>
