@@ -1,11 +1,11 @@
 <div class="card panel-default">
     <div class="card-header">
-        <div class="btn-table-align pull-xs-left">Resume Subscription</div>
+        <div class="card-header-tabs-align pull-xs-left">Resume Subscription</div>
 
         {% if has_monthly_and_yearly_paid_plans() %}
-            <ul class="nav nav-pills pull-xs-right">
-                <li class="nav-item"><a href="#subscriptions_monthly" class="btn btn-secondary active" data-toggle="tab">Monthly</a></li>
-                <li class="nav-item"><a href="#subscriptions_yearly" class="btn btn-secondary" data-toggle="tab">Yearly</a></li>
+            <ul class="nav nav-tabs card-header-tabs pull-xs-right">
+                <li class="nav-item"><a href="#subscriptions_monthly" class="nav-link active" data-toggle="tab">Monthly</a></li>
+                <li class="nav-item"><a href="#subscriptions_yearly" class="nav-link" data-toggle="tab">Yearly</a></li>
             </ul>
         {% endif %}
     </div>

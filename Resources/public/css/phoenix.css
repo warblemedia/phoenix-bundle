@@ -21,8 +21,9 @@
     margin-bottom: 1.5rem;
 }
 
-.card-header .nav-pills + span {
-    line-height: 38px;
+.card-header-tabs-align {
+    padding-top: 3px;
+    padding-bottom: 2px;
 }
 
 .card-outline-primary .card-header,
