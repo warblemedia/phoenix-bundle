@@ -6,7 +6,7 @@
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:trial_notice.html.twig" %}
         {% endif %}
 
-        {% if subscription is null or subscription.onGracePeriod %}
+        {% if subscription is null or subscription.expired %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
         {% endif %}
 

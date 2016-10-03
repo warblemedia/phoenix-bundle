@@ -26,7 +26,7 @@ class BillingController extends Controller
             $activeSubscription = $customer->getSubscription();
         }
 
-        if ($activeSubscription === null || $activeSubscription->isOnGracePeriod()) {
+        if ($activeSubscription === null || $activeSubscription->isExpired()) {
             return $this->newSubscriptionAction($request, $customer, $activeSubscription);
         } else {
             return $this->updateSubscriptionAction($request, $customer, $activeSubscription);
