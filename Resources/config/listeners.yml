@@ -33,3 +33,11 @@ services:
             - '@logger'
         tags:
             - { name: kernel.event_subscriber }
+
+    warble_media_phoenix.event_listener.stripe_subscription_webhook_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\StripeSubscriptionWebhookSubscriber
+        arguments:
+            - '@warble_media_phoenix.model.customer_manager'
+            - '@warble_media_phoenix.model.subscription_manager'
+        tags:
+            - { name: kernel.event_subscriber }
