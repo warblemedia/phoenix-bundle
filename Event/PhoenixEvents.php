@@ -174,6 +174,33 @@ final class PhoenixEvents
     const CANCEL_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.cancel.completed';
 
     /**
+     * The PAYMENT_METHOD_INITIALIZE event occurs when the update payment method process is initialized.
+     *
+     * This event allows you to modify the default values of the customer before binding the form.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\CustomerRequestEvent")
+     */
+    const PAYMENT_METHOD_INITIALIZE = 'warble_media_phoenix.payment_method.update.initialize';
+
+    /**
+     * The PAYMENT_METHOD_SUCCESS event occurs when the update payment method form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\FormEvent")
+     */
+    const PAYMENT_METHOD_SUCCESS = 'warble_media_phoenix.payment_method.update.success';
+
+    /**
+     * The PAYMENT_METHOD_COMPLETED event occurs after saving the customer in the update payment method process.
+     *
+     * This event allows you to access the response which will be sent.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\CustomerResponseEvent")
+     */
+    const PAYMENT_METHOD_COMPLETED = 'warble_media_phoenix.payment_method.update.completed';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the user that was authenticated.
