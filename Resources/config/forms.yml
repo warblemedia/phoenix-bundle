@@ -89,3 +89,8 @@ services:
         class: WarbleMedia\PhoenixBundle\Form\SubscriptionType
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\SubscriptionType }
+
+    warble_media_phoenix.form.payment_method_form:
+        class: WarbleMedia\PhoenixBundle\Form\PaymentMethodType
+        tags:
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\PaymentMethodType }
