@@ -9,6 +9,10 @@
 
     <mapped-superclass name="WarbleMedia\PhoenixBundle\Model\Invoice">
 
+        <indexes>
+            <index columns="created_at" />
+        </indexes>
+
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
