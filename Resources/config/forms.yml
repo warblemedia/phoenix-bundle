@@ -88,4 +88,4 @@ services:
     warble_media_phoenix.form.subscription_form:
         class: WarbleMedia\PhoenixBundle\Form\SubscriptionType
         tags:
-            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\SubscriptionForm }
+            - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\SubscriptionType }
