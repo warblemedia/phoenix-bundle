@@ -90,6 +90,13 @@ services:
         tags:
             - { name: form.type, alias: WarbleMedia\PhoenixBundle\Form\SubscriptionType }
 
+    warble_media_phoenix.form.payment_method_factory:
+        class: WarbleMedia\PhoenixBundle\Form\FormFactory
+        arguments:
+            - '@form.factory'
+            - '%warble_media_phoenix.forms.payment_method.name%'
+            - '%warble_media_phoenix.forms.payment_method.type%'
+
     warble_media_phoenix.form.payment_method_form:
         class: WarbleMedia\PhoenixBundle\Form\PaymentMethodType
         tags:

@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use WarbleMedia\PhoenixBundle\Form\ChangePasswordFormType;
+use WarbleMedia\PhoenixBundle\Form\PaymentMethodType;
 use WarbleMedia\PhoenixBundle\Form\ProfileFormType;
 use WarbleMedia\PhoenixBundle\Form\ProfilePhotoFormType;
 use WarbleMedia\PhoenixBundle\Form\RegistrationFormType;
@@ -155,6 +156,14 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('name')->defaultValue('warble_media_phoenix_subscription_type')->end()
                                 ->scalarNode('type')->defaultValue(SubscriptionType::class)->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('payment_method')
+                            ->canBeUnset()
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('warble_media_phoenix_payment_method_type')->end()
+                                ->scalarNode('type')->defaultValue(PaymentMethodType::class)->end()
                             ->end()
                         ->end()
                     ->end()
