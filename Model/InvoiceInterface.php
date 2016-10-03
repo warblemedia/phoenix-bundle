@@ -10,6 +10,16 @@ interface InvoiceInterface extends ModelInterface
     public function getId();
 
     /**
+     * @return string
+     */
+    public function getStripeId();
+
+    /**
+     * @param string $stripeId
+     */
+    public function setStripeId(string $stripeId);
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
      */
     public function getCustomer();

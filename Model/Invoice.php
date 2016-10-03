@@ -11,6 +11,9 @@ abstract class Invoice implements InvoiceInterface
     /** @var mixed */
     protected $id;
 
+    /** @var string */
+    protected $stripeId;
+
     /** @var \WarbleMedia\PhoenixBundle\Model\CustomerInterface */
     protected $customer;
 
@@ -20,6 +23,22 @@ abstract class Invoice implements InvoiceInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStripeId()
+    {
+        return $this->stripeId;
+    }
+
+    /**
+     * @param string $stripeId
+     */
+    public function setStripeId(string $stripeId)
+    {
+        $this->stripeId = $stripeId;
     }
 
     /**
