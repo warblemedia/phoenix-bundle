@@ -1,0 +1,4 @@
+warble_media_phoenix_webhook_stripe:
+    path:     /stripe
+    methods:  [POST]
+    defaults: { _controller: "WarbleMediaPhoenixBundle:Webhook:stripe" }
