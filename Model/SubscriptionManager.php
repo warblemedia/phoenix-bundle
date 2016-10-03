@@ -74,6 +74,9 @@ class SubscriptionManager implements SubscriptionManagerInterface
                 $this->paymentProcessor->changeSubscriptionPlan($customer, $subscription);
             }
 
+            // Issue invoice for prorate
+            $this->paymentProcessor->invoiceCustomer($customer);
+
             $this->updateSubscription($subscription);
 
             return $subscription;
