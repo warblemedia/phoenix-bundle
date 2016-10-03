@@ -32,3 +32,8 @@ warble_media_phoenix_settings_payment_method:
     path:     /payment-method
     methods:  [GET, POST]
     defaults: { _controller: WarbleMediaPhoenixBundle:Billing:paymentMethod }
+
+warble_media_phoenix_settings_invoices:
+    path:     /invoices
+    methods:  [GET]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Billing:invoices }

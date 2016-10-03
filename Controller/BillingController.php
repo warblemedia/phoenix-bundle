@@ -137,6 +137,15 @@ class BillingController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function invoicesAction(Request $request)
+    {
+        // TODO: Implement invoicesAction() method.
+    }
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request              $request
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
      * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
