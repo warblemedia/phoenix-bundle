@@ -72,6 +72,11 @@ interface SubscriptionInterface extends ModelInterface
     public function isOnGracePeriod(): bool;
 
     /**
+     * @return bool
+     */
+    public function isExpired(): bool;
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface|null;
      */
     public function getCustomer();
