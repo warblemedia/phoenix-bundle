@@ -7,13 +7,13 @@
         {% if activePlan %}
             <p class="card-text">
                 You have cancelled your subscription to the
-                <strong>{{ activePlan.name }} ({{ activePlan.interval | capitalize }})</strong> plan.
+                <strong>{{ activePlan.name }} ({{ activePlan.interval|capitalize }})</strong> plan.
             </p>
         {% endif %}
 
         <p class="card-text">
             The benefits of your subscription will continue until your current billing period ends on
-            <strong>{{ subscription.endsAt | date('F j, Y') }}</strong>. You may resume your subscription at no
+            <strong>{{ subscription.endsAt|date('F j, Y') }}</strong>. You may resume your subscription at no
             extra cost until the end of the billing period.
         </p>
     </div>

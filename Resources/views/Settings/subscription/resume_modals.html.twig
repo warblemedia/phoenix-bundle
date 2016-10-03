@@ -9,12 +9,12 @@
                     {% if activePlan and activePlan.id == plan.id %}
                         <p class="modal-text">
                             Are you sure you want to resume the
-                            <strong>{{ plan.name }} ({{ plan.interval | capitalize }})</strong> plan?
+                            <strong>{{ plan.name }} ({{ plan.interval|capitalize }})</strong> plan?
                         </p>
                     {% else %}
                         <p class="modal-text">
                             Are you sure you want to switch to the
-                            <strong>{{ plan.name }} ({{ plan.interval | capitalize }})</strong> plan?
+                            <strong>{{ plan.name }} ({{ plan.interval|capitalize }})</strong> plan?
                         </p>
                     {% endif %}
                 </div>

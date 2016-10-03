@@ -4,7 +4,7 @@
         {% for interval in ['monthly', 'yearly'] %}
             <li class="nav-item">
                 <a href="#subscriptions_{{ interval }}" class="nav-link{% if interval == active_interval %} active{% endif %}" data-toggle="tab">
-                    {{ interval | capitalize }}
+                    {{ interval|capitalize }}
                 </a>
             </li>
         {% endfor %}
