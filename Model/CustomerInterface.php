@@ -40,9 +40,16 @@ interface CustomerInterface extends UserInterface
     public function getSubscriptions(): array;
 
     /**
+     * @param string $name
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
      */
     public function getSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION);
+
+    /**
+     * @param string $stripeId
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
+     */
+    public function getSubscriptionByStripeId(string $stripeId);
 
     /**
      * @return string[]

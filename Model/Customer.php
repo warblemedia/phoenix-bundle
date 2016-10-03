@@ -96,12 +96,28 @@ abstract class Customer extends User implements CustomerInterface
     }
 
     /**
+     * @param string $name
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
      */
     public function getSubscription(string $name = SubscriptionInterface::DEFAULT_SUBSCRIPTION)
     {
         foreach ($this->getSubscriptions() as $subscription) {
             if ($subscription->getName() === $name) {
+                return $subscription;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $stripeId
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface|null
+     */
+    public function getSubscriptionByStripeId(string $stripeId)
+    {
+        foreach ($this->getSubscriptions() as $subscription) {
+            if ($subscription->getStripeId() === $stripeId) {
                 return $subscription;
             }
         }
