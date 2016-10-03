@@ -190,6 +190,36 @@ class BillingController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int                                       $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function downloadInvoiceAction(Request $request, int $id)
+    {
+        $invoiceManager = $this->get('warble_media_phoenix.model.invoice_manager');
+
+        $user = $this->getUserOrError();
+        $customer = $user->getCustomer();
+        $invoice = $customer->getInvoice($id);
+
+        if ($invoice === null) {
+            throw $this->createNotFoundException(sprintf('Customer has not invoice with id "%s".', $id));
+        }
+
+        $stripeInvoice = $invoiceManager->getStripeInvoice($invoice);
+
+        if ($stripeInvoice === null) {
+            throw $this->createNotFoundException(sprintf('Stripe invoice not found for invoice with id "%s".', $id));
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
+            'customer'      => $customer,
+            'invoice'       => $invoice,
+            'stripeInvoice' => $stripeInvoice,
+        ]);
+    }
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request              $request
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
      * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription

@@ -17,7 +17,9 @@
                                 </div>
                             </td>
                             <td class="text-xs-right">
-                                <a href="{# TODO: Download invoice path #}" class="btn btn-secondary">Download PDF</a>
+                                <a href="{{ path('warble_media_phoenix_settings_download_invoice', {'id': invoice.id}) }}" class="btn btn-secondary">
+                                    Download PDF
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}

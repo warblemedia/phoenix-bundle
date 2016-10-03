@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 30px;
+        }
+
+        .invoice {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .order-number {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .invoice-header,
+        .invoice-details {
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .invoice-header > tbody > tr > td {
+            vertical-align: bottom;
+        }
+
+        .invoice-details > tbody > tr > td {
+            vertical-align: top;
+        }
+
+        .table > thead > tr > th,
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+
+        .table > tbody > tr:not(:last-child) > .no-line,
+        .table > tbody > tr:not(:last-child) > .thick-line {
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="invoice-header">
+            <tbody>
+                <tr>
+                    <td>
+                        <strong class="invoice">Invoice</strong>
+                    </td>
+                    <td class="text-xs-right">
+                        <strong class="order-number">#{{ invoice.id }}</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="invoice-details">
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>To:</strong> {{ customer.email ?: customer.name }}<br>
+                        <strong>Date:</strong> {{ stripeInvoice.date|date('F j, Y') }}
+                        {# TODO: extra billing info #}
+                    </td>
+                    <td class="text-xs-right">
+                        {# TODO: Vendor details #}
+                        <strong>Warble Media</strong><br>
+                        15 Corbett Ave<br>
+                        Dubbo NSW 2830<br>
+                        Australia<br>
+                        <strong>T</strong> +61 2 6885 5695<br>
+                        <a href="http://warblemedia.com.au">http://warblemedia.com.au</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card">
+            <div class="card-header">
+                <strong>Order summary</strong>
+            </div>
+            <div class="card-block">
+                <div class="table-responsive">
+                    <table class="table m-b-0">
+                        <thead>
+                            <tr>
+                                <th class="text-xs-left"><strong>Item</strong></th>
+                                <th class="text-xs-left">Date</th>
+                                <th class="text-xs-right">Total ({{ stripeInvoice.currency|upper }})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if stripeInvoice.starting_balance > 0 %}
+                                <tr>
+                                    <td colspan="2" class="text-xs-left">Starting Balance</td>
+                                    <td class="text-xs-right">{{ (stripeInvoice.starting_balance / 100)|currency }}</td>
+                                </tr>
+                            {% endif %}
+
+                            {% for line in stripeInvoice.lines.data if line.type == 'invoiceitem' %}
+                                <tr>
+                                    <td colspan="2" class="text-xs-left">{{ item.description }}</td>
+                                    <td class="text-xs-right">{{ (item.amount / 100)|currency }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            {% for line in stripeInvoice.lines.data if line.type == 'subscription' %}
+                                <tr>
+                                    {# TODO: Product name #}
+                                    <td class="text-xs-left">Jackdaw Subscription</td>
+                                    <td class="text-xs-left">
+                                        {{ line.period.start|date('F j, Y') }} &ndash;
+                                        {{ line.period.end|date('F j, Y') }}
+                                    </td>
+                                    <td class="text-xs-right">{{ (line.amount / 100)|currency }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            <tr>
+                                <td class="thick-line"></td>
+                                <td class="thick-line text-xs-right"><strong>Subtotal</strong></td>
+                                <td class="thick-line text-xs-right">{{ (stripeInvoice.subtotal / 100)|currency }}</td>
+                            </tr>
+
+                            {% if stripeInvoice.discount != null and stripeInvoice.subtotal > 0 and stripeInvoice.subtotal > stripeInvoice.total %}
+                                <tr>
+                                    <td class="no-line"></td>
+                                    {% if stripeInvoice.discount.coupon.id is defined and stripeInvoice.discount.coupon.percent_off %}
+                                        <td class="no-line text-xs-left">{{ stripeInvoice.discount.coupon.id }} ({{ stripeInvoice.discount.coupon.percent_off }}% Off)</td>
+                                    {% else %}
+                                        <td class="no-line text-xs-left">{{ stripeInvoice.discount.coupon.id }} ({{ (stripeInvoice.discount.coupon.amount_off / 100)|currency }} Off)</td>
+                                    {% endif %}
+                                    <td class="no-line text-xs-right">{{ ((stripeInvoice.total - stripeInvoice.subtotal) / 100)|currency }}</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if stripeInvoice.tax != null and stripeInvoice.tax_percentage > 0 %}
+                                <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line text-xs-left">Tax ({{ stripeInvoice.tax_percentage }}%)</td>
+                                    <td class="no-line text-xs-right">{{ (stripeInvoice.tax / 100)|currency }}</td>
+                                </tr>
+                            {% endif %}
+
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line text-xs-right"><strong>Total</strong></td>
+                                <td class="no-line text-xs-right">{{ (stripeInvoice.total / 100)|currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

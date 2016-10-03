@@ -37,3 +37,8 @@ warble_media_phoenix_settings_invoices:
     path:     /invoices
     methods:  [GET]
     defaults: { _controller: WarbleMediaPhoenixBundle:Billing:invoices }
+
+warble_media_phoenix_settings_download_invoice:
+    path:     /invoices/{id}
+    methods:  [GET]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Billing:downloadInvoice }
