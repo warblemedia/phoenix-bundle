@@ -67,7 +67,12 @@ class SubscriptionManager implements SubscriptionManagerInterface
             $subscription->setStripePlan($plan->getId());
             $subscription->setEndsAt(null);
 
-            $this->paymentProcessor->changeSubscriptionPlan($customer, $subscription);
+            // Switching customer to a free plan is the same as cancelling their subscription
+            if ($plan->getPrice() === 0) {
+                $this->paymentProcessor->cancelSubscription($customer, $subscription);
+            } else {
+                $this->paymentProcessor->changeSubscriptionPlan($customer, $subscription);
+            }
 
             $this->updateSubscription($subscription);
 
