@@ -3,6 +3,7 @@
 namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use WarbleMedia\PhoenixBundle\Event\CustomerRequestEvent;
 use WarbleMedia\PhoenixBundle\Event\CustomerResponseEvent;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
@@ -196,6 +197,7 @@ class BillingController extends Controller
      */
     public function downloadInvoiceAction(Request $request, int $id)
     {
+        $pdfRenderer = $this->get('knp_snappy.pdf');
         $invoiceManager = $this->get('warble_media_phoenix.model.invoice_manager');
 
         $user = $this->getUserOrError();
@@ -212,10 +214,19 @@ class BillingController extends Controller
             throw $this->createNotFoundException(sprintf('Stripe invoice not found for invoice with id "%s".', $id));
         }
 
-        return $this->render('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
+        // TODO: Configurable product name
+        $filename = sprintf('%s_%s.pdf', 'Phoenix', $invoice->getId());
+        $viewHtml = $this->renderView('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
             'customer'      => $customer,
             'invoice'       => $invoice,
             'stripeInvoice' => $stripeInvoice,
+        ]);
+
+        return new Response($pdfRenderer->getOutputFromHtml($viewHtml), Response::HTTP_OK, [
+            'Content-Description'       => 'File Transfer',
+            'Content-Disposition'       => 'attachment; filename="' . $filename . '"',
+            'Content-Transfer-Encoding' => 'binary',
+            'Content-Type'              => 'application/pdf',
         ]);
     }
 
