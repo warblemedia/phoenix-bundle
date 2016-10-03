@@ -38,7 +38,7 @@ class PaymentProcessor implements PaymentProcessorInterface
     {
         $stripeCustomer = $this->getStripeCustomer($customer, $token, $options);
         $stripeSubscription = $stripeCustomer->subscriptions->create(
-            $this->buildPayload($subscription)
+            $this->buildSubscriptionPayload($subscription)
         );
 
         $subscription->setStripeId($stripeSubscription->id);
@@ -122,8 +122,6 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
-     * Get the Stripe customer instance for the current user and token.
-     *
      * @param  string|null $token
      * @param  array       $options
      * @return \Stripe\Customer
@@ -185,11 +183,9 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
-     * Build the payload for subscription creation.
-     *
      * @return array
      */
-    protected function buildPayload(SubscriptionInterface $subscription)
+    protected function buildSubscriptionPayload(SubscriptionInterface $subscription)
     {
         return array_filter([
             'plan'        => $subscription->getStripePlan(),
