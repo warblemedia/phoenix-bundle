@@ -34,6 +34,43 @@ class BillingController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cancelSubscriptionAction(Request $request)
+    {
+        $dispatcher = $this->get('event_dispatcher');
+        $subscriptionManager = $this->get('warble_media_phoenix.model.subscription_manager');
+
+        $user = $this->getUserOrError();
+        $customer = $user->getCustomer();
+
+        $activeSubscription = null;
+        if ($customer->hasSubscription()) {
+            $activeSubscription = $customer->getSubscription();
+        }
+
+        $event = new SubscriptionRequestEvent($activeSubscription, $request);
+        $dispatcher->dispatch(PhoenixEvents::CANCEL_SUBSCRIPTION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $subscription = $subscriptionManager->cancelPlan($customer);
+
+        $response = $event->getResponse();
+        if ($response === null) {
+            $response = $this->redirectToRoute('warble_media_phoenix_settings_subscription');
+        }
+
+        $event = new SubscriptionResponseEvent($subscription, $request, $response);
+        $dispatcher->dispatch(PhoenixEvents::CANCEL_SUBSCRIPTION_COMPLETED, $event);
+
+        return $response;
+    }
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request              $request
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
      * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
@@ -142,14 +179,5 @@ class BillingController extends Controller
             'subscription' => $subscription,
             'form'         => $form->createView(),
         ]);
-    }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function cancelSubscriptionAction(Request $request)
-    {
-        // TODO: Implement cancelSubscriptionAction() method.
     }
 }

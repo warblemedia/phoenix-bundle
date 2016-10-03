@@ -104,7 +104,7 @@ final class PhoenixEvents
     /**
      * The NEW_SUBSCRIPTION_INITIALIZE event occurs when the new subscription process is initialized with a cancelled subscription.
      *
-     * This event allows you to modify the default values of the user before binding the form.
+     * This event allows you to modify the default values of the subscription before binding the form.
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
      */
@@ -131,7 +131,7 @@ final class PhoenixEvents
     /**
      * The UPDATE_SUBSCRIPTION_INITIALIZE event occurs when the update subscription process is initialized.
      *
-     * This event allows you to modify the default values of the user before binding the form.
+     * This event allows you to modify the default values of the subscription before binding the form.
      *
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
      */
@@ -154,6 +154,24 @@ final class PhoenixEvents
      * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
      */
     const UPDATE_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.update.completed';
+
+    /**
+     * The CANCEL_SUBSCRIPTION_INITIALIZE event occurs when the cancel subscription process is initialized.
+     *
+     * This event allows you to modify the default values of the subscription before processing the request.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent")
+     */
+    const CANCEL_SUBSCRIPTION_INITIALIZE = 'warble_media_phoenix.subscription.cancel.initialize';
+
+    /**
+     * The CANCEL_SUBSCRIPTION_COMPLETED event occurs after saving the subscription in the cancel subscription process.
+     *
+     * This event allows you to access the response which will be sent.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\SubscriptionResponseEvent")
+     */
+    const CANCEL_SUBSCRIPTION_COMPLETED = 'warble_media_phoenix.subscription.cancel.completed';
 
     /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
