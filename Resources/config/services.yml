@@ -13,6 +13,13 @@ services:
             - '%warble_media_phoenix.profile_photos.base_url%'
             - '%warble_media_phoenix.profile_photos.base_path%'
 
+    warble_media_phoenix.model.customer_manager:
+        class: WarbleMedia\PhoenixBundle\Model\CustomerManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@warble_media_phoenix.billing.payment_processor'
+            - '%warble_media_phoenix.models.customer_class%'
+
     warble_media_phoenix.model.subscription_manager:
         class: WarbleMedia\PhoenixBundle\Model\SubscriptionManager
         arguments:
