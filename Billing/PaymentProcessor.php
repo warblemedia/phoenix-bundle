@@ -127,7 +127,13 @@ class PaymentProcessor implements PaymentProcessorInterface
      */
     public function updatePaymentMethod(CustomerInterface $customer, string $token)
     {
-        $this->getStripeCustomer($customer, $token);
+        if ($customer->getStripeId()) {
+            $stripeCustomer = StripeCustomer::retrieve($customer->getStripeId(), $this->stripeKey);
+        } else {
+            $stripeCustomer = $this->createStripeCustomer($customer, $options);
+        }
+
+        $this->updateStripeCustomerCard($customer, $stripeCustomer, $token);
     }
 
     /**
