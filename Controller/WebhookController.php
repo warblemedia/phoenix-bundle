@@ -5,6 +5,7 @@ namespace WarbleMedia\PhoenixBundle\Controller;
 use Stripe\Event as StripeEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WarbleMedia\PhoenixBundle\Event\StripeEvents;
 use WarbleMedia\PhoenixBundle\Event\StripeWebhookEvent;
 
 class WebhookController extends Controller
@@ -27,8 +28,8 @@ class WebhookController extends Controller
         $event = new StripeWebhookEvent($stripeEvent);
 
         $dispatcher = $this->get('event_dispatcher');
-        $dispatcher->dispatch('stripe_webhook', $event);
-        $dispatcher->dispatch('stripe_webhook.' . $stripeEvent->type, $event);
+        $dispatcher->dispatch(StripeEvents::ALL, $event);
+        $dispatcher->dispatch('warble_media_phoenix.webhook.stripe.' . $stripeEvent->type, $event);
 
         $response = $event->getResponse();
         if ($response === null) {
