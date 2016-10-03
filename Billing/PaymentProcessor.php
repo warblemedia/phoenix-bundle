@@ -57,6 +57,8 @@ class PaymentProcessor implements PaymentProcessorInterface
         }
 
         $stripeCustomer = $this->getStripeCustomer($customer, null, $options);
+
+        /** @var \Stripe\Subscription $stripeSubscription */
         $stripeSubscription = $stripeCustomer->subscriptions->retrieve($subscription->getStripeId());
         $stripeSubscription->plan = $subscription->getStripePlan();
         $stripeSubscription->prorate = $this->prorate;
@@ -71,6 +73,35 @@ class PaymentProcessor implements PaymentProcessorInterface
         }
 
         $stripeSubscription->save();
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface     $customer
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @param array                                                  $options
+     */
+    public function cancelSubscription(CustomerInterface $customer, SubscriptionInterface $subscription, array $options = [])
+    {
+        if (!$customer->hasSubscription() || !$subscription->getStripeId()) {
+            return;
+        }
+
+        $stripeCustomer = $this->getStripeCustomer($customer, null, $options);
+
+        /** @var \Stripe\Subscription $stripeSubscription */
+        $stripeSubscription = $stripeCustomer->subscriptions->retrieve($subscription->getStripeId());
+        $stripeSubscription->cancel(['at_period_end' => true]);
+
+        // If the user was on trial, we will set the grace period to end when the trial
+        // would have ended. Otherwise, we'll retrieve the end of the billing period
+        // period and make that the end of the grace period for this current user.
+        if ($subscription->isOnTrialPeriod()) {
+            $subscription->setEndsAt($subscription->getTrialEndsAt());
+        } else {
+            $endsAt = new \DateTime();
+            $endsAt->setTimestamp($stripeSubscription->current_period_end);
+            $subscription->setEndsAt($endsAt);
+        }
     }
 
     /**
