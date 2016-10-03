@@ -4,8 +4,8 @@ namespace WarbleMedia\PhoenixBundle\Billing;
 
 use Stripe\Customer as StripeCustomer;
 use Stripe\Error\InvalidRequest;
-use Stripe\Token as StripeToken;
 use Stripe\Invoice as StripeInvoice;
+use Stripe\Token as StripeToken;
 use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
 use WarbleMedia\PhoenixBundle\Model\SubscriptionInterface;
 
@@ -122,6 +122,15 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param string                                             $token
+     */
+    public function updatePaymentMethod(CustomerInterface $customer, string $token)
+    {
+        $this->getStripeCustomer($customer, $token);
+    }
+
+    /**
      * @param  string|null $token
      * @param  array       $options
      * @return \Stripe\Customer
@@ -194,8 +203,8 @@ class PaymentProcessor implements PaymentProcessorInterface
     protected function buildSubscriptionPayload(SubscriptionInterface $subscription)
     {
         return array_filter([
-            'plan'        => $subscription->getStripePlan(),
-            'trial_end'   => $subscription->getTrialEndsAt(),
+            'plan'      => $subscription->getStripePlan(),
+            'trial_end' => $subscription->getTrialEndsAt(),
         ]);
     }
 }
