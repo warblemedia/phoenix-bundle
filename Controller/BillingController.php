@@ -3,6 +3,8 @@
 namespace WarbleMedia\PhoenixBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use WarbleMedia\PhoenixBundle\Event\CustomerRequestEvent;
+use WarbleMedia\PhoenixBundle\Event\CustomerResponseEvent;
 use WarbleMedia\PhoenixBundle\Event\FormEvent;
 use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\SubscriptionRequestEvent;
@@ -133,15 +135,38 @@ class BillingController extends Controller
      */
     public function paymentMethodAction(Request $request)
     {
+        $dispatcher = $this->get('event_dispatcher');
         $formFactory = $this->get('warble_media_phoenix.form.payment_method_factory');
+        $customerManager = $this->get('warble_media_phoenix.model.customer_manager');
 
         $user = $this->getUserOrError();
         $customer = $user->getCustomer();
 
+        $event = new CustomerRequestEvent($customer, $request);
+        $dispatcher->dispatch(PhoenixEvents::PAYMENT_METHOD_INITIALIZE, $event);
+
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
+        }
+
         $form = $formFactory->createForm();
 
         if ($form->handleRequest($request)->isValid()) {
-            // TODO: Handle form submission...
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(PhoenixEvents::PAYMENT_METHOD_SUCCESS, $event);
+
+            $data = $form->getData();
+            $customerManager->changePaymentMethod($customer, $data['stripeToken']);
+
+            $response = $event->getResponse();
+            if ($response === null) {
+                $response = $this->redirectToRoute('warble_media_phoenix_settings_payment_method');
+            }
+
+            $event = new CustomerResponseEvent($customer, $request, $response);
+            $dispatcher->dispatch(PhoenixEvents::PAYMENT_METHOD_COMPLETED, $event);
+
+            return $response;
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:payment_method.html.twig', [
