@@ -143,4 +143,13 @@ class BillingController extends Controller
             'form'         => $form->createView(),
         ]);
     }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cancelSubscriptionAction(Request $request)
+    {
+        // TODO: Implement cancelSubscriptionAction() method.
+    }
 }

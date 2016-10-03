@@ -22,3 +22,8 @@ warble_media_phoenix_settings_subscription:
     path:     /subscription
     methods:  [GET, POST]
     defaults: { _controller: WarbleMediaPhoenixBundle:Billing:subscription }
+
+warble_media_phoenix_settings_subscription_cancel:
+    path:     /subscription/cancel
+    methods:  [POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Billing:cancelSubscription }
