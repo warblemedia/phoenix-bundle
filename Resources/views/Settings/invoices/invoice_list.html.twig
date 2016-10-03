@@ -2,7 +2,27 @@
     <div class="card-header">Invoices</div>
     <div class="card-block">
         {% if invoices is not empty %}
-            {# TODO: Display customer's invoices #}
+            <table class="table table-borderless m-b-0">
+                <tbody>
+                    {% for invoice in invoices %}
+                        <tr>
+                            <td>
+                                <div class="btn-table-align">
+                                    <strong>{{ invoice.createdAt|date('F j, Y') }}</strong>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-table-align">
+                                    {{ invoice.totalAmount|currency }}
+                                </div>
+                            </td>
+                            <td class="text-xs-right">
+                                <a href="{# TODO: Download invoice path #}" class="btn btn-secondary">Download PDF</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <div class="alert alert-info m-b-0">
                 There are no invoices for your account.
