@@ -60,7 +60,7 @@
                                     </td>
 
                                     <td class="text-xs-right">
-                                        {% if plan.id == activePlan.id %}
+                                        {% if activePlan and activePlan.id == plan.id %}
                                             <label class="plan-select">
                                                 <span class="btn btn-primary btn-plan btn-plan-selected disabled">Current Plan</span>
                                             </label>
