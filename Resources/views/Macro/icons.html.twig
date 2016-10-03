@@ -1,0 +1,19 @@
+{% macro card(customer) %}
+    {%- if customer.cardBrand is not defined -%}
+        fa-cc-stripe
+    {%- elseif customer.cardBrand == 'American Express' -%}
+        fa-cc-amex
+    {%- elseif customer.cardBrand == 'Diners Club' -%}
+        fa-cc-diners-club
+    {%- elseif customer.cardBrand == 'Discover' -%}
+        fa-cc-discover
+    {%- elseif customer.cardBrand == 'JCB' -%}
+        fa-cc-jcb
+    {%- elseif customer.cardBrand == 'MasterCard' -%}
+        fa-cc-mastercard
+    {%- elseif customer.cardBrand == 'Visa' -%}
+        fa-cc-visa
+    {%- else -%}
+        fa-cc-stripe
+    {%- endif -%}
+{% endmacro %}
