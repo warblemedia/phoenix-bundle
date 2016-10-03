@@ -14,13 +14,13 @@ class SubscriptionResponseEvent extends SubscriptionEvent
     /**
      * SubscriptionResponseEvent constructor.
      *
-     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $user
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
      * @param \Symfony\Component\HttpFoundation\Request              $request
      * @param \Symfony\Component\HttpFoundation\Response             $response
      */
-    public function __construct(SubscriptionInterface $user, Request $request, Response $response)
+    public function __construct(SubscriptionInterface $subscription, Request $request, Response $response)
     {
-        parent::__construct($user, $request);
+        parent::__construct($subscription, $request);
         $this->response = $response;
     }
 
