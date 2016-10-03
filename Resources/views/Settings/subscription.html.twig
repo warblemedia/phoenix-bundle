@@ -2,7 +2,7 @@
 
 {% block main_content %}
     {% if has_paid_plans() %}
-        {% if subscription and subscription.onTrialPeriod %}
+        {% if subscription and subscription.onTrialPeriod and not subscription.expired %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:trial_notice.html.twig" %}
         {% endif %}
 
@@ -10,12 +10,12 @@
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:subscribe.html.twig" %}
         {% endif %}
 
-        {% if subscription and not subscription.onGracePeriod %}
+        {% if subscription and not subscription.onGracePeriod and not subscription.expired %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:update.html.twig" %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:cancel.html.twig" %}
         {% endif %}
 
-        {% if subscription and subscription.onGracePeriod %}
+        {% if subscription and subscription.onGracePeriod and not subscription.expired %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:resume.html.twig" %}
         {% endif %}
     {% endif %}
