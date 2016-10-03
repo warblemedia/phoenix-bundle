@@ -78,6 +78,12 @@ interface CustomerInterface extends UserInterface
     public function getInvoices(): array;
 
     /**
+     * @param mixed $id
+     * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface|null
+     */
+    public function getInvoice($id);
+
+    /**
      * @param string $stripeId
      * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface|null
      */

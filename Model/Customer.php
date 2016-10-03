@@ -179,6 +179,21 @@ abstract class Customer extends User implements CustomerInterface
     }
 
     /**
+     * @param mixed $id
+     * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface|null
+     */
+    public function getInvoice($id)
+    {
+        foreach ($this->getInvoices() as $invoice) {
+            if ($invoice->getId() === $id) {
+                return $invoice;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @param string $stripeId
      * @return \WarbleMedia\PhoenixBundle\Model\InvoiceInterface|null
      */
