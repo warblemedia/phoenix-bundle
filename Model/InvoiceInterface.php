@@ -49,4 +49,14 @@ interface InvoiceInterface extends ModelInterface
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      */
     public function setCustomer(CustomerInterface $customer = null);
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt();
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt();
 }
