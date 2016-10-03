@@ -23,6 +23,12 @@ interface SubscriptionManagerInterface
 
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
+     */
+    public function cancelPlan(CustomerInterface $customer): SubscriptionInterface;
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param bool                                               $fromRegistration
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface

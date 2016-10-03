@@ -82,6 +82,27 @@ class SubscriptionManager implements SubscriptionManagerInterface
 
     /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
+     */
+    public function cancelPlan(CustomerInterface $customer): SubscriptionInterface
+    {
+        if (!$customer->hasSubscription()) {
+            throw new \InvalidArgumentException('Can not cancel plan for customer that is not subscribed.');
+        }
+
+        return $this->transactional(function () use ($customer) {
+            $subscription = $customer->getSubscription();
+
+            $this->paymentProcessor->cancelSubscription($customer, $subscription);
+
+            $this->updateSubscription($subscription);
+
+            return $subscription;
+        });
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface   $plan
      * @param bool                                               $fromRegistration
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface
