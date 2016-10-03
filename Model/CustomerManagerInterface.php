@@ -14,4 +14,10 @@ interface CustomerManagerInterface
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      */
     public function updateCustomer(CustomerInterface $customer);
+
+    /**
+     * @param string $stripeId
+     * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface|null
+     */
+    public function findCustomerByStripeId(string $stripeId);
 }

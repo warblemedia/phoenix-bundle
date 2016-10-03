@@ -11,6 +11,9 @@ class CustomerManager implements CustomerManagerInterface
     /** @var \Doctrine\Common\Persistence\ObjectManager */
     private $manager;
 
+    /** @var \Doctrine\Common\Persistence\ObjectRepository */
+    private $repository;
+
     /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
     private $paymentProcessor;
 
@@ -27,6 +30,7 @@ class CustomerManager implements CustomerManagerInterface
     public function __construct(ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
     {
         $this->manager = $manager;
+        $this->repository = $manager->getRepository($customerClass);
         $this->paymentProcessor = $paymentProcessor;
         $this->customerClass = $customerClass;
     }
@@ -55,6 +59,15 @@ class CustomerManager implements CustomerManagerInterface
         if ($flush) {
             $this->manager->flush();
         }
+    }
+
+    /**
+     * @param string $stripeId
+     * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface|null
+     */
+    public function findCustomerByStripeId(string $stripeId)
+    {
+        return $this->repository->findOneBy(['stripeId' => $stripeId]);
     }
 
     /**
