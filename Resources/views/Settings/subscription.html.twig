@@ -12,9 +12,6 @@
 
         {% if subscription and not subscription.onGracePeriod %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:update.html.twig" %}
-        {% endif %}
-
-        {% if subscription and not subscription.onGracePeriod %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:cancel.html.twig" %}
         {% endif %}
     {% endif %}
