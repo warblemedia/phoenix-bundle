@@ -31,6 +31,7 @@ services:
         class: WarbleMedia\PhoenixBundle\Model\InvoiceManager
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.invoice_class%'
 
     warble_media_phoenix.security.registration_manager:
