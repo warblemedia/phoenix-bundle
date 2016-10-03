@@ -181,7 +181,9 @@ class BillingController extends Controller
      */
     public function invoicesAction(Request $request)
     {
-        // TODO: Implement invoicesAction() method.
+        return $this->render('WarbleMediaPhoenixBundle:Settings:invoices.html.twig', [
+            'invoices' => [],
+        ]);
     }
 
     /**
