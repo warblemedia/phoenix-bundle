@@ -11,11 +11,31 @@ abstract class Invoice implements InvoiceInterface
     /** @var mixed */
     protected $id;
 
+    /** @var \WarbleMedia\PhoenixBundle\Model\CustomerInterface */
+    protected $customer;
+
     /**
      * @return mixed
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @internal
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     */
+    public function setCustomer(CustomerInterface $customer = null)
+    {
+        $this->customer = $customer;
     }
 }
