@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="/bundles/warblemediaphoenix/css/font-awesome.css">
-    <link rel="stylesheet" href="/bundles/warblemediaphoenix/css/bootstrap.css">
-    <link rel="stylesheet" href="/bundles/warblemediaphoenix/css/phoenix.css">
+    <link rel="stylesheet" href="{{ asset('bundles/warblemediaphoenix/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/warblemediaphoenix/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/warblemediaphoenix/css/phoenix.css') }}">
 </head>
 <body>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -20,9 +20,9 @@
         {% block content %}{% endblock %}
     </div>
 
-    <script src="/bundles/warblemediaphoenix/js/vendor/jquery.js"></script>
-    <script src="/bundles/warblemediaphoenix/js/vendor/tether.js"></script>
-    <script src="/bundles/warblemediaphoenix/js/vendor/bootstrap.js"></script>
+    <script src="{{ asset('bundles/warblemediaphoenix/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/warblemediaphoenix/js/vendor/tether.js') }}"></script>
+    <script src="{{ asset('bundles/warblemediaphoenix/js/vendor/bootstrap.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
