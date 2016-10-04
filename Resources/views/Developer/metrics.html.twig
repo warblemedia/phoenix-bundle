@@ -2,5 +2,8 @@
 
 {% block main_content %}
     {% include "WarbleMediaPhoenixBundle:Developer/metrics:stats.html.twig" %}
+    {% if historicalIndicators is not empty %}
+        {% include "WarbleMediaPhoenixBundle:Developer/metrics:graphs.html.twig" %}
+    {% endif %}
     {% include "WarbleMediaPhoenixBundle:Developer/metrics:subscribers.html.twig" %}
 {% endblock %}
