@@ -18,11 +18,12 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
     /**
      * CustomerManager constructor.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager                   $manager
-     * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface $paymentProcessor
-     * @param string                                                       $customerClass
+     * @param \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $passwordEncoder
+     * @param \Doctrine\Common\Persistence\ObjectManager                       $manager
+     * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface     $paymentProcessor
+     * @param string                                                           $customerClass
      */
-    public function __construct(EncoderFactoryInterface $passwordEncoder,  ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
+    public function __construct(EncoderFactoryInterface $passwordEncoder, ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
     {
         parent::__construct($passwordEncoder, $manager, $customerClass);
         $this->paymentProcessor = $paymentProcessor;
