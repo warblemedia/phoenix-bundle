@@ -12,6 +12,9 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
     /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
     private $paymentProcessor;
 
+    /** @var int */
+    private $trialDays;
+
     /** @var string */
     private $customerClass;
 
@@ -21,12 +24,14 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
      * @param \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $passwordEncoder
      * @param \Doctrine\Common\Persistence\ObjectManager                       $manager
      * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface     $paymentProcessor
+     * @param int                                                              $trialDays
      * @param string                                                           $customerClass
      */
-    public function __construct(EncoderFactoryInterface $passwordEncoder, ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
+    public function __construct(EncoderFactoryInterface $passwordEncoder, ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, int $trialDays, string $customerClass)
     {
         parent::__construct($passwordEncoder, $manager, $customerClass);
         $this->paymentProcessor = $paymentProcessor;
+        $this->trialDays = $trialDays;
         $this->customerClass = $customerClass;
     }
 
@@ -41,6 +46,21 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
 
             $this->updateCustomer($customer);
         });
+    }
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface
+     */
+    public function createUser(): UserInterface
+    {
+        $trialEndsAt = new \DateTime();
+        $trialEndsAt->modify($this->trialDays . ' day');
+
+        /** @var \WarbleMedia\PhoenixBundle\Model\CustomerInterface $user */
+        $user = parent::createUser();
+        $user->setTrialEndsAt($trialEndsAt);
+
+        return $user;
     }
 
     /**
