@@ -94,4 +94,18 @@ abstract class Metrics implements MetricsInterface
     {
         $this->newCustomers = $newCustomers;
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'monthly_recurring_revenue' => $this->monthlyRecurringRevenue,
+            'yearly_recurring_revenue'  => $this->yearlyRecurringRevenue,
+            'total_revenue_to_date'     => $this->totalRevenueToDate,
+            'new_customers'             => $this->newCustomers,
+            'created_at'                => $this->createdAt->format('Y-m-d'),
+        ];
+    }
 }

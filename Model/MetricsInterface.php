@@ -2,7 +2,7 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
-interface MetricsInterface
+interface MetricsInterface extends \JsonSerializable
 {
     /**
      * @return mixed
