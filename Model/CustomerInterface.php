@@ -45,6 +45,11 @@ interface CustomerInterface extends UserInterface
     public function setTrialEndsAt(\DateTime $trialEndsAt = null);
 
     /**
+     * @return bool
+     */
+    public function isOnTrialPeriod(): bool;
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface[]
      */
     public function getSubscriptions(): array;

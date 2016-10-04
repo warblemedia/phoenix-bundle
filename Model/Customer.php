@@ -99,6 +99,15 @@ abstract class Customer extends User implements CustomerInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isOnTrialPeriod(): bool
+    {
+        return $this->getTrialEndsAt() instanceof \DateTime &&
+               $this->getTrialEndsAt()->getTimestamp() > time();
+    }
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\CustomerInterface
      */
     public function getCustomer()
