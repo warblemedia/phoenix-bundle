@@ -97,6 +97,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('customer_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('subscription_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('invoice_class')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('metrics_class')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
             ->end()
