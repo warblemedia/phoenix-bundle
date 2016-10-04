@@ -39,11 +39,10 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     {
         $invoices = InvoiceInterface::class;
 
-        $query = $this->manager->createQuery(<<<DQL
-SELECT sum(i.totalAmount) 
-FROM {$invoices} i
-DQL
-        );
+        $dql = 'SELECT sum(i.totalAmount) ' .
+               "FROM {$invoices} i";
+
+        $query = $this->manager->createQuery($dql);
 
         return (int) $query->getSingleScalarResult();
     }
@@ -72,16 +71,14 @@ DQL
     {
         $customers = CustomerInterface::class;
 
-        $query = $this->manager->createQuery(<<<DQL
-SELECT count(c.id)
-FROM {$customers} c
-LEFT JOIN c.subscriptions s
-WHERE c.trialEndsAt > :now
-GROUP BY c.id
-HAVING count(s.id) = 0
-DQL
-        );
+        $dql = 'SELECT count(c.id) ' .
+               "FROM {$customers} c " .
+               'LEFT JOIN c.subscriptions s ' .
+               'WHERE c.trialEndsAt > :now ' .
+               'GROUP BY c.id ' .
+               'HAVING count(s.id) = 0';
 
+        $query = $this->manager->createQuery($dql);
         $query->setParameter('now', new \DateTime());
 
         try {
@@ -116,14 +113,13 @@ DQL
     {
         $subscriptions = SubscriptionInterface::class;
 
-        $query = $this->manager->createQuery(<<<DQL
-SELECT count(s.id)
-FROM {$subscriptions} s
-WHERE s.endsAt IS NULL
-  AND s.stripePlan = :plan_id
-  AND (s.trialEndsAt IS NULL OR s.trialEndsAt <= :now)
-DQL
-        );
+        $dql = 'SELECT count(s.id) ' .
+               "FROM {$subscriptions} s " .
+               'WHERE s.endsAt IS NULL ' .
+               'AND s.stripePlan = :plan_id ' .
+               'AND (s.trialEndsAt IS NULL OR s.trialEndsAt <= :now)';
+
+        $query = $this->manager->createQuery($dql);
         $query->setParameter('now', new \DateTime());
 
         $total = '0';
