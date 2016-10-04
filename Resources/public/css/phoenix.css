@@ -101,7 +101,12 @@
  * Tables
  */
 
-.table-borderless td, .table-borderless th {
+.table-borderless > thead > tr > th {
+    border-bottom: 0;
+}
+
+.table-borderless > thead > tr > th,
+.table-borderless > tbody > tr > td {
     border-top: 0;
 }
 
