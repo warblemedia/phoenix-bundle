@@ -22,6 +22,7 @@ class DeveloperController extends Controller
             'monthlyRecurringRevenue' => $indicators->getMonthlyRecurringRevenue(),
             'totalRevenueToDate'      => $indicators->getTotalRevenueToDate(),
             'trialCustomerCount'      => $indicators->getTrialCustomerCount(),
+            'historicalIndicators'    => $indicators->getHistoricalIndicators(),
             'lastMonthsIndicators'    => $indicators->getHistoricalIndicatorsFor($lastMonth),
             'lastYearsIndicators'     => $indicators->getHistoricalIndicatorsFor($lastYear),
             'subscribersByPlan'       => $indicators->getSubscribersByPlan(),
