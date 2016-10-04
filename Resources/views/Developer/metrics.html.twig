@@ -7,3 +7,16 @@
     {% endif %}
     {% include "WarbleMediaPhoenixBundle:Developer/metrics:subscribers.html.twig" %}
 {% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    {% if historicalIndicators %}
+        <script>
+            window.Phoenix = window.Phoenix || {};
+            window.Phoenix.currencySymbol = '{{ currency_symbol() }}';
+            window.Phoenix.historicalIndicators = {{ historicalIndicators|json_encode|raw }};
+        </script>
+        <script src="{{ asset('bundles/warblemediaphoenix/js/vendor/moment.js') }}"></script>
+        <script src="{{ asset('bundles/warblemediaphoenix/js/vendor/chart.js') }}"></script>
+    {% endif %}
+{% endblock %}
