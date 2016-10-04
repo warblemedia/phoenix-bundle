@@ -123,7 +123,7 @@ class BillingController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-            'user'         => $customer,
+            'customer'     => $customer,
             'activePlan'   => $activePlan,
             'subscription' => $subscription,
             'form'         => $form->createView(),
@@ -277,7 +277,7 @@ class BillingController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Settings:subscription.html.twig', [
-            'user'         => $customer,
+            'customer'     => $customer,
             'activePlan'   => $activePlan,
             'subscription' => $subscription,
             'form'         => $form->createView(),
