@@ -1,8 +1,23 @@
+{% import "WarbleMediaPhoenixBundle:Macro:metrics.html.twig" as Metrics %}
+
 <div class="card card-outline-success text-xs-center">
     <div class="card-header">Monthly Recurring Revenue</div>
     <div class="card-block">
         <div style="font-size: 24px;">
             {{ monthlyRecurringRevenue|currency }}
         </div>
+
+        {# TODO: Consider whether these provide enough value to keep #}
+        {% if monthlyRecurringRevenue and lastMonthsIndicators %}
+            <div style="font-size: 12px;">
+                {{ Metrics.percentChange(monthlyRecurringRevenue, lastMonthsIndicators.monthlyRecurringRevenue) }}% From Last Month
+            </div>
+        {% endif %}
+
+        {% if monthlyRecurringRevenue and lastYearsIndicators %}
+            <div style="font-size: 12px;">
+                {{ Metrics.percentChange(monthlyRecurringRevenue, lastYearsIndicators.monthlyRecurringRevenue) }}% From Last Year
+            </div>
+        {% endif %}
     </div>
 </div>

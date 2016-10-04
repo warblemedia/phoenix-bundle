@@ -1,0 +1,8 @@
+{% macro percentChange(current, previous) %}
+    {%- set change = (((current - previous) / previous) * 100)|round -%}
+    {%- if change > 0 -%}
+        +{{ change }}
+    {%- else -%}
+        {{ change }}
+    {%- endif -%}
+{% endmacro %}
