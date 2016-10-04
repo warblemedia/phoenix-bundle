@@ -43,4 +43,23 @@ class MoneyHelper implements MoneyHelperInterface
 
         return $formatted;
     }
+
+    /**
+     * @return string
+     */
+    public function getCurrencySymbol($currencyCode = null, $locale = null)
+    {
+        $locale = $locale ?: $this->defaultLocale;
+        $currencyCode = $currencyCode ?: $this->defaultCurrencyCode;
+
+        $formatter = new \NumberFormatter($locale . '@currency=' . $currencyCode, \NumberFormatter::CURRENCY);
+        $currencySymbol = $formatter->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
+
+        if ($currencySymbol === false) {
+            $message = 'The symbol for currency "%s" cannot be determined.';
+            throw new \InvalidArgumentException(sprintf($message, $currencyCode));
+        }
+
+        return $currencySymbol;
+    }
 }
