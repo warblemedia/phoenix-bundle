@@ -35,6 +35,16 @@ interface CustomerInterface extends UserInterface
     public function setCardLastFour($cardLastFour);
 
     /**
+     * @return \DateTime|null
+     */
+    public function getTrialEndsAt();
+
+    /**
+     * @param \DateTime|null $trialEndsAt
+     */
+    public function setTrialEndsAt(\DateTime $trialEndsAt = null);
+
+    /**
      * @return \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface[]
      */
     public function getSubscriptions(): array;

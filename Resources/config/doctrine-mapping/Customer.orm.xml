@@ -12,6 +12,8 @@
 
         <field name="cardLastFour" column="card_last_four" type="string" nullable="true" />
 
+        <field name="trialEndsAt" column="trial_ends_at" type="datetime" nullable="true" />
+
         <one-to-many field="subscriptions" target-entity="WarbleMedia\PhoenixBundle\Model\SubscriptionInterface" mapped-by="customer">
             <order-by>
                 <order-by-field name="createdAt" direction="DESC" />

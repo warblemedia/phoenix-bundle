@@ -15,6 +15,9 @@ abstract class Customer extends User implements CustomerInterface
     /** @var string */
     protected $cardLastFour;
 
+    /** @var \DateTime|null */
+    protected $trialEndsAt;
+
     /** @var \Doctrine\Common\Collections\Collection */
     protected $subscriptions;
 
@@ -77,6 +80,22 @@ abstract class Customer extends User implements CustomerInterface
     public function setCardLastFour($cardLastFour)
     {
         $this->cardLastFour = $cardLastFour;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getTrialEndsAt()
+    {
+        return $this->trialEndsAt;
+    }
+
+    /**
+     * @param \DateTime|null $trialEndsAt
+     */
+    public function setTrialEndsAt(\DateTime $trialEndsAt = null)
+    {
+        $this->trialEndsAt = $trialEndsAt;
     }
 
     /**
