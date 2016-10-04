@@ -49,11 +49,7 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
      */
     public function updateCustomer(CustomerInterface $customer, bool $flush = true)
     {
-        $this->manager->persist($customer);
-
-        if ($flush) {
-            $this->manager->flush();
-        }
+        $this->updateUser($customer, $flush);
     }
 
     /**
