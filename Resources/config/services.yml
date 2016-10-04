@@ -32,6 +32,12 @@ services:
             - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.invoice_class%'
 
+    warble_media_phoenix.performance.indicators:
+        class: WarbleMedia\PhoenixBundle\Performance\PerformanceIndicators
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@warble_media_phoenix.billing.plan_manager'
+
     warble_media_phoenix.security.registration_manager:
         class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
         arguments:
