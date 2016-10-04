@@ -91,6 +91,24 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @param int $count
+     * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface[]
+     */
+    public function getHistoricalIndicators(int $count = 60)
+    {
+        $metrics = MetricsInterface::class;
+
+        $dql = 'SELECT m ' .
+               "FROM {$metrics} m " .
+               'ORDER BY m.createdAt DESC';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setMaxResults($count);
+
+        return array_reverse($query->getResult());
+    }
+
+    /**
      * @param \DateTime $date
      * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface|null
      */
