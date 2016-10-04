@@ -29,4 +29,9 @@ interface PerformanceIndicatorsInterface
      * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface|null
      */
     public function getHistoricalIndicatorsFor(\DateTime $date);
+
+    /**
+     * @return array
+     */
+    public function getSubscribersByPlan();
 }

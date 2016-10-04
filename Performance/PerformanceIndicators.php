@@ -4,6 +4,7 @@ namespace WarbleMedia\PhoenixBundle\Performance;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
+use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 use WarbleMedia\PhoenixBundle\Billing\PlanManagerInterface;
 use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
 use WarbleMedia\PhoenixBundle\Model\InvoiceInterface;
@@ -108,6 +109,29 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @return array
+     */
+    public function getSubscribersByPlan()
+    {
+        $plans = [];
+
+        foreach ($this->planManager->getPlans() as $plan) {
+            $plans[] = [
+                'name'     => $plan->getName(),
+                'interval' => $plan->getInterval(),
+                'count'    => $this->getPlanSubscriptionsCount($plan),
+                'trialing' => $this->getPlanTrialsCount($plan),
+            ];
+        }
+
+        usort($plans, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+
+        return $plans;
+    }
+
+    /**
      * @param string $interval
      * @return string
      */
@@ -146,7 +170,7 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
      * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface $plan
      * @return int
      */
-    private function getPlanSubscriptionsCount(PlanInterface $plan)
+    protected function getPlanSubscriptionsCount(PlanInterface $plan)
     {
         $subscriptions = SubscriptionInterface::class;
 
@@ -155,6 +179,31 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
                'WHERE s.endsAt IS NULL ' .
                'AND s.stripePlan = :plan_id ' .
                'AND (s.trialEndsAt IS NULL OR s.trialEndsAt <= :now)';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setParameter('now', new \DateTime());
+        $query->setParameter('plan_id', $plan->getId());
+
+        try {
+            return (int) $query->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface $plan
+     * @return int
+     */
+    protected function getPlanTrialsCount(PlanInterface $plan)
+    {
+        $subscriptions = SubscriptionInterface::class;
+
+        $dql = 'SELECT count(s.id) ' .
+               "FROM {$subscriptions} s " .
+               'WHERE s.endsAt IS NULL ' .
+               'AND s.stripePlan = :plan_id ' .
+               'AND s.trialEndsAt > :now';
 
         $query = $this->manager->createQuery($dql);
         $query->setParameter('now', new \DateTime());
