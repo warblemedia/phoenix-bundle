@@ -7,6 +7,7 @@ use Doctrine\ORM\NoResultException;
 use WarbleMedia\PhoenixBundle\Billing\PlanManagerInterface;
 use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
 use WarbleMedia\PhoenixBundle\Model\InvoiceInterface;
+use WarbleMedia\PhoenixBundle\Model\MetricsInterface;
 use WarbleMedia\PhoenixBundle\Model\SubscriptionInterface;
 
 class PerformanceIndicators implements PerformanceIndicatorsInterface
@@ -86,6 +87,24 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
         } catch (NoResultException $e) {
             return 0;
         }
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface|null
+     */
+    public function getHistoricalIndicatorsFor(\DateTime $date)
+    {
+        $metrics = MetricsInterface::class;
+
+        $dql = 'SELECT m ' .
+               "FROM {$metrics} m " .
+               'WHERE m.createdAt = :date';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setParameter('date', $date);
+
+        return $query->getOneOrNullResult();
     }
 
     /**

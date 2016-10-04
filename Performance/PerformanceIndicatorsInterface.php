@@ -23,4 +23,10 @@ interface PerformanceIndicatorsInterface
      * @return int
      */
     public function getTrialCustomerCount();
+
+    /**
+     * @param \DateTime $date
+     * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface|null
+     */
+    public function getHistoricalIndicatorsFor(\DateTime $date);
 }
