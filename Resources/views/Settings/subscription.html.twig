@@ -2,7 +2,7 @@
 
 {% block main_content %}
     {% if has_paid_plans() %}
-        {% if subscription and subscription.onTrialPeriod and not subscription.expired %}
+        {% if customer.onTrialPeriod or (subscription and subscription.onTrialPeriod and not subscription.expired) %}
             {% include "WarbleMediaPhoenixBundle:Settings/subscription:trial_notice.html.twig" %}
         {% endif %}
 

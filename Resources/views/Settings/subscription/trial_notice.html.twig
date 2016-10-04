@@ -1,6 +1,7 @@
 <div class="card card-outline-warning">
     <div class="card-header">Free Trial</div>
     <div class="card-block">
-        <p class="card-text">You are currently within your free trial period. Your trial will expire on <strong>{{ subscription.trialEndsAt|date('F j, Y') }}</strong>.</p>
+        {% set trialEndsAt = customer.onTrialPeriod ? customer.trialEndsAt : subscription.trialEndsAt %}
+        <p class="card-text">You are currently within your free trial period. Your trial will expire on <strong>{{ trialEndsAt|date('F j, Y') }}</strong>.</p>
     </div>
 </div>
