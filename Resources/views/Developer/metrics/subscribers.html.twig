@@ -1,0 +1,33 @@
+{% if subscribersByPlan is not empty %}
+    <div class="card">
+        <div class="card-header">Subscribers</div>
+        <div class="card-block">
+            <table class="table table-borderless m-b-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Subscribers</th>
+                        <th>Trialing</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if trialCustomerCount > 0 %}
+                        <tr>
+                            <td>On Generic Trial</td>
+                            <td>N/A</td>
+                            <td>{{ trialCustomerCount }}</td>
+                        </tr>
+                    {% endif %}
+                    {% for plan in subscribersByPlan %}
+                        <tr>
+                            <td>{{ plan.name }} ({{ plan.interval|capitalize }})</td>
+                            <td>{{ plan.count }}</td>
+                            <td>{{ plan.trialing }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

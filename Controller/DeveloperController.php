@@ -24,6 +24,7 @@ class DeveloperController extends Controller
             'trialCustomerCount'      => $indicators->getTrialCustomerCount(),
             'lastMonthsIndicators'    => $indicators->getHistoricalIndicatorsFor($lastMonth),
             'lastYearsIndicators'     => $indicators->getHistoricalIndicatorsFor($lastYear),
+            'subscribersByPlan'       => $indicators->getSubscribersByPlan(),
         ]);
     }
 }
