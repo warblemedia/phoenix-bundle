@@ -9,16 +9,16 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class UserManager implements UserManagerInterface
 {
     /** @var \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface */
-    private $encoderFactory;
+    protected $encoderFactory;
 
     /** @var \Doctrine\Common\Persistence\ObjectManager */
-    private $manager;
+    protected $manager;
 
     /** @var \Doctrine\Common\Persistence\ObjectRepository */
-    private $repository;
+    protected $repository;
 
     /** @var string */
-    private $userClass;
+    protected $userClass;
 
     /**
      * UserManager constructor.

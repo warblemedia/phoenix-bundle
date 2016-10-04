@@ -16,6 +16,7 @@ services:
     warble_media_phoenix.model.customer_manager:
         class: WarbleMedia\PhoenixBundle\Model\CustomerManager
         arguments:
+            - '@security.encoder_factory'
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.customer_class%'

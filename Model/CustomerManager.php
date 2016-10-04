@@ -4,16 +4,11 @@ namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
 
-class CustomerManager implements CustomerManagerInterface
+class CustomerManager extends UserManager implements CustomerManagerInterface
 {
-    /** @var \Doctrine\Common\Persistence\ObjectManager */
-    private $manager;
-
-    /** @var \Doctrine\Common\Persistence\ObjectRepository */
-    private $repository;
-
     /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
     private $paymentProcessor;
 
@@ -27,10 +22,9 @@ class CustomerManager implements CustomerManagerInterface
      * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface $paymentProcessor
      * @param string                                                       $customerClass
      */
-    public function __construct(ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
+    public function __construct(EncoderFactoryInterface $passwordEncoder,  ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
     {
-        $this->manager = $manager;
-        $this->repository = $manager->getRepository($customerClass);
+        parent::__construct($passwordEncoder, $manager, $customerClass);
         $this->paymentProcessor = $paymentProcessor;
         $this->customerClass = $customerClass;
     }
