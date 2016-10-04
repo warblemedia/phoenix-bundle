@@ -130,6 +130,24 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
      */
     protected function getRecurringRevenueForPlans(array $plans)
     {
+        $total = '0';
+
+        foreach ($plans as $plan) {
+            if ($plan->getPrice() > 0) {
+                $count = $this->getPlanSubscriptionsCount($plan);
+                $total = bcadd($total, bcmul($plan->getPrice(), $count));
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Billing\PlanInterface $plan
+     * @return int
+     */
+    private function getPlanSubscriptionsCount(PlanInterface $plan)
+    {
         $subscriptions = SubscriptionInterface::class;
 
         $dql = 'SELECT count(s.id) ' .
@@ -140,17 +158,12 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
 
         $query = $this->manager->createQuery($dql);
         $query->setParameter('now', new \DateTime());
+        $query->setParameter('plan_id', $plan->getId());
 
-        $total = '0';
-
-        foreach ($plans as $plan) {
-            if ($plan->getPrice() > 0) {
-                $query->setParameter('plan_id', $plan->getId());
-                $count = $query->getSingleScalarResult();
-                $total = bcadd($total, bcmul($plan->getPrice(), $count));
-            }
+        try {
+            return (int) $query->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return 0;
         }
-
-        return $total;
     }
 }
