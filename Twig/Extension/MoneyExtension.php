@@ -25,7 +25,17 @@ class MoneyExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('currency', [$this->moneyHelper, 'formatAmount'])
+            new \Twig_SimpleFilter('currency', [$this->moneyHelper, 'formatAmount']),
+        ];
+    }
+
+    /**
+     * @return \Twig_SimpleFunction[]
+     */
+    public function getFunctions()
+    {
+        return [
+            new \Twig_SimpleFunction('currency_symbol', [$this->moneyHelper, 'getCurrencySymbol']),
         ];
     }
 
