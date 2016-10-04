@@ -30,14 +30,14 @@
                         {% if is_granted('ROLE_DEVELOPER') %}
                             <div class="dropdown-header">Developer</div>
 
-                            <a href="{# TODO: Developer settings path #}" class="dropdown-item">Developer Settings</a>
+                            <a href="{{ path('warble_media_phoenix_developer') }}" class="dropdown-item">Developer Settings</a>
 
                             <div class="divider"></div>
                         {% endif %}
 
                         <div class="dropdown-header">Settings</div>
 
-                        <a href="{{ path('warble_media_phoenix_settings_profile') }}" class="dropdown-item">Your Settings</a>
+                        <a href="{{ path('warble_media_phoenix_settings') }}" class="dropdown-item">Your Settings</a>
 
                         {% if phoenix.supportEmail %}
                             <div class="dropdown-divider"></div>

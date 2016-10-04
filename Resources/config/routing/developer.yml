@@ -1,0 +1,9 @@
+warble_media_phoenix_developer:
+    path:     /
+    methods:  [GET]
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: warble_media_phoenix_developer_metrics }
+
+warble_media_phoenix_developer_metrics:
+    path:     /metrics
+    methods:  [GET, POST]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Developer:metrics }
