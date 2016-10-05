@@ -59,6 +59,7 @@ services:
     warble_media_phoenix.event_listener.stripe_invoice_webhook_subscriber:
         class: WarbleMedia\PhoenixBundle\EventListener\StripeInvoiceWebhookSubscriber
         arguments:
+            - '@event_dispatcher'
             - '@warble_media_phoenix.model.customer_manager'
             - '@warble_media_phoenix.model.invoice_manager'
             - '%warble_media_phoenix.stripe.secret_key%'

@@ -3,7 +3,10 @@
 namespace WarbleMedia\PhoenixBundle\EventListener;
 
 use Stripe\Invoice as StripeInvoice;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use WarbleMedia\PhoenixBundle\Event\InvoiceEvent;
+use WarbleMedia\PhoenixBundle\Event\PhoenixEvents;
 use WarbleMedia\PhoenixBundle\Event\StripeEvents;
 use WarbleMedia\PhoenixBundle\Event\StripeWebhookEvent;
 use WarbleMedia\PhoenixBundle\Model\CustomerManagerInterface;
@@ -11,6 +14,9 @@ use WarbleMedia\PhoenixBundle\Model\InvoiceManagerInterface;
 
 class StripeInvoiceWebhookSubscriber implements EventSubscriberInterface
 {
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    private $dispatcher;
+
     /** @var \WarbleMedia\PhoenixBundle\Model\CustomerManagerInterface */
     private $customerManager;
 
@@ -23,12 +29,14 @@ class StripeInvoiceWebhookSubscriber implements EventSubscriberInterface
     /**
      * StripeInvoiceWebhookSubscriber constructor.
      *
-     * @param \WarbleMedia\PhoenixBundle\Model\CustomerManagerInterface $customerManager
-     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceManagerInterface  $invoiceManager
-     * @param string                                                    $stripeKey
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerManagerInterface   $customerManager
+     * @param \WarbleMedia\PhoenixBundle\Model\InvoiceManagerInterface    $invoiceManager
+     * @param string                                                      $stripeKey
      */
-    public function __construct(CustomerManagerInterface $customerManager, InvoiceManagerInterface $invoiceManager, string $stripeKey)
+    public function __construct(EventDispatcherInterface $dispatcher, CustomerManagerInterface $customerManager, InvoiceManagerInterface $invoiceManager, string $stripeKey)
     {
+        $this->dispatcher = $dispatcher;
         $this->customerManager = $customerManager;
         $this->invoiceManager = $invoiceManager;
         $this->stripeKey = $stripeKey;
@@ -67,9 +75,9 @@ class StripeInvoiceWebhookSubscriber implements EventSubscriberInterface
             $invoice->setTaxAmount(bcdiv($stripeInvoice->tax, 100, 2));
             $invoice->setTotalAmount(bcdiv($this->calculateTotalAmount($stripeInvoice), 100, 2));
 
-            $this->invoiceManager->updateInvoice($invoice);
+            $this->dispatcher->dispatch(PhoenixEvents::INVOICE_PAYMENT_SUCCESS, new InvoiceEvent($invoice, $event));
 
-            // TODO: Dispatch phoenix events to notify user of invoice
+            $this->invoiceManager->updateInvoice($invoice);
         }
     }
 
