@@ -12,6 +12,12 @@ interface PerformanceIndicatorsInterface
     public function getTotalRevenueToDate();
 
     /**
+     * @param \DateTime $date
+     * @return string
+     */
+    public function getTotalRevenueForDate(\DateTime $date);
+
+    /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @return string
      */

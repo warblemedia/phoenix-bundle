@@ -50,6 +50,15 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @param \DateTime $date
+     * @return string
+     */
+    public function getTotalRevenueForDate(\DateTime $date)
+    {
+        // TODO: Implement getTotalRevenueForDate() method.
+    }
+
+    /**
      * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
      * @return string
      */
