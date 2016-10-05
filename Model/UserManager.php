@@ -14,7 +14,7 @@ class UserManager implements UserManagerInterface
     /** @var \Doctrine\ORM\EntityManager */
     protected $manager;
 
-    /** @var \Doctrine\Common\Persistence\ObjectRepository */
+    /** @var \Doctrine\ORM\EntityRepository */
     protected $repository;
 
     /** @var string */
