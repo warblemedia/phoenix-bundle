@@ -24,6 +24,15 @@ abstract class Metrics implements MetricsInterface
     protected $newCustomers;
 
     /**
+     * Metrics constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
