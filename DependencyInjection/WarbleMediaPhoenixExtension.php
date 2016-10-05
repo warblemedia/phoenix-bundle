@@ -36,6 +36,7 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         $container->setParameter('warble_media_phoenix.stripe.publishable_key', $config['stripe']['publishable_key']);
 
         $container->setParameter('warble_media_phoenix.billing.currency', $config['billing']['currency']);
+        $container->setParameter('warble_media_phoenix.billing.prorate_plan_upgrades', $config['billing']['prorate_plan_upgrades']);
 
         $container->setParameter('warble_media_phoenix.profile_photos.base_url', $config['profile_photos']['base_url']);
         $container->setParameter('warble_media_phoenix.profile_photos.base_path', $config['profile_photos']['base_path']);
