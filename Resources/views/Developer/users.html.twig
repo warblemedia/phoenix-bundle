@@ -2,5 +2,11 @@
 
 {% block main_content %}
     {% include "WarbleMediaPhoenixBundle:Developer/users:search_form.html.twig" %}
+
+    {% if query is not null %}
+        {% if results is empty %}
+            {% include "WarbleMediaPhoenixBundle:Developer/users:no_results.html.twig" %}
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
