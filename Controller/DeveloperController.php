@@ -37,11 +37,19 @@ class DeveloperController extends Controller
      */
     public function usersAction(Request $request)
     {
+        $user = $this->getUserOrError();
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+
         $query = $request->query->get('query');
+        $results = [];
+
+        if (!empty($query)) {
+            $results = $userManager->findUsersBySearchString($query, $user);
+        }
 
         return $this->render('WarbleMediaPhoenixBundle:Developer:users.html.twig', [
             'query'   => $query,
-            'results' => [],
+            'results' => $results,
         ]);
     }
 }
