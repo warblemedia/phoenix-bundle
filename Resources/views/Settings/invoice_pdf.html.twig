@@ -109,8 +109,8 @@
 
                             {% for line in stripeInvoice.lines.data if line.type == 'invoiceitem' %}
                                 <tr>
-                                    <td colspan="2" class="text-xs-left">{{ item.description }}</td>
-                                    <td class="text-xs-right">{{ (item.amount / 100)|currency }}</td>
+                                    <td colspan="2" class="text-xs-left">{{ line.description }}</td>
+                                    <td class="text-xs-right">{{ (line.amount / 100)|currency }}</td>
                                 </tr>
                             {% endfor %}
 
