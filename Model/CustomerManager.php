@@ -2,7 +2,6 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
@@ -22,12 +21,12 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
      * CustomerManager constructor.
      *
      * @param \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $passwordEncoder
-     * @param \Doctrine\Common\Persistence\ObjectManager                       $manager
+     * @param \Doctrine\ORM\EntityManager                                      $manager
      * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface     $paymentProcessor
      * @param int                                                              $trialDays
      * @param string                                                           $customerClass
      */
-    public function __construct(EncoderFactoryInterface $passwordEncoder, ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, int $trialDays, string $customerClass)
+    public function __construct(EncoderFactoryInterface $passwordEncoder, EntityManager $manager, PaymentProcessorInterface $paymentProcessor, int $trialDays, string $customerClass)
     {
         parent::__construct($passwordEncoder, $manager, $customerClass);
         $this->paymentProcessor = $paymentProcessor;
@@ -41,7 +40,7 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
      */
     public function changePaymentMethod(CustomerInterface $customer, string $stripeToken)
     {
-        $this->transactional(function () use ($customer, $stripeToken) {
+        $this->manager->transactional(function () use ($customer, $stripeToken) {
             $this->paymentProcessor->updatePaymentMethod($customer, $stripeToken);
 
             $this->updateCustomer($customer);
@@ -79,18 +78,5 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
     public function findCustomerByStripeId(string $stripeId)
     {
         return $this->repository->findOneBy(['stripeId' => $stripeId]);
-    }
-
-    /**
-     * @param callable $callback
-     * @return mixed
-     */
-    protected function transactional(callable $callback)
-    {
-        if ($this->manager instanceof EntityManager) {
-            return $this->manager->transactional($callback);
-        } else {
-            return $callback();
-        }
     }
 }

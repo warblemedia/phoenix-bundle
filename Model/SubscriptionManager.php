@@ -2,14 +2,13 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
 use WarbleMedia\PhoenixBundle\Billing\PlanInterface;
 
 class SubscriptionManager implements SubscriptionManagerInterface
 {
-    /** @var \Doctrine\Common\Persistence\ObjectManager */
+    /** @var \Doctrine\ORM\EntityManager */
     private $manager;
 
     /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
@@ -21,11 +20,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
     /**
      * SubscriptionManager constructor.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager                   $manager
+     * @param \Doctrine\ORM\EntityManager                                  $manager
      * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface $paymentProcessor
      * @param string                                                       $subscriptionClass
      */
-    public function __construct(ObjectManager $manager, PaymentProcessorInterface $paymentProcessor, string $subscriptionClass)
+    public function __construct(EntityManager $manager, PaymentProcessorInterface $paymentProcessor, string $subscriptionClass)
     {
         $this->manager = $manager;
         $this->paymentProcessor = $paymentProcessor;
@@ -40,7 +39,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
      */
     public function subscribeCustomerToPlan(CustomerInterface $customer, PlanInterface $plan, string $stripeToken): SubscriptionInterface
     {
-        return $this->transactional(function () use ($customer, $plan, $stripeToken) {
+        return $this->manager->transactional(function () use ($customer, $plan, $stripeToken) {
             $subscription = $this->createSubscription($customer, $plan);
 
             $this->paymentProcessor->createNewSubscription($customer, $subscription, $stripeToken);
@@ -62,7 +61,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
             throw new \InvalidArgumentException('Can not switch plan for customer that is not subscribed.');
         }
 
-        return $this->transactional(function () use ($customer, $plan) {
+        return $this->manager->transactional(function () use ($customer, $plan) {
             $subscription = $customer->getSubscription();
             $subscription->setStripePlan($plan->getId());
             $subscription->setEndsAt(null);
@@ -93,7 +92,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
             throw new \InvalidArgumentException('Can not cancel plan for customer that is not subscribed.');
         }
 
-        return $this->transactional(function () use ($customer) {
+        return $this->manager->transactional(function () use ($customer) {
             $subscription = $customer->getSubscription();
 
             $this->paymentProcessor->cancelSubscription($customer, $subscription);
@@ -148,18 +147,5 @@ class SubscriptionManager implements SubscriptionManagerInterface
     protected function createSubscriptionInstance(): SubscriptionInterface
     {
         return new $this->subscriptionClass;
-    }
-
-    /**
-     * @param callable $callback
-     * @return mixed
-     */
-    protected function transactional(callable $callback)
-    {
-        if ($this->manager instanceof EntityManager) {
-            return $this->manager->transactional($callback);
-        } else {
-            return $callback();
-        }
     }
 }
