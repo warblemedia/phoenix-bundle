@@ -63,7 +63,16 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
      */
     public function getTotalRevenueForDate(\DateTime $date)
     {
-        // TODO: Implement getTotalRevenueForDate() method.
+        $invoices = InvoiceInterface::class;
+
+        $dql = 'SELECT sum(i.totalAmount) ' .
+               "FROM {$invoices} i " .
+               'WHERE i.createdAt LIKE :date';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setParameter('date', $date->format('Y-m-d') . '%');
+
+        return (int) $query->getSingleScalarResult();
     }
 
     /**
