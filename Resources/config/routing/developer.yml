@@ -5,5 +5,5 @@ warble_media_phoenix_developer:
 
 warble_media_phoenix_developer_metrics:
     path:     /metrics
-    methods:  [GET, POST]
+    methods:  [GET]
     defaults: { _controller: WarbleMediaPhoenixBundle:Developer:metrics }
