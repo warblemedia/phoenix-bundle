@@ -73,13 +73,24 @@
                         {# TODO: extra billing info #}
                     </td>
                     <td class="text-xs-right">
-                        {# TODO: Vendor details #}
-                        <strong>Warble Media</strong><br>
-                        15 Corbett Ave<br>
-                        Dubbo NSW 2830<br>
-                        Australia<br>
-                        <strong>T</strong> +61 2 6885 5695<br>
-                        <a href="http://warblemedia.com.au">http://warblemedia.com.au</a>
+                        {% if vendorName %}
+                            <strong>{{ vendorName }}</strong><br>
+                        {% endif %}
+                        {% if vendorStreet %}
+                            {{ vendorStreet }}<br>
+                        {% endif %}
+                        {% if vendorLocation %}
+                            {{ vendorLocation }}<br>
+                        {% endif %}
+                        {% if vendorPhone %}
+                            {{ vendorPhone }}<br>
+                        {% endif %}
+                        {% if vendorEmail %}
+                            <a href="mailto:{{ vendorEmail }}">{{ vendorEmail }}</a><br>
+                        {% endif %}
+                        {% if vendorUrl %}
+                            <a href="{{ vendorUrl }}">{{ vendorUrl }}</a>
+                        {% endif %}
                     </td>
                 </tr>
             </tbody>

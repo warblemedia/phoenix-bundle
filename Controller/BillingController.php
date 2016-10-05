@@ -217,17 +217,23 @@ class BillingController extends Controller
 
         $filename = sprintf('%s_%s.pdf', str_replace($productName, ' ', '_'), $invoice->getId());
         $viewHtml = $this->renderView('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
-            'customer'      => $customer,
-            'invoice'       => $invoice,
-            'productName'   => $productName,
-            'stripeInvoice' => $stripeInvoice,
+            'customer'       => $customer,
+            'invoice'        => $invoice,
+            'productName'    => $productName,
+            'stripeInvoice'  => $stripeInvoice,
+            'vendorName'     => $this->getParameter('warble_media_phoenix.vendor_details.name'),
+            'vendorStreet'   => $this->getParameter('warble_media_phoenix.vendor_details.street'),
+            'vendorLocation' => $this->getParameter('warble_media_phoenix.vendor_details.location'),
+            'vendorPhone'    => $this->getParameter('warble_media_phoenix.vendor_details.phone'),
+            'vendorEmail'    => $this->getParameter('warble_media_phoenix.vendor_details.email'),
+            'vendorUrl'      => $this->getParameter('warble_media_phoenix.vendor_details.url'),
         ]);
 
         return new Response($pdfRenderer->getOutputFromHtml($viewHtml), Response::HTTP_OK, [
             'Content-Description'       => 'File Transfer',
             'Content-Disposition'       => 'attachment; filename="' . $filename . '"',
             'Content-Transfer-Encoding' => 'binary',
-            'Content-Type'              => 'application/pdf',
+            'Content-Type' => 'application/pdf',
         ]);
     }
 
