@@ -15,6 +15,12 @@ interface UserManagerInterface
     public function updateUser(UserInterface $user);
 
     /**
+     * @param mixed $email
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
+     */
+    public function findUserById($id);
+
+    /**
      * @param string $email
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
      */

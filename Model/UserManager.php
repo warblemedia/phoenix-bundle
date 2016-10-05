@@ -59,6 +59,15 @@ class UserManager implements UserManagerInterface
     }
 
     /**
+     * @param mixed $email
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
+     */
+    public function findUserById($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
      * @param string $email
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
      */
