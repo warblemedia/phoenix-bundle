@@ -50,6 +50,14 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @return string
+     */
+    public function getTotalRevenueForToday()
+    {
+        return $this->getTotalRevenueForDate(new \DateTime());
+    }
+
+    /**
      * @param \DateTime $date
      * @return string
      */

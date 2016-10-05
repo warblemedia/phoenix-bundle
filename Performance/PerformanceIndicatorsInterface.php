@@ -12,6 +12,11 @@ interface PerformanceIndicatorsInterface
     public function getTotalRevenueToDate();
 
     /**
+     * @return string
+     */
+    public function getTotalRevenueForToday();
+
+    /**
      * @param \DateTime $date
      * @return string
      */
