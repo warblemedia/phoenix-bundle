@@ -199,6 +199,7 @@ class BillingController extends Controller
     {
         $pdfRenderer = $this->get('knp_snappy.pdf');
         $invoiceManager = $this->get('warble_media_phoenix.model.invoice_manager');
+        $productName = $this->getParameter('warble_media_phoenix.product_name');
 
         $user = $this->getUserOrError();
         $customer = $user->getCustomer();
@@ -214,8 +215,7 @@ class BillingController extends Controller
             throw $this->createNotFoundException(sprintf('Stripe invoice not found for invoice with id "%s".', $id));
         }
 
-        // TODO: Configurable product name
-        $filename = sprintf('%s_%s.pdf', 'Phoenix', $invoice->getId());
+        $filename = sprintf('%s_%s.pdf', str_replace($productName, ' ', '_'), $invoice->getId());
         $viewHtml = $this->renderView('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
             'customer'      => $customer,
             'invoice'       => $invoice,
