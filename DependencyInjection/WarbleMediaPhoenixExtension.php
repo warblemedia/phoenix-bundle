@@ -26,11 +26,6 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         $loader->load('listeners.yml');
         $loader->load('security.yml');
 
-        $planManager = $container->getDefinition('warble_media_phoenix.billing.plan_manager');
-        foreach ($config['billing']['plans'] as $id => $plan) {
-            $planManager->addMethodCall('addPlan', [$id, $plan['name'], $plan]);
-        }
-
         $container->setParameter('warble_media_phoenix.default_locale', $config['default_locale']);
         $container->setParameter('warble_media_phoenix.firewall_name', $config['firewall_name']);
         $container->setParameter('warble_media_phoenix.trial_days', $config['trial_days']);
@@ -49,6 +44,20 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
             $container->setParameter("warble_media_phoenix.models.{$key}", $model);
         }
 
+        $container->setAlias('warble_media_phoenix.model.user_manager', $config['services']['user_manager']);
+        $container->setAlias('warble_media_phoenix.model.user_photo_manager', $config['services']['user_photo_manager']);
+        $container->setAlias('warble_media_phoenix.model.customer_manager', $config['services']['customer_manager']);
+        $container->setAlias('warble_media_phoenix.model.subscription_manager', $config['services']['subscription_manager']);
+        $container->setAlias('warble_media_phoenix.model.invoice_manager', $config['services']['invoice_manager']);
+        $container->setAlias('warble_media_phoenix.model.metrics_manager', $config['services']['metrics_manager']);
+        $container->setAlias('warble_media_phoenix.performance.indicators', $config['services']['indicators']);
+        $container->setAlias('warble_media_phoenix.security.registration_manager', $config['services']['registration_manager']);
+        $container->setAlias('warble_media_phoenix.security.login_manager', $config['services']['login_manager']);
+        $container->setAlias('warble_media_phoenix.mailer', $config['services']['mailer']);
+        $container->setAlias('warble_media_phoenix.billing.plan_manager', $config['services']['plan_manager']);
+        $container->setAlias('warble_media_phoenix.billing.payment_processor', $config['services']['payment_processor']);
+        $container->setAlias('warble_media_phoenix.util.token_generator', $config['services']['token_generator']);
+
         foreach ($config['forms'] as $key => $form) {
             $container->setParameter("warble_media_phoenix.forms.{$key}.name", $form['name']);
             $container->setParameter("warble_media_phoenix.forms.{$key}.type", $form['type']);
@@ -58,6 +67,11 @@ class WarbleMediaPhoenixExtension extends Extension implements CompilerPassInter
         }
 
         $container->setParameter('warble_media_phoenix.resetting.token_ttl', $config['resetting']['token_ttl']);
+
+        $planManager = $container->findDefinition('warble_media_phoenix.billing.plan_manager');
+        foreach ($config['billing']['plans'] as $id => $plan) {
+            $planManager->addMethodCall('addPlan', [$id, $plan['name'], $plan]);
+        }
     }
 
     /**

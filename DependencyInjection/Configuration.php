@@ -76,6 +76,7 @@ class Configuration implements ConfigurationInterface
         ;
 
         $this->addModelsSection($rootNode);
+        $this->addServicesSection($rootNode);
         $this->addFormsSection($rootNode);
         $this->addResettingSection($rootNode);
         $this->addBillingSection($rootNode);
@@ -98,6 +99,35 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('subscription_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('invoice_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('metrics_class')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addServicesSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('services')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('user_manager')->defaultValue('warble_media_phoenix.model.user_manager.default')->end()
+                        ->scalarNode('user_photo_manager')->defaultValue('warble_media_phoenix.model.user_photo_manager.default')->end()
+                        ->scalarNode('customer_manager')->defaultValue('warble_media_phoenix.model.customer_manager.default')->end()
+                        ->scalarNode('subscription_manager')->defaultValue('warble_media_phoenix.model.subscription_manager.default')->end()
+                        ->scalarNode('invoice_manager')->defaultValue('warble_media_phoenix.model.invoice_manager.default')->end()
+                        ->scalarNode('metrics_manager')->defaultValue('warble_media_phoenix.model.metrics_manager.default')->end()
+                        ->scalarNode('indicators')->defaultValue('warble_media_phoenix.performance.indicators.default')->end()
+                        ->scalarNode('registration_manager')->defaultValue('warble_media_phoenix.security.registration_manager.default')->end()
+                        ->scalarNode('login_manager')->defaultValue('warble_media_phoenix.security.login_manager.default')->end()
+                        ->scalarNode('mailer')->defaultValue('warble_media_phoenix.mailer.default')->end()
+                        ->scalarNode('plan_manager')->defaultValue('warble_media_phoenix.billing.plan_manager.default')->end()
+                        ->scalarNode('payment_processor')->defaultValue('warble_media_phoenix.billing.payment_processor.default')->end()
+                        ->scalarNode('token_generator')->defaultValue('warble_media_phoenix.util.token_generator.default')->end()
                     ->end()
                 ->end()
             ->end()

@@ -1,59 +1,67 @@
 services:
-    # TODO: Allow custom implementation
-    warble_media_phoenix.model.user_manager:
+    warble_media_phoenix.model.user_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\UserManager
+        public: false
         arguments:
             - '@security.encoder_factory'
             - '@doctrine.orm.entity_manager'
             - '%warble_media_phoenix.models.user_class%'
 
-    warble_media_phoenix.model.user_photo_manager:
+    warble_media_phoenix.model.user_photo_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\UserPhotoManager
+        public: false
         arguments:
             - '%warble_media_phoenix.profile_photos.base_url%'
             - '%warble_media_phoenix.profile_photos.base_path%'
 
-    warble_media_phoenix.model.customer_manager:
+    warble_media_phoenix.model.customer_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\CustomerManager
+        public: false
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.customer_class%'
 
-    warble_media_phoenix.model.subscription_manager:
+    warble_media_phoenix.model.subscription_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\SubscriptionManager
+        public: false
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.subscription_class%'
 
-    warble_media_phoenix.model.invoice_manager:
+    warble_media_phoenix.model.invoice_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\InvoiceManager
+        public: false
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.payment_processor'
             - '%warble_media_phoenix.models.invoice_class%'
 
-    warble_media_phoenix.model.metrics_manager:
+    warble_media_phoenix.model.metrics_manager.default:
         class: WarbleMedia\PhoenixBundle\Model\MetricsManager
+        public: false
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.performance.indicators'
             - '%warble_media_phoenix.models.metrics_class%'
 
-    warble_media_phoenix.performance.indicators:
+    warble_media_phoenix.performance.indicators.default:
         class: WarbleMedia\PhoenixBundle\Performance\PerformanceIndicators
+        public: false
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.plan_manager'
 
-    warble_media_phoenix.security.registration_manager:
+    warble_media_phoenix.security.registration_manager.default:
         class: WarbleMedia\PhoenixBundle\Security\RegistrationManager
+        public: false
         arguments:
             - '@warble_media_phoenix.model.user_manager'
 
-    warble_media_phoenix.security.login_manager:
+    warble_media_phoenix.security.login_manager.default:
         class: WarbleMedia\PhoenixBundle\Security\LoginManager
+        public: false
         arguments:
             - '@security.user_checker'
             - '@request_stack'
@@ -61,23 +69,27 @@ services:
             - '@security.authentication.session_strategy'
             - '@service_container'
 
-    warble_media_phoenix.mailer:
+    warble_media_phoenix.mailer.default:
         class: WarbleMedia\PhoenixBundle\Mailer\Mailer
+        public: false
         arguments:
             - '@twig'
             - '@swiftmailer.mailer'
             - '@service_container'
 
-    warble_media_phoenix.billing.plan_manager:
+    warble_media_phoenix.billing.plan_manager.default:
         class: WarbleMedia\PhoenixBundle\Billing\PlanManager
+        public: false
 
-    warble_media_phoenix.billing.payment_processor:
+    warble_media_phoenix.billing.payment_processor.default:
         class: WarbleMedia\PhoenixBundle\Billing\PaymentProcessor
+        public: false
         arguments:
             - '%warble_media_phoenix.stripe.secret_key%'
 
-    warble_media_phoenix.util.token_generator:
+    warble_media_phoenix.util.token_generator.default:
         class: WarbleMedia\PhoenixBundle\Util\TokenGenerator
+        public: false
 
     warble_media_phoenix.twig.phoenix_variable:
         class: WarbleMedia\PhoenixBundle\Twig\PhoenixVariable
