@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('product_name')
                     ->defaultValue('Phoenix')
-                    ->info('The name of your application used in pdf invoice filenames')
+                    ->info('The name of your application used in pdf invoices')
                 ->end()
                 ->integerNode('trial_days')
                     ->isRequired()
