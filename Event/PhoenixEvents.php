@@ -201,6 +201,15 @@ final class PhoenixEvents
     const PAYMENT_METHOD_COMPLETED = 'warble_media_phoenix.payment_method.update.completed';
 
     /**
+     * The INVOICE_PAYMENT_SUCCESS event occurs when the invoice payment success process is processed.
+     *
+     * This event allows you to access the invoice that was created before it is saved.
+     *
+     * @Event("\WarbleMedia\PhoenixBundle\Event\InvoiceEvent")
+     */
+    const INVOICE_PAYMENT_SUCCESS = 'warble_media_phoenix.billing.invoice_payment_success';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the user that was authenticated.
