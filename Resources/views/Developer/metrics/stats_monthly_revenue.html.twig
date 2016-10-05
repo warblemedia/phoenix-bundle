@@ -7,7 +7,6 @@
             {{ monthlyRecurringRevenue|currency }}
         </div>
 
-        {# TODO: Consider whether these provide enough value to keep #}
         {% if monthlyRecurringRevenue and lastMonthsIndicators %}
             <div style="font-size: 12px;">
                 {{ Metrics.percentChange(monthlyRecurringRevenue, lastMonthsIndicators.monthlyRecurringRevenue) }}% From Last Month
