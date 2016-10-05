@@ -72,152 +72,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('publishable_key')->end()
                     ->end()
                 ->end()
-            ->end();
-        ;
-
-        $this->addModelsSection($rootNode);
-        $this->addServicesSection($rootNode);
-        $this->addFormsSection($rootNode);
-        $this->addResettingSection($rootNode);
-        $this->addBillingSection($rootNode);
-
-        return $treeBuilder;
-    }
-
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
-     */
-    private function addModelsSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('models')
-                    ->isRequired()
-                    ->children()
-                        ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('customer_class')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('subscription_class')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('invoice_class')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('metrics_class')->isRequired()->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
-     */
-    private function addServicesSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('services')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('user_manager')->defaultValue('warble_media_phoenix.model.user_manager.default')->end()
-                        ->scalarNode('user_photo_manager')->defaultValue('warble_media_phoenix.model.user_photo_manager.default')->end()
-                        ->scalarNode('customer_manager')->defaultValue('warble_media_phoenix.model.customer_manager.default')->end()
-                        ->scalarNode('subscription_manager')->defaultValue('warble_media_phoenix.model.subscription_manager.default')->end()
-                        ->scalarNode('invoice_manager')->defaultValue('warble_media_phoenix.model.invoice_manager.default')->end()
-                        ->scalarNode('metrics_manager')->defaultValue('warble_media_phoenix.model.metrics_manager.default')->end()
-                        ->scalarNode('indicators')->defaultValue('warble_media_phoenix.performance.indicators.default')->end()
-                        ->scalarNode('registration_manager')->defaultValue('warble_media_phoenix.security.registration_manager.default')->end()
-                        ->scalarNode('login_manager')->defaultValue('warble_media_phoenix.security.login_manager.default')->end()
-                        ->scalarNode('mailer')->defaultValue('warble_media_phoenix.mailer.default')->end()
-                        ->scalarNode('plan_manager')->defaultValue('warble_media_phoenix.billing.plan_manager.default')->end()
-                        ->scalarNode('payment_processor')->defaultValue('warble_media_phoenix.billing.payment_processor.default')->end()
-                        ->scalarNode('token_generator')->defaultValue('warble_media_phoenix.util.token_generator.default')->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
-     */
-    private function addFormsSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('forms')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('registration')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_registration_type')->end()
-                                ->scalarNode('type')->defaultValue(RegistrationFormType::class)->end()
-                                ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('resetting')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_resetting_type')->end()
-                                ->scalarNode('type')->defaultValue(ResettingFormType::class)->end()
-                                ->scalarNode('validation_groups')->defaultValue(['Resetting', 'Default'])->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('profile')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_type')->end()
-                                ->scalarNode('type')->defaultValue(ProfileFormType::class)->end()
-                                ->scalarNode('validation_groups')->defaultValue(['Profile', 'Default'])->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('profile_photo')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_photo_type')->end()
-                                ->scalarNode('type')->defaultValue(ProfilePhotoFormType::class)->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('change_password')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_change_password_type')->end()
-                                ->scalarNode('type')->defaultValue(ChangePasswordFormType::class)->end()
-                                ->scalarNode('validation_groups')->defaultValue(['ChangePassword', 'Default'])->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('subscription')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_subscription_type')->end()
-                                ->scalarNode('type')->defaultValue(SubscriptionType::class)->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('payment_method')
-                            ->canBeUnset()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('name')->defaultValue('warble_media_phoenix_payment_method_type')->end()
-                                ->scalarNode('type')->defaultValue(PaymentMethodType::class)->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
-     */
-    private function addResettingSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
                 ->arrayNode('resetting')
                     ->canBeUnset()
                     ->addDefaultsIfNotSet()
@@ -226,63 +80,200 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
+            ->append($this->addModelsSection())
+            ->append($this->addServicesSection())
+            ->append($this->addFormsSection())
+            ->append($this->addBillingSection())
         ;
+
+        return $treeBuilder;
     }
 
     /**
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    private function addBillingSection(ArrayNodeDefinition $node)
+    private function addModelsSection()
     {
+        $builder = new TreeBuilder();
+        $node = $builder->root('models');
+
         $node
+            ->isRequired()
             ->children()
-                ->arrayNode('billing')
-                    ->fixXmlConfig('plan')
+                ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('customer_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('subscription_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('invoice_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('metrics_class')->isRequired()->cannotBeEmpty()->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function addServicesSection()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('services');
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('user_manager')->defaultValue('warble_media_phoenix.model.user_manager.default')->end()
+                ->scalarNode('user_photo_manager')->defaultValue('warble_media_phoenix.model.user_photo_manager.default')->end()
+                ->scalarNode('customer_manager')->defaultValue('warble_media_phoenix.model.customer_manager.default')->end()
+                ->scalarNode('subscription_manager')->defaultValue('warble_media_phoenix.model.subscription_manager.default')->end()
+                ->scalarNode('invoice_manager')->defaultValue('warble_media_phoenix.model.invoice_manager.default')->end()
+                ->scalarNode('metrics_manager')->defaultValue('warble_media_phoenix.model.metrics_manager.default')->end()
+                ->scalarNode('indicators')->defaultValue('warble_media_phoenix.performance.indicators.default')->end()
+                ->scalarNode('registration_manager')->defaultValue('warble_media_phoenix.security.registration_manager.default')->end()
+                ->scalarNode('login_manager')->defaultValue('warble_media_phoenix.security.login_manager.default')->end()
+                ->scalarNode('mailer')->defaultValue('warble_media_phoenix.mailer.default')->end()
+                ->scalarNode('plan_manager')->defaultValue('warble_media_phoenix.billing.plan_manager.default')->end()
+                ->scalarNode('payment_processor')->defaultValue('warble_media_phoenix.billing.payment_processor.default')->end()
+                ->scalarNode('token_generator')->defaultValue('warble_media_phoenix.util.token_generator.default')->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function addFormsSection()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('forms');
+
+        $node
+            ->canBeUnset()
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('registration')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('currency')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                            ->info('3-letter ISO 4217 currency code')
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_registration_type')->end()
+                        ->scalarNode('type')->defaultValue(RegistrationFormType::class)->end()
+                        ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
+                    ->end()
+                ->end()
+                ->arrayNode('resetting')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_resetting_type')->end()
+                        ->scalarNode('type')->defaultValue(ResettingFormType::class)->end()
+                        ->scalarNode('validation_groups')->defaultValue(['Resetting', 'Default'])->end()
+                    ->end()
+                ->end()
+                ->arrayNode('profile')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_type')->end()
+                        ->scalarNode('type')->defaultValue(ProfileFormType::class)->end()
+                        ->scalarNode('validation_groups')->defaultValue(['Profile', 'Default'])->end()
+                    ->end()
+                ->end()
+                ->arrayNode('profile_photo')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_photo_type')->end()
+                        ->scalarNode('type')->defaultValue(ProfilePhotoFormType::class)->end()
+                    ->end()
+                ->end()
+                ->arrayNode('change_password')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_change_password_type')->end()
+                        ->scalarNode('type')->defaultValue(ChangePasswordFormType::class)->end()
+                        ->scalarNode('validation_groups')->defaultValue(['ChangePassword', 'Default'])->end()
+                    ->end()
+                ->end()
+                ->arrayNode('subscription')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_subscription_type')->end()
+                        ->scalarNode('type')->defaultValue(SubscriptionType::class)->end()
+                    ->end()
+                ->end()
+                ->arrayNode('payment_method')
+                    ->canBeUnset()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('warble_media_phoenix_payment_method_type')->end()
+                        ->scalarNode('type')->defaultValue(PaymentMethodType::class)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function addBillingSection()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('billing');
+
+        $node
+            ->fixXmlConfig('plan')
+            ->children()
+                ->scalarNode('currency')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->info('3-letter ISO 4217 currency code')
+                ->end()
+                ->arrayNode('plans')
+                    ->useAttributeAsKey('id')
+                    ->prototype('array')
+                        ->beforeNormalization()
+                            ->ifString()
+                            ->then(function ($v) { return ['name' => $v]; })
                         ->end()
-                        ->arrayNode('plans')
-                            ->useAttributeAsKey('id')
-                            ->prototype('array')
-                                ->beforeNormalization()
-                                    ->ifString()
-                                    ->then(function ($v) { return ['name' => $v]; })
+                        ->children()
+                            ->scalarNode('name')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->floatNode('price')
+                                ->defaultValue(0)
+                                ->validate()
+                                    ->ifTrue(function ($v) { return $v < 0; })
+                                    ->thenInvalid('Invalid price %f must be greater than or equal to 0.')
                                 ->end()
-                                ->children()
-                                    ->scalarNode('name')
-                                        ->isRequired()
-                                        ->cannotBeEmpty()
-                                    ->end()
-                                    ->floatNode('price')
-                                        ->defaultValue(0)
-                                        ->validate()
-                                            ->ifTrue(function ($v) { return $v < 0; })
-                                            ->thenInvalid('Invalid price %f must be greater than or equal to 0.')
-                                        ->end()
-                                    ->end()
-                                    ->enumNode('interval')
-                                        ->values(['monthly', 'yearly'])
-                                        ->defaultValue('monthly')
-                                    ->end()
-                                    ->integerNode('trial_days')
-                                        ->defaultValue(0)
-                                    ->end()
-                                    ->booleanNode('active')
-                                        ->defaultTrue()
-                                    ->end()
-                                    ->arrayNode('features')
-                                        ->canBeUnset()
-                                        ->prototype('scalar')->end()
-                                    ->end()
-                                ->end()
+                            ->end()
+                            ->enumNode('interval')
+                                ->values(['monthly', 'yearly'])
+                                ->defaultValue('monthly')
+                            ->end()
+                            ->integerNode('trial_days')
+                                ->defaultValue(0)
+                            ->end()
+                            ->booleanNode('active')
+                                ->defaultTrue()
+                            ->end()
+                            ->arrayNode('features')
+                                ->canBeUnset()
+                                ->prototype('scalar')->end()
                             ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end()
         ;
+
+        return $node;
     }
 }
