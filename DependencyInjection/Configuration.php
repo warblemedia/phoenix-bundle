@@ -153,68 +153,43 @@ class Configuration implements ConfigurationInterface
             ->canBeUnset()
             ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('registration')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_registration_type')->end()
-                        ->scalarNode('type')->defaultValue(RegistrationFormType::class)->end()
-                        ->scalarNode('validation_groups')->defaultValue(['Registration', 'Default'])->end()
-                    ->end()
-                ->end()
-                ->arrayNode('resetting')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_resetting_type')->end()
-                        ->scalarNode('type')->defaultValue(ResettingFormType::class)->end()
-                        ->scalarNode('validation_groups')->defaultValue(['Resetting', 'Default'])->end()
-                    ->end()
-                ->end()
-                ->arrayNode('profile')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_type')->end()
-                        ->scalarNode('type')->defaultValue(ProfileFormType::class)->end()
-                        ->scalarNode('validation_groups')->defaultValue(['Profile', 'Default'])->end()
-                    ->end()
-                ->end()
-                ->arrayNode('profile_photo')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_profile_photo_type')->end()
-                        ->scalarNode('type')->defaultValue(ProfilePhotoFormType::class)->end()
-                    ->end()
-                ->end()
-                ->arrayNode('change_password')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_change_password_type')->end()
-                        ->scalarNode('type')->defaultValue(ChangePasswordFormType::class)->end()
-                        ->scalarNode('validation_groups')->defaultValue(['ChangePassword', 'Default'])->end()
-                    ->end()
-                ->end()
-                ->arrayNode('subscription')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_subscription_type')->end()
-                        ->scalarNode('type')->defaultValue(SubscriptionType::class)->end()
-                    ->end()
-                ->end()
-                ->arrayNode('payment_method')
-                    ->canBeUnset()
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('name')->defaultValue('warble_media_phoenix_payment_method_type')->end()
-                        ->scalarNode('type')->defaultValue(PaymentMethodType::class)->end()
-                    ->end()
-                ->end()
+                ->append($this->addFormsChildSection('registration', RegistrationFormType::class, ['Registration', 'Default']))
+                ->append($this->addFormsChildSection('resetting', ResettingFormType::class, ['Resetting', 'Default']))
+                ->append($this->addFormsChildSection('profile', ProfileFormType::class, ['Profile', 'Default']))
+                ->append($this->addFormsChildSection('profile_photo', ProfilePhotoFormType::class))
+                ->append($this->addFormsChildSection('change_password', ChangePasswordFormType::class, ['ChangePassword', 'Default']))
+                ->append($this->addFormsChildSection('subscription', SubscriptionType::class))
+                ->append($this->addFormsChildSection('payment_method', PaymentMethodType::class))
             ->end()
         ;
+
+        return $node;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function addFormsChildSection($name, $default, array $validationGroups = null)
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root($name);
+
+        $node
+            ->canBeUnset()
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('name')->defaultValue("warble_media_phoenix_{$name}_type")->end()
+                ->scalarNode('type')->defaultValue($default)->end()
+            ->end()
+        ;
+
+        if ($validationGroups !== null) {
+            $node
+                ->children()
+                    ->scalarNode('validation_groups')->defaultValue($validationGroups)->end()
+                ->end()
+            ;
+        }
 
         return $node;
     }
