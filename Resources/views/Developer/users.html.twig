@@ -6,6 +6,8 @@
     {% if query is not null %}
         {% if results is empty %}
             {% include "WarbleMediaPhoenixBundle:Developer/users:no_results.html.twig" %}
+        {% else %}
+            {% include "WarbleMediaPhoenixBundle:Developer/users:results.html.twig" %}
         {% endif %}
     {% endif %}
 {% endblock %}

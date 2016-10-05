@@ -1,0 +1,33 @@
+<div class="card">
+        <div class="card-header">Search Results</div>
+        <div class="card-block">
+            <table class="table table-borderless m-b-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in results %}
+                        <tr>
+                            <td>
+                                <img src="{{ user.photoUrl }}" width="38" height="38" class="img-circle img-thumbnail">
+                            </td>
+                            <td>
+                                <div class="btn-table-align">{{ user.name }}</div>
+                            </td>
+                            <td>
+                                <div class="btn-table-align">{{ user.email }}</div>
+                            </td>
+                            <td>
+                                <a href="{# TODO: User profile page #}" class="btn btn-secondary">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
