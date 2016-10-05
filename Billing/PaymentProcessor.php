@@ -156,6 +156,18 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     */
+    public function synchroniseCustomer(CustomerInterface $customer)
+    {
+        if ($customer->getStripeId()) {
+            $stripeCustomer = StripeCustomer::retrieve($customer->getStripeId(), $this->stripeKey);
+            $stripeCustomer->email = $customer->getEmail();
+            $stripeCustomer->save();
+        }
+    }
+
+    /**
      * @param  string|null $token
      * @param  array       $options
      * @return \Stripe\Customer

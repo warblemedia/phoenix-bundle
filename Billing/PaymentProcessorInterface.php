@@ -47,4 +47,9 @@ interface PaymentProcessorInterface
      * @return \Stripe\Invoice|null
      */
     public function getCustomerInvoice(CustomerInterface $customer, string $invoiceId);
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     */
+    public function synchroniseCustomer(CustomerInterface $customer);
 }
