@@ -86,6 +86,7 @@ services:
         public: false
         arguments:
             - '%warble_media_phoenix.stripe.secret_key%'
+            - '%warble_media_phoenix.billing.prorate_plan_upgrades%'
 
     warble_media_phoenix.util.token_generator.default:
         class: WarbleMedia\PhoenixBundle\Util\TokenGenerator

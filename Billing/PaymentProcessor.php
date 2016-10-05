@@ -21,11 +21,12 @@ class PaymentProcessor implements PaymentProcessorInterface
      * PaymentProcessor constructor.
      *
      * @param string $stripeKey
+     * @param bool   $prorate
      */
-    public function __construct(string $stripeKey)
+    public function __construct(string $stripeKey, bool $prorate = true)
     {
         $this->stripeKey = $stripeKey;
-        // TODO: Add configuration param for proration
+        $this->prorate = $prorate;
     }
 
     /**
