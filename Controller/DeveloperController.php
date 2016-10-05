@@ -2,6 +2,8 @@
 
 namespace WarbleMedia\PhoenixBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class DeveloperController extends Controller
 {
     /**
@@ -26,6 +28,17 @@ class DeveloperController extends Controller
             'lastMonthsIndicators'    => $indicators->getHistoricalIndicatorsFor($lastMonth),
             'lastYearsIndicators'     => $indicators->getHistoricalIndicatorsFor($lastYear),
             'subscribersByPlan'       => $indicators->getSubscribersByPlan(),
+        ]);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function usersAction(Request $request)
+    {
+        return $this->render('WarbleMediaPhoenixBundle:Developer:users.html.twig', [
+            // ...
         ]);
     }
 }
