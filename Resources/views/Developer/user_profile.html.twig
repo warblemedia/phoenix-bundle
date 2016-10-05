@@ -12,6 +12,14 @@
             <div class="pull-xs-left btn-table-align">
                 {{ profile.name }}
             </div>
+
+            {% if app.user.id != profile.id %}
+                <div class="pull-xs-right">
+                    <a href="{{ path('warble_media_phoenix_settings', {'_switch_user': profile.username}) }}" class="btn btn-secondary">
+                        Impersonate
+                    </a>
+                </div>
+            {% endif %}
         </div>
         <div class="card-block">
             <div class="row">
