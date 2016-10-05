@@ -13,4 +13,9 @@ interface MetricsManagerInterface
      * @param \WarbleMedia\PhoenixBundle\Model\MetricsInterface $metrics
      */
     public function updateMetrics(MetricsInterface $metrics);
+
+    /**
+     * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface
+     */
+    public function captureTodaysMetrics(): MetricsInterface;
 }

@@ -36,6 +36,7 @@ services:
         class: WarbleMedia\PhoenixBundle\Model\MetricsManager
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@warble_media_phoenix.performance.indicators'
             - '%warble_media_phoenix.models.metrics_class%'
 
     warble_media_phoenix.performance.indicators:
