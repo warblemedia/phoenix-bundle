@@ -28,6 +28,16 @@
                         {{ profile.createdAt|date('F j, Y - g:ia') }}
                     </p>
                     <p>
+                        <strong>Subscription:</strong>
+                        {% if activePlan %}
+                            <a href="https://dashboard.stripe.com/customers/{{ customer.stripeId }}" target="_blank">
+                                {{ activePlan.name }} ({{ activePlan.interval|capitalize }})
+                            </a>
+                        {% else %}
+                            None
+                        {% endif %}
+                    </p>
+                    <p>
                         <strong>Total Revenue:</strong>
                         {{ totalRevenue|currency }}
                     </p>

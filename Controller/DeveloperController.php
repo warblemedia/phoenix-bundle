@@ -61,20 +61,46 @@ class DeveloperController extends Controller
      */
     public function userProfileAction(Request $request, $id)
     {
-        $userManager = $this->get('warble_media_phoenix.model.user_manager');
         $indicators = $this->get('warble_media_phoenix.performance.indicators');
+        $planManager = $this->get('warble_media_phoenix.billing.plan_manager');
 
         $query = $request->getSession()->get('warble_media_phoenix_developer_users.query');
+        $profile = $this->getUserProfileOrError($id);
+        $customer = $profile->getCustomer();
+
+        $activeSubscription = null;
+        if ($customer->hasSubscription()) {
+            $activeSubscription = $customer->getSubscription();
+        }
+
+        $activePlan = null;
+        if ($activeSubscription) {
+            $activePlan = $planManager->getPlan($activeSubscription->getStripePlan());
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Developer:user_profile.html.twig', [
+            'query'        => $query,
+            'profile'      => $profile,
+            'customer'     => $customer,
+            'activePlan'   => $activePlan,
+            'totalRevenue' => $indicators->getTotalRevenueForCustomer($customer),
+        ]);
+    }
+
+    /**
+     * @param mixed $id
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface
+     */
+    protected function getUserProfileOrError($id)
+    {
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+
         $profile = $userManager->findUserById($id);
 
         if ($profile === null) {
             throw $this->createNotFoundException(sprintf('User wih id "%s" not found.', $id));
         }
 
-        return $this->render('WarbleMediaPhoenixBundle:Developer:user_profile.html.twig', [
-            'query'        => $query,
-            'profile'      => $profile,
-            'totalRevenue' => $indicators->getTotalRevenueForCustomer($profile->getCustomer()),
-        ]);
+        return $profile;
     }
 }
