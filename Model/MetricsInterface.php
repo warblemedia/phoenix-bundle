@@ -32,12 +32,12 @@ interface MetricsInterface extends \JsonSerializable
     /**
      * @return string
      */
-    public function getTotalRevenueToDate();
+    public function getTotalRevenue();
 
     /**
-     * @param string $totalRevenueToDate
+     * @param string $totalRevenue
      */
-    public function setTotalRevenueToDate(string $totalRevenueToDate);
+    public function setTotalRevenue(string $totalRevenue);
 
     /**
      * @return int

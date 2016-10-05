@@ -5,7 +5,7 @@
 
     drawCurrencyChart('monthlyRecurringRevenueChart', 30, 'monthly_recurring_revenue');
     drawCurrencyChart('yearlyRecurringRevenueChart', 30, 'yearly_recurring_revenue');
-    drawCurrencyChart('dailyTotalRevenueChart', 14, 'total_revenue_to_date');
+    drawCurrencyChart('dailyTotalRevenueChart', 14, 'total_revenue');
     drawChart('newCustomersChart', 14, 'new_customers');
 
     function drawCurrencyChart(id, days, dataKey) {

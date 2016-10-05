@@ -17,7 +17,7 @@
 
         <field name="yearlyRecurringRevenue" column="yearly_recurring_revenue" type="decimal" precision="12" scale="2" />
 
-        <field name="totalRevenueToDate" column="total_revenue_to_date" type="decimal" precision="12" scale="2" />
+        <field name="totalRevenue" column="total_revenue" type="decimal" precision="12" scale="2" />
 
         <field name="newCustomers" column="new_customers" type="integer" />
 

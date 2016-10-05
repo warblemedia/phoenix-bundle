@@ -18,7 +18,7 @@ abstract class Metrics implements MetricsInterface
     protected $yearlyRecurringRevenue;
 
     /** @var string */
-    protected $totalRevenueToDate;
+    protected $totalRevenue;
 
     /** @var int */
     protected $newCustomers;
@@ -66,17 +66,17 @@ abstract class Metrics implements MetricsInterface
     /**
      * @return string
      */
-    public function getTotalRevenueToDate()
+    public function getTotalRevenue()
     {
-        return $this->totalRevenueToDate;
+        return $this->totalRevenue;
     }
 
     /**
-     * @param string $totalRevenueToDate
+     * @param string $totalRevenue
      */
-    public function setTotalRevenueToDate(string $totalRevenueToDate)
+    public function setTotalRevenue(string $totalRevenue)
     {
-        $this->totalRevenueToDate = $totalRevenueToDate;
+        $this->totalRevenue = $totalRevenue;
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class Metrics implements MetricsInterface
         return [
             'monthly_recurring_revenue' => $this->monthlyRecurringRevenue,
             'yearly_recurring_revenue'  => $this->yearlyRecurringRevenue,
-            'total_revenue_to_date'     => $this->totalRevenueToDate,
+            'total_revenue'             => $this->totalRevenue,
             'new_customers'             => $this->newCustomers,
             'created_at'                => $this->createdAt->format('Y-m-d'),
         ];
