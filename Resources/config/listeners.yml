@@ -27,6 +27,13 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    warble_media_phoenix.event_listener.sync_stripe_customer_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\SyncStripeCustomerSubscriber
+        arguments:
+            - '@warble_media_phoenix.billing.payment_processor'
+        tags:
+            - { name: kernel.event_subscriber }
+
     warble_media_phoenix.event_listener.stripe_webhook_subscriber:
         class: WarbleMedia\PhoenixBundle\EventListener\StripeWebhookSubscriber
         arguments:
