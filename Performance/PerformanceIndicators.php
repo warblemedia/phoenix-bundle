@@ -118,6 +118,14 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @return int
+     */
+    public function getCustomersRegisteredToday()
+    {
+        // TODO: Implement getCustomersRegisteredToday() method.
+    }
+
+    /**
      * @param int $count
      * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface[]
      */

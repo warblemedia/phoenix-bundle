@@ -39,6 +39,11 @@ interface PerformanceIndicatorsInterface
     public function getTrialCustomerCount();
 
     /**
+     * @return int
+     */
+    public function getCustomersRegisteredToday();
+
+    /**
      * @param int $count
      * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface[]
      */
