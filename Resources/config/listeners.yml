@@ -27,6 +27,13 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    warble_media_phoenix.event_listener.customer_trial_subscriber:
+        class: WarbleMedia\PhoenixBundle\EventListener\CustomerTrialSubscriber
+        arguments:
+             - '%warble_media_phoenix.trial_days%'
+        tags:
+            - { name: kernel.event_subscriber }
+
     warble_media_phoenix.event_listener.sync_stripe_customer_subscriber:
         class: WarbleMedia\PhoenixBundle\EventListener\SyncStripeCustomerSubscriber
         arguments:

@@ -15,7 +15,6 @@ services:
             - '@security.encoder_factory'
             - '@doctrine.orm.entity_manager'
             - '@warble_media_phoenix.billing.payment_processor'
-            - '%warble_media_phoenix.trial_days%'
             - '%warble_media_phoenix.models.customer_class%'
 
     warble_media_phoenix.model.subscription_manager:
