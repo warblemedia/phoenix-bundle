@@ -52,4 +52,13 @@ class DeveloperController extends Controller
             'results' => $results,
         ]);
     }
+
+    /**
+     * @param mixed $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function userProfileAction($id)
+    {
+        // TODO: Implement userProfileAction() method.
+    }
 }

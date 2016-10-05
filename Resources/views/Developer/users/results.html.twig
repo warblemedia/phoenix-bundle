@@ -23,7 +23,7 @@
                                 <div class="btn-table-align">{{ user.email }}</div>
                             </td>
                             <td>
-                                <a href="{# TODO: User profile page #}" class="btn btn-secondary">View</a>
+                                <a href="{{ path('warble_media_phoenix_developer_user_profile', {'id': user.id}) }}" class="btn btn-secondary">View</a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -12,3 +12,8 @@ warble_media_phoenix_developer_users:
     path:     /users
     methods:  [GET]
     defaults: { _controller: WarbleMediaPhoenixBundle:Developer:users }
+
+warble_media_phoenix_developer_user_profile:
+    path:     /users/{id}
+    methods:  [GET]
+    defaults: { _controller: WarbleMediaPhoenixBundle:Developer:userProfile }
