@@ -139,7 +139,16 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
      */
     public function getCustomersRegisteredToday()
     {
-        // TODO: Implement getCustomersRegisteredToday() method.
+        return $this->getCustomersRegisteredOnDate(new \DateTime());
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return int
+     */
+    public function getCustomersRegisteredOnDate(\DateTime $date)
+    {
+        // TODO: Implement getCustomersRegisteredOnDate() method.
     }
 
     /**

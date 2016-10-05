@@ -49,6 +49,12 @@ interface PerformanceIndicatorsInterface
     public function getCustomersRegisteredToday();
 
     /**
+     * @param \DateTime $date
+     * @return int
+     */
+    public function getCustomersRegisteredOnDate(\DateTime $date);
+
+    /**
      * @param int $count
      * @return \WarbleMedia\PhoenixBundle\Model\MetricsInterface[]
      */
