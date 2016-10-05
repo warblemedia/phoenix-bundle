@@ -3,7 +3,15 @@
 {% block main_content %}
     <div class="card">
         <div class="card-header">
-            {{ profile.name }}
+            {% if query %}
+                <a href="{{ path('warble_media_phoenix_developer_users', {'query': query}) }}" class="btn btn-secondary pull-xs-left m-r-2" title="Back to search results">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            {% endif %}
+
+            <div class="pull-xs-left btn-table-align">
+                {{ profile.name }}
+            </div>
         </div>
         <div class="card-block">
             <div class="row">

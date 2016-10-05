@@ -41,6 +41,8 @@ class DeveloperController extends Controller
         $userManager = $this->get('warble_media_phoenix.model.user_manager');
 
         $query = $request->query->get('query');
+        $request->getSession()->set('warble_media_phoenix_developer_users.query', $query);
+
         $results = [];
 
         if (!empty($query)) {
@@ -57,11 +59,12 @@ class DeveloperController extends Controller
      * @param mixed $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function userProfileAction($id)
+    public function userProfileAction(Request $request, $id)
     {
         $userManager = $this->get('warble_media_phoenix.model.user_manager');
         $indicators = $this->get('warble_media_phoenix.performance.indicators');
 
+        $query = $request->getSession()->get('warble_media_phoenix_developer_users.query');
         $profile = $userManager->findUserById($id);
 
         if ($profile === null) {
@@ -69,6 +72,7 @@ class DeveloperController extends Controller
         }
 
         return $this->render('WarbleMediaPhoenixBundle:Developer:user_profile.html.twig', [
+            'query'        => $query,
             'profile'      => $profile,
             'totalRevenue' => $indicators->getTotalRevenueForCustomer($profile->getCustomer()),
         ]);
