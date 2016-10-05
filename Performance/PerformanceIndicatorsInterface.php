@@ -2,12 +2,20 @@
 
 namespace WarbleMedia\PhoenixBundle\Performance;
 
+use WarbleMedia\PhoenixBundle\Model\CustomerInterface;
+
 interface PerformanceIndicatorsInterface
 {
     /**
      * @return string
      */
     public function getTotalRevenueToDate();
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @return string
+     */
+    public function getTotalRevenueForCustomer(CustomerInterface $customer);
 
     /**
      * @return string

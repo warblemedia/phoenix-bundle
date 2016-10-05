@@ -50,6 +50,24 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
     }
 
     /**
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @return string
+     */
+    public function getTotalRevenueForCustomer(CustomerInterface $customer)
+    {
+        $invoices = InvoiceInterface::class;
+
+        $dql = 'SELECT sum(i.totalAmount) ' .
+               "FROM {$invoices} i " .
+               'WHERE i.customer = :customer';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setParameter('customer', $customer);
+
+        return (int) $query->getSingleScalarResult();
+    }
+
+    /**
      * @return string
      */
     public function getYearlyRecurringRevenue()
