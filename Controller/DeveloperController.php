@@ -59,6 +59,18 @@ class DeveloperController extends Controller
      */
     public function userProfileAction($id)
     {
-        // TODO: Implement userProfileAction() method.
+        $userManager = $this->get('warble_media_phoenix.model.user_manager');
+        $indicators = $this->get('warble_media_phoenix.performance.indicators');
+
+        $profile = $userManager->findUserById($id);
+
+        if ($profile === null) {
+            throw $this->createNotFoundException(sprintf('User wih id "%s" not found.', $id));
+        }
+
+        return $this->render('WarbleMediaPhoenixBundle:Developer:user_profile.html.twig', [
+            'profile'      => $profile,
+            'totalRevenue' => $indicators->getTotalRevenueForCustomer($profile->getCustomer()),
+        ]);
     }
 }

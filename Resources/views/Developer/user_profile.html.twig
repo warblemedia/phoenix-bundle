@@ -1,0 +1,30 @@
+{% extends 'WarbleMediaPhoenixBundle:Developer:layout.html.twig' %}
+
+{% block main_content %}
+    <div class="card">
+        <div class="card-header">
+            {{ profile.name }}
+        </div>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-md-3 text-xs-center">
+                    <img src="{{ profile.photoUrl }}" width="125" height="125" class="img-circle img-thumbnail">
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        <strong>Email Address:</strong>
+                        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                    </p>
+                    <p>
+                        <strong>Joined:</strong>
+                        {{ profile.createdAt|date('F j, Y - g:ia') }}
+                    </p>
+                    <p>
+                        <strong>Total Revenue:</strong>
+                        {{ totalRevenue|currency }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
