@@ -148,7 +148,20 @@ class PerformanceIndicators implements PerformanceIndicatorsInterface
      */
     public function getCustomersRegisteredOnDate(\DateTime $date)
     {
-        // TODO: Implement getCustomersRegisteredOnDate() method.
+        $customers = CustomerInterface::class;
+
+        $dql = 'SELECT count(c.id) ' .
+               "FROM {$customers} c " .
+               'WHERE c.createdAt LIKE :date';
+
+        $query = $this->manager->createQuery($dql);
+        $query->setParameter('date', $date->format('Y-m-d') . '%');
+
+        try {
+            return (int) $query->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return 0;
+        }
     }
 
     /**
