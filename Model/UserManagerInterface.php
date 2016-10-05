@@ -25,4 +25,11 @@ interface UserManagerInterface
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
      */
     public function findUserByConfirmationToken(string $token);
+
+    /**
+     * @param string                                         $search
+     * @param \WarbleMedia\PhoenixBundle\Model\UserInterface $exclude
+     * @return \WarbleMedia\PhoenixBundle\Model\UserInterface[]
+     */
+    public function findUsersBySearchString(string $search, UserInterface $exclude = null);
 }
