@@ -116,8 +116,7 @@
 
                             {% for line in stripeInvoice.lines.data if line.type == 'subscription' %}
                                 <tr>
-                                    {# TODO: Product name #}
-                                    <td class="text-xs-left">Jackdaw Subscription</td>
+                                    <td class="text-xs-left">{{ productName }} Subscription</td>
                                     <td class="text-xs-left">
                                         {{ line.period.start|date('F j, Y') }} &ndash;
                                         {{ line.period.end|date('F j, Y') }}

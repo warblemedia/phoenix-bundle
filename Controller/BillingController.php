@@ -219,6 +219,7 @@ class BillingController extends Controller
         $viewHtml = $this->renderView('WarbleMediaPhoenixBundle:Settings:invoice_pdf.html.twig', [
             'customer'      => $customer,
             'invoice'       => $invoice,
+            'productName'   => $productName,
             'stripeInvoice' => $stripeInvoice,
         ]);
 
