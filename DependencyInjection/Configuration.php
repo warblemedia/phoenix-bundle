@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->validate()
                         ->ifTrue(function ($v) { return $v < 0; })
-                        ->thenInvalid('Trial days must be greater than 0')
+                        ->thenInvalid('Trial days must be not be less than 0')
                     ->end()
                 ->end()
                 ->scalarNode('support_email_address')
