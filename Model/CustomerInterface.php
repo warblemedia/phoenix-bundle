@@ -2,8 +2,18 @@
 
 namespace WarbleMedia\PhoenixBundle\Model;
 
-interface CustomerInterface extends UserInterface
+interface CustomerInterface
 {
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @return string
+     */
+    public function getEmail();
+
     /**
      * @return string
      */
