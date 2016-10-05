@@ -29,7 +29,6 @@ abstract class Metrics implements MetricsInterface
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
     }
 
     /**
