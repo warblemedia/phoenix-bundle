@@ -3,11 +3,16 @@
 namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface;
 
-class CustomerManager extends UserManager implements CustomerManagerInterface
+class CustomerManager implements CustomerManagerInterface
 {
+    /** @var \Doctrine\ORM\EntityManager */
+    private $manager;
+
+    /** @var \Doctrine\ORM\EntityRepository */
+    private $repository;
+
     /** @var \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface */
     private $paymentProcessor;
 
@@ -17,14 +22,14 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
     /**
      * CustomerManager constructor.
      *
-     * @param \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $passwordEncoder
-     * @param \Doctrine\ORM\EntityManager                                      $manager
-     * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface     $paymentProcessor
-     * @param string                                                           $customerClass
+     * @param \Doctrine\ORM\EntityManager                                  $manager
+     * @param \WarbleMedia\PhoenixBundle\Billing\PaymentProcessorInterface $paymentProcessor
+     * @param string                                                       $customerClass
      */
-    public function __construct(EncoderFactoryInterface $passwordEncoder, EntityManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
+    public function __construct(EntityManager $manager, PaymentProcessorInterface $paymentProcessor, string $customerClass)
     {
-        parent::__construct($passwordEncoder, $manager, $customerClass);
+        $this->manager = $manager;
+        $this->repository = $manager->getRepository($customerClass);
         $this->paymentProcessor = $paymentProcessor;
         $this->customerClass = $customerClass;
     }
@@ -48,7 +53,11 @@ class CustomerManager extends UserManager implements CustomerManagerInterface
      */
     public function updateCustomer(CustomerInterface $customer, bool $flush = true)
     {
-        $this->updateUser($customer, $flush);
+        $this->manager->persist($customer);
+
+        if ($flush) {
+            $this->manager->flush();
+        }
     }
 
     /**
