@@ -37,8 +37,10 @@ class DeveloperController extends Controller
      */
     public function usersAction(Request $request)
     {
+        $query = $request->query->get('query');
+
         return $this->render('WarbleMediaPhoenixBundle:Developer:users.html.twig', [
-            // ...
+            'query' => $query,
         ]);
     }
 }
