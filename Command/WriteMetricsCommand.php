@@ -21,6 +21,7 @@ class WriteMetricsCommand extends ContainerAwareCommand
     /**
      * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -30,5 +31,7 @@ class WriteMetricsCommand extends ContainerAwareCommand
         $metricsManager->updateMetrics($metrics);
 
         $output->writeln('Wrote today\'s metrics to the database.');
+
+        return 0;
     }
 }
