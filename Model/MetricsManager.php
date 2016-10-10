@@ -3,7 +3,6 @@
 namespace WarbleMedia\PhoenixBundle\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use WarbleMedia\PhoenixBundle\Performance\PerformanceIndicators;
 use WarbleMedia\PhoenixBundle\Performance\PerformanceIndicatorsInterface;
 
 class MetricsManager implements MetricsManagerInterface
