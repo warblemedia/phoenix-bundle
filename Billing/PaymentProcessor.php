@@ -65,15 +65,7 @@ class PaymentProcessor implements PaymentProcessorInterface
         $stripeSubscription = $stripeCustomer->subscriptions->retrieve($subscription->getStripeId());
         $stripeSubscription->plan = $subscription->getStripePlan();
         $stripeSubscription->prorate = $this->prorate;
-
-        // If no specific trial end date has been set, the default behavior should be
-        // to maintain the current trial state, whether that is "active" or to run
-        // the swap out with the exact number of days left on this current plan.
-        if ($subscription->isOnTrialPeriod()) {
-            $stripeSubscription->trial_end = $subscription->getTrialEndsAt()->getTimestamp();
-        } else {
-            $stripeSubscription->trial_end = 'now';
-        }
+        $stripeSubscription->trial_end = $this->determineTrialEndDate($subscription);
 
         $stripeSubscription->save();
     }
@@ -237,6 +229,23 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
+     * @return int
+     */
+    protected function determineTrialEndDate(SubscriptionInterface $subscription):int
+    {
+        // If no specific trial end date has been set, the default behavior should be
+        // to maintain the current trial state, whether that is "active" or to run
+        // the swap out with the exact number of days left on this current plan.
+        if ($subscription->isOnTrialPeriod()) {
+            return $subscription->getTrialEndsAt()->getTimestamp();
+        }
+
+        return 'now';
+    }
+
+    /**
+     * @param \WarbleMedia\PhoenixBundle\Model\SubscriptionInterface $subscription
      * @return array
      */
     protected function buildSubscriptionPayload(SubscriptionInterface $subscription)
