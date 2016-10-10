@@ -31,10 +31,11 @@ class ChangePasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $constraintOptions = null;
+
         if (!empty($options['validation_groups'])) {
             $group = reset($options['validation_groups']);
             $constraintOptions = ['groups' => [$group]];
-        };
+        }
 
         $builder
             ->add('currentPassword', PasswordType::class, [
