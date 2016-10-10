@@ -231,7 +231,7 @@ class BillingController extends Controller
             'Content-Description'       => 'File Transfer',
             'Content-Disposition'       => 'attachment; filename="' . $filename . '"',
             'Content-Transfer-Encoding' => 'binary',
-            'Content-Type' => 'application/pdf',
+            'Content-Type'              => 'application/pdf',
         ]);
     }
 
