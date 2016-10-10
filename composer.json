@@ -1,0 +1,55 @@
+{
+    "name": "warblemedia/phoenix-bundle",
+    "type": "symfony-bundle",
+    "description": "The PhoenixBundle kickstarts development of software as a service style applications in Symfony 3",
+    "keywords": [
+        "Phoenix",
+        "Bundle",
+        "Kickstart",
+        "Stripe",
+        "Subscriptions",
+        "Login",
+        "Registration",
+        "Symfony"
+    ],
+    "homepage": "http://github.com/warblemedia/phoenix-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Worboys",
+            "email": "jw@warblemedia.com.au"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "symfony/form": "^3.0",
+        "symfony/framework-bundle": "^3.0",
+        "symfony/security-bundle": "^3.0",
+        "symfony/twig-bundle": "^3.0",
+        "doctrine/doctrine-bundle": "^1.6",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "stripe/stripe-php": "^4.0"
+    },
+    "require-dev": {
+        "doctrine/orm": "~2.3",
+        "symfony/console": "^3.0",
+        "symfony/validator": "^3.0",
+        "swiftmailer/swiftmailer": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WarbleMedia\\PhoenixBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WarbleMedia\\PhoenixBundle\\Tests\\": "Tests/"
+        }
+    },
+    "support": {
+        "docs": "https://github.com/WarbleMedia/PhoenixBundle/blob/master/Resources/doc/index.md"
+    }
+}
