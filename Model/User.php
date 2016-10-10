@@ -275,15 +275,8 @@ abstract class User implements UserInterface
      */
     public function isExpired(): bool
     {
-        if ($this->expired) {
-            return true;
-        }
-
-        if ($this->expiresAt !== null && $this->expiresAt->getTimestamp() >= time()) {
-            return true;
-        }
-
-        return false;
+        return $this->expired ||
+               ($this->expiresAt !== null && $this->expiresAt->getTimestamp() >= time());
     }
 
     /**
@@ -323,15 +316,8 @@ abstract class User implements UserInterface
      */
     public function isCredentialsExpired(): bool
     {
-        if ($this->credentialsExpired) {
-            return true;
-        }
-
-        if ($this->credentialsExpireAt !== null && $this->credentialsExpireAt->getTimestamp() >= time()) {
-            return true;
-        }
-
-        return false;
+        return $this->credentialsExpired ||
+               ($this->credentialsExpireAt !== null && $this->credentialsExpireAt->getTimestamp() >= time());
     }
 
     /**
