@@ -183,6 +183,9 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @param string $name
+     * @param string $default
+     * @param array  $validationGroups
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function addFormsChildSection($name, $default, array $validationGroups = null)

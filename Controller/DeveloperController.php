@@ -56,7 +56,8 @@ class DeveloperController extends Controller
     }
 
     /**
-     * @param mixed $id
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param mixed                                     $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function userProfileAction(Request $request, $id)

@@ -83,6 +83,7 @@ class LoginManager implements LoginManagerInterface
     }
 
     /**
+     * @param string                                                               $firewall
      * @param \Symfony\Component\HttpFoundation\Request                            $request
      * @param \Symfony\Component\HttpFoundation\Response                           $response
      * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token

@@ -12,6 +12,7 @@ use WarbleMedia\PhoenixBundle\Mailer\Mail\ResettingMail;
 class ResettingController extends Controller
 {
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function requestAction(Request $request)

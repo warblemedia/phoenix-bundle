@@ -59,7 +59,7 @@ class UserManager implements UserManagerInterface
     }
 
     /**
-     * @param mixed $email
+     * @param mixed $id
      * @return \WarbleMedia\PhoenixBundle\Model\UserInterface|null
      */
     public function findUserById($id)

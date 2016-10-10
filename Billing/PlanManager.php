@@ -113,7 +113,7 @@ class PlanManager implements PlanManagerInterface
     }
 
     /**
-     * @param string $interval
+     * @param callable $filter
      * @return \WarbleMedia\PhoenixBundle\Billing\PlanInterface[]
      */
     private function filterPlans(callable $filter)

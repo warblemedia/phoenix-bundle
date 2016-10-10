@@ -57,7 +57,7 @@ class ResettingSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param \WarbleMedia\PhoenixBundle\Event\FormEvent $event
      */
     public function onResettingResetSuccess(FormEvent $event)
     {

@@ -13,6 +13,8 @@ interface MoneyHelperInterface
     public function formatAmount($amount, $currencyCode = null, $locale = null);
 
     /**
+     * @param string $currencyCode
+     * @param string $locale
      * @return string
      */
     public function getCurrencySymbol($currencyCode = null, $locale = null);

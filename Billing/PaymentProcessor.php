@@ -169,8 +169,9 @@ class PaymentProcessor implements PaymentProcessorInterface
     }
 
     /**
-     * @param  string|null $token
-     * @param  array       $options
+     * @param \WarbleMedia\PhoenixBundle\Model\CustomerInterface $customer
+     * @param  string|null                                       $token
+     * @param  array                                             $options
      * @return \Stripe\Customer
      */
     protected function getStripeCustomer(CustomerInterface $customer, string $token = null, array $options = [])
