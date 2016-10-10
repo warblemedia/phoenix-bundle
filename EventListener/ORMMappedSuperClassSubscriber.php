@@ -38,7 +38,7 @@ class ORMMappedSuperClassSubscriber implements EventSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        /** @var \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata */
+        /** @var \Doctrine\ORM\Mapping\ClassMetadata $metadata */
         $metadata = $eventArgs->getClassMetadata();
 
         if ($metadata->isMappedSuperclass) {
@@ -86,9 +86,9 @@ class ORMMappedSuperClassSubscriber implements EventSubscriber
     }
 
     /**
-     * @param \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata
+     * @param \Doctrine\ORM\Mapping\ClassMetadata $metadata
      */
-    private function unsetAssociationMappings(ClassMetadataInfo $metadata)
+    private function unsetAssociationMappings(ClassMetadata $metadata)
     {
         if ($this->isPhoenixModel($metadata) === false) {
             return;
