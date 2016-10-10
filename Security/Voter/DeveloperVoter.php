@@ -8,6 +8,8 @@ use WarbleMedia\PhoenixBundle\Model\UserInterface;
 
 class DeveloperVoter extends Voter
 {
+    const IS_DEVELOPER = 'IS_DEVELOPER';
+
     /** @var array */
     private $developerEmails;
 
@@ -31,7 +33,7 @@ class DeveloperVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        return $attribute === UserInterface::ROLE_DEVELOPER;
+        return $attribute === self::IS_DEVELOPER;
     }
 
     /**

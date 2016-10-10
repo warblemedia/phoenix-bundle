@@ -6,8 +6,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 interface UserInterface extends AdvancedUserInterface, ModelInterface
 {
-    const ROLE_DEFAULT   = 'ROLE_USER';
-    const ROLE_DEVELOPER = 'ROLE_DEVELOPER';
+    const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
      * @return mixed
