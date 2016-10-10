@@ -177,10 +177,9 @@ class BillingController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function invoicesAction(Request $request)
+    public function invoicesAction()
     {
         $user = $this->getUserOrError();
         $customer = $user->getCustomer();
@@ -191,11 +190,10 @@ class BillingController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int                                       $id
+     * @param int $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function downloadInvoiceAction(Request $request, int $id)
+    public function downloadInvoiceAction(int $id)
     {
         $pdfRenderer = $this->get('knp_snappy.pdf');
         $invoiceManager = $this->get('warble_media_phoenix.model.invoice_manager');
