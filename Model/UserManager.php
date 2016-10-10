@@ -122,7 +122,7 @@ class UserManager implements UserManagerInterface
     {
         $password = $user->getPlainPassword();
 
-        if (strlen($password) !== 0) {
+        if (!empty($password)) {
             $encoder = $this->getEncoder($user);
             $password = $encoder->encodePassword($password, $user->getSalt());
             $user->setPassword($password);
