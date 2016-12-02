@@ -2,7 +2,7 @@
     <div class="card-header">Invoices</div>
     <div class="card-block">
         {% if invoices is not empty %}
-            <table class="table table-borderless m-b-0">
+            <table class="table table-borderless mb-0">
                 <tbody>
                     {% for invoice in invoices %}
                         <tr>
@@ -26,7 +26,7 @@
                 </tbody>
             </table>
         {% else %}
-            <div class="alert alert-info m-b-0">
+            <div class="alert alert-info mb-0">
                 There are no invoices for your account.
             </div>
         {% endif %}

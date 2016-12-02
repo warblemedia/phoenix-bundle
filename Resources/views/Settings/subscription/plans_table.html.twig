@@ -4,7 +4,7 @@
 {% endif %}
 {% for interval, plans in {monthly: get_paid_monthly_plans(), yearly: get_paid_yearly_plans()} if plans is not empty %}
     <div id="subscriptions_{{ interval }}" class="tab-pane table-responsive{% if interval == active_interval %} active{% endif %}">
-        <table class="table table-borderless m-b-0">
+        <table class="table table-borderless mb-0">
             <tbody>
                 {% for plan in plans %}
                     <tr>
@@ -15,7 +15,7 @@
                         </td>
 
                         <td>
-                            <button class="btn btn-secondary m-l-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
+                            <button class="btn btn-secondary ml-1" data-toggle="modal" data-target="#modal-plan-{{ plan.id }}">
                                 Plan Features
                             </button>
                         </td>
