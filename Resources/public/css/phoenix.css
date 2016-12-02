@@ -64,6 +64,14 @@
     color: #a94442;
 }
 
+.card > .list-group-flush > :first-child {
+    border-top: 0;
+}
+
+.card > .list-group-flush > :last-child {
+    border-bottom: 0;
+}
+
 /*
  * Buttons
  */
