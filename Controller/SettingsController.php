@@ -31,8 +31,9 @@ class SettingsController extends Controller
 
         $form = $formFactory->createForm();
         $form->setData($user);
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::PROFILE_EDIT_SUCCESS, $event);
 
@@ -68,8 +69,9 @@ class SettingsController extends Controller
         $photoManager = $this->get('warble_media_phoenix.model.user_photo_manager');
 
         $form = $formFactory->createForm();
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('profile_photo')->getData();
             $photoUrl = $photoManager->uploadPhoto($file);
 
@@ -106,8 +108,9 @@ class SettingsController extends Controller
 
         $form = $formFactory->createForm();
         $form->setData($user);
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::CHANGE_PASSWORD_SUCCESS, $event);
 

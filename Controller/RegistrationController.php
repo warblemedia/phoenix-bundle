@@ -26,8 +26,9 @@ class RegistrationController extends Controller
         $user = $userManager->createUser();
         $form = $formFactory->createForm();
         $form->setData($user);
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::REGISTRATION_SUCCESS, $event);
 

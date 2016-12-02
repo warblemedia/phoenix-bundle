@@ -100,11 +100,10 @@ class BillingController extends Controller
             $activePlan = $planManager->getPlan($subscription->getStripePlan());
         }
 
-        $form = $formFactory->createForm([
-            'is_new_subscription' => true,
-        ]);
+        $form = $formFactory->createForm(['is_new_subscription' => true]);
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::NEW_SUBSCRIPTION_SUCCESS, $event);
 
@@ -151,8 +150,9 @@ class BillingController extends Controller
         }
 
         $form = $formFactory->createForm();
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::PAYMENT_METHOD_SUCCESS, $event);
 
@@ -262,8 +262,9 @@ class BillingController extends Controller
 
         $form = $formFactory->createForm();
         $form->setData(['plan' => $activePlan]);
+        $form->handleRequest($request);
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(PhoenixEvents::UPDATE_SUBSCRIPTION_SUCCESS, $event);
 
