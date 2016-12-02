@@ -3,7 +3,7 @@
     {% set active_interval = 'monthly' %}
 {% endif %}
 {% if has_monthly_and_yearly_paid_plans() %}
-    <ul class="nav nav-tabs card-header-tabs pull-xs-right">
+    <ul class="nav nav-tabs card-header-tabs float-xs-right">
         {% for interval in ['monthly', 'yearly'] %}
             <li class="nav-item">
                 <a href="#subscriptions_{{ interval }}" class="nav-link{% if interval == active_interval %} active{% endif %}" data-toggle="tab">
